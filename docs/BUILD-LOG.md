@@ -247,5 +247,12 @@ The Reader has no literal hex colours. The remaining values in components are gr
 
 - The card action button uses the theme’s popover surface, a border and subtle shadow. The demo suns sit in the middle third of the cover, clear of the corner controls.
 - The private target is [Absolute Memory](https://github.com/Akshaysanthosh/absolute-memory). The previous preview has a separate [archive URL](https://github.com/Akshaysanthosh/absolute-memory-preview-archive). The offline pre-release bundle is named `absolute-memory-prerelease-2026-11-22.bundle` and is kept in the owner’s `absolute-memory-archive` folder.
-- The [release commit on main](https://github.com/Akshaysanthosh/absolute-memory/commit/main) is the single root commit. Dependabot version updates are off until the public launch, when the owner will restore the configuration file. Dependabot security alerts remain enabled.
+- Release commit `50d2f80dae03c304cc47e4189bf69436be333c8b` is the single root commit on `main`. Dependabot version updates are off until the public launch, when the owner will restore `.github/dependabot.yml`. Dependabot security alerts remain enabled. [Release commit](https://github.com/Akshaysanthosh/absolute-memory/commit/50d2f80dae03c304cc47e4189bf69436be333c8b)
 - The owner will choose a licence and public launch date, record the demo GIF, and test MCP while signed in to Claude Desktop and Cursor. The owner can decide later whether to delete the archived preview.
+
+## Showcase
+
+### Brand assets
+
+- The light and dark lockups retain the outlined wordmark and two-bar symbol from `public/brand/absolute/horizontal.svg`. The standalone mark uses the original `symbol.svg` geometry. Colours come from the Astryx overrides in `src/shared/am-theme.ts`.
+- The 1280 × 640 social preview uses the light lockup, Source Serif 4 and a crop of the demo library. Its typography and frame use the app theme colours.
