@@ -1,0 +1,207 @@
+/* Light values match the Library's tokens  so every page shares one palette. */
+:root {
+  --app-bg: #eff0ec;
+  --app-surface: #ffffff;
+  --app-rail: #e7e9e4;
+  --app-panel: #e7e9e4;
+  --app-text: #242824;
+  --app-muted: #626a65;
+  --app-accent: #344f48;
+  --app-on-accent: #ffffff;
+  --app-selected: #e7eeea;
+  --app-blue: #425fd6;
+  --app-blue-soft: #e9edfa;
+  --app-border: #d6d9d3;
+  --app-hover: #e4e7e1;
+  --app-accent-hover: #1c503c;
+  --app-danger: #9b342d;
+  --app-danger-bg: #fbece9;
+  --app-danger-border: #cf938b;
+  --app-warning: #805512;
+  --app-warning-bg: #fbf1da;
+  --app-graph-link: #87948b;
+  --app-shortcut: #00000009;
+  color-scheme: light;
+}
+:root[data-app-theme='dark'] {
+  --app-bg: #000000;
+  --app-surface: #0a0a0a;
+  --app-rail: #0a0a0a;
+  --app-panel: #101010;
+  --app-text: #fafafa;
+  --app-muted: #a3a3a3;
+  --app-accent: #fafafa;
+  --app-on-accent: #101010;
+  --app-selected: #171717;
+  --app-blue: #bfbfbf;
+  --app-blue-soft: #171717;
+  --app-border: #292929;
+  --app-hover: #171717;
+  --app-accent-hover: #e5e5e5;
+  --app-danger: #ffb4a9;
+  --app-danger-bg: #412c29;
+  --app-danger-border: #a05b50;
+  --app-warning: #f3c792;
+  --app-warning-bg: #3a3021;
+  --app-graph-link: #737373;
+  --app-shortcut: #ffffff12;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-app-theme='system'] {
+    --app-bg: #000000;
+    --app-surface: #0a0a0a;
+    --app-rail: #0a0a0a;
+    --app-panel: #101010;
+    --app-text: #fafafa;
+    --app-muted: #a3a3a3;
+    --app-accent: #fafafa;
+    --app-on-accent: #101010;
+    --app-selected: #171717;
+    --app-blue: #bfbfbf;
+    --app-blue-soft: #171717;
+    --app-border: #292929;
+    --app-hover: #171717;
+    --app-accent-hover: #e5e5e5;
+    --app-danger: #ffb4a9;
+    --app-danger-bg: #412c29;
+    --app-danger-border: #a05b50;
+    --app-warning: #f3c792;
+    --app-warning-bg: #3a3021;
+    --app-graph-link: #737373;
+    --app-shortcut: #ffffff12;
+    color-scheme: dark;
+  }
+}
+
+/* This stylesheet is imported only by the main app root, never the reader. */
+:root {
+  --cream: var(--app-bg);
+  --paper: var(--app-surface);
+  --ink: var(--app-text);
+  --muted: var(--app-muted);
+  --line: var(--app-border);
+  --orange: var(--app-accent);
+  --sage: var(--app-selected);
+  --border: var(--app-border);
+}
+body {
+  background: var(--app-bg);
+  color: var(--app-text);
+}
+:is(button, a, input, textarea, select, summary):focus-visible {
+  outline-color: var(--app-accent);
+}
+::selection {
+  background: var(--app-selected);
+  color: var(--app-text);
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--app-muted);
+  opacity: 1;
+}
+.button.primary {
+  background: var(--app-accent);
+  color: var(--app-on-accent);
+}
+.button.primary:hover {
+  background: var(--app-accent-hover);
+}
+.button.secondary {
+  background: var(--app-surface);
+  border-color: var(--app-border);
+  color: var(--app-text);
+}
+.button.danger {
+  background: var(--app-danger-bg);
+  border-color: var(--app-danger-border);
+  color: var(--app-danger);
+}
+.eyebrow,
+.landing-copy > p,
+.icon-button,
+.breadcrumb,
+.private-badge {
+  color: var(--app-muted);
+}
+.icon-button:hover {
+  background: var(--app-hover);
+  color: var(--app-text);
+}
+.error-banner {
+  background: var(--app-danger-bg);
+  color: var(--app-danger);
+}
+.inline-status,
+.local-note,
+.token-result {
+  background: var(--app-selected);
+  color: var(--app-text);
+}
+.auth-story {
+  background: var(--app-panel);
+  color: var(--app-text);
+  border-right: 1px solid var(--app-border);
+}
+.auth-story .brand-light {
+  color: var(--app-text);
+}
+.auth-story h1 em {
+  color: var(--app-accent);
+}
+.auth-story > .eyebrow {
+  color: var(--app-muted);
+}
+.account-form input,
+.session-list > div,
+.token-list > div {
+  border-color: var(--app-border);
+}
+.settings-card progress {
+  accent-color: var(--app-accent);
+}
+.app-appearance {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--app-muted);
+  font-size: 12px;
+  font-weight: 400;
+  margin: 12px 0;
+}
+.app-appearance select {
+  display: block;
+  width: auto;
+  min-width: 110px;
+  margin: 0;
+  padding: 8px 10px;
+  background: var(--app-surface);
+  color: var(--app-text);
+  border: 1px solid var(--app-border);
+  border-radius: 8px;
+}
+.public-appearance {
+  position: fixed;
+  bottom: 16px;
+  right: 18px;
+  z-index: 50;
+  padding: 0 12px;
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px #0001;
+}
+body:has(.public-appearance) {
+  padding-bottom: 80px;
+}
+@media (max-width: 600px) {
+  .public-appearance {
+    bottom: 10px;
+    right: 12px;
+  }
+  .app-appearance select {
+    font-size: 16px;
+  }
+}

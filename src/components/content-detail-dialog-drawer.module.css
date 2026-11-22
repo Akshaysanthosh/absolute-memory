@@ -1,0 +1,138 @@
+/* The detail view is where the full title is read; let it wrap instead of truncating. */
+.detailTitle span {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  max-width: none !important;
+}
+
+/* Reading-first layout: the main action sits under the title in the details panel. */
+.readAction {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+}
+.readAction .primary {
+  padding: 11px 18px;
+}
+.textVisual img {
+  display: block;
+  max-width: 100%;
+  max-height: 220px;
+  margin: 0 auto 8px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.retry {
+  margin-left: 8px;
+  background: none;
+  border: 1px solid var(--al-line);
+  color: var(--al-ink);
+  border-radius: 7px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Branded preview for link-only platform saves (no page text, no image). */
+.platformVisual {
+  max-width: 460px;
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  padding: 36px 32px;
+  border-radius: 16px;
+  background: var(--al-card);
+  border-top: 4px solid var(--platform, var(--al-accent));
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+}
+.platformVisual h2 {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--al-ink);
+}
+.platformVisual .primary {
+  background: var(--platform, var(--al-accent));
+  color: #fff;
+}
+.platformName {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--platform, var(--al-muted));
+}
+.platformVisual[data-platform='reddit'] {
+  --platform: #ff4500;
+}
+.platformVisual[data-platform='instagram'] {
+  --platform: #e1306c;
+}
+.platformVisual[data-platform='x'] {
+  --platform: #1d9bf0;
+}
+.platformVisual[data-platform='tiktok'] {
+  --platform: #fe2c55;
+}
+.platformVisual[data-platform='facebook'] {
+  --platform: #1877f2;
+}
+.platformVisual[data-platform='pinterest'] {
+  --platform: #e60023;
+}
+
+/* Desktop side panel: the library stays visible and clickable on the left. */
+@media (min-width: 1100px) {
+  .dialog[data-drawer] {
+    position: fixed;
+    inset: 76px 16px 16px auto;
+    margin: 0;
+    width: min(560px, 42vw);
+    height: auto;
+    max-height: none;
+    z-index: 60;
+    border-radius: 18px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  }
+  .dialog[data-drawer] .card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .dialog[data-drawer] .stage {
+    flex: none;
+    max-height: 38%;
+    min-height: 180px;
+    padding: 16px 20px;
+  }
+  .dialog[data-drawer] .stage .visual {
+    padding: 10px 0;
+  }
+  .dialog[data-drawer] .textVisual h2 {
+    font-size: 24px;
+    margin: 12px 0;
+  }
+  .dialog[data-drawer] .textVisual p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .dialog[data-drawer] .platformVisual {
+    padding: 22px;
+  }
+  .dialog[data-drawer] .details {
+    flex: 1;
+    border-left: 0;
+    border-top: 1px solid var(--al-line);
+  }
+  .dialog[data-drawer]:focus {
+    outline: none;
+  }
+}
+
+/* One-tap AI questions (Fabric-style chips) that open Chat scoped to this item. */

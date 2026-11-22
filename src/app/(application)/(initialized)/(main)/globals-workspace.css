@@ -1,0 +1,50 @@
+/* Reading room */
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 232px;
+  background: #253a32;
+  color: #bdc9bc;
+  padding: 36px 23px;
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.profile {
+  border-top: 1px solid #ffffff12;
+  padding: 24px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.avatar {
+  width: 32px;
+  height: 32px;
+  background: #d5c3a6;
+  color: #344b3b;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font: 18px var(--serif);
+}
+.profile strong {
+  display: block;
+  font-size: 10px;
+  color: #e7e8da;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.profile span {
+  font-size: 9px;
+  color: #94a48d;
+}
+.profile button {
+  margin-left: auto;
+}

@@ -1,0 +1,6 @@
+# Generated snapshots have their own reproducibility checks.
+next-env.d.ts
+package-lock.json
+THIRD_PARTY_NOTICES.md
+docs/configuration.md
+docs/schemas/*.json

@@ -1,0 +1,95 @@
+.capture-dialog form label {
+  margin-bottom: 18px;
+}
+.answer {
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+.settings-card {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--paper);
+  padding: 28px;
+}
+.settings-card > svg {
+  color: #77896b;
+  width: 24px;
+  height: 24px;
+}
+.settings-card > .status {
+  float: right;
+}
+.settings-card h2 {
+  font: 28px var(--serif);
+  margin: 18px 0 12px;
+}
+.settings-card p {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.settings-card ol {
+  font-size: 11px;
+  color: var(--muted);
+  padding-left: 17px;
+  line-height: 2;
+}
+.settings-card code {
+  font-size: 11px;
+  color: var(--ink);
+}
+.token-section {
+  margin-top: 25px;
+}
+.inline-form {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+  max-width: 550px;
+}
+.inline-form label {
+  flex: 1;
+}
+.token-result {
+  background: #e9eddf;
+  padding: 18px;
+  margin: 20px 0;
+  border-radius: 7px;
+}
+.token-result input {
+  font: 11px monospace;
+}
+.token-result button {
+  margin: 15px 15px 0 0;
+}
+.token-list {
+  margin-top: 20px;
+}
+.token-list > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  padding: 14px 0;
+}
+.token-list strong {
+  display: block;
+  font-size: 12px;
+}
+.token-list small {
+  font-size: 10px;
+}
+progress {
+  width: 100%;
+  height: 6px;
+  accent-color: #82966c;
+}
+@media (max-width: 1000px) {
+  .sidebar {
+    width: 200px;
+    padding: 30px 15px;
+  }
+  .toast {
+    left: calc(50% + 100px);
+  }
+}

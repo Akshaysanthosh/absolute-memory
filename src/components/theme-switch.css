@@ -1,0 +1,26 @@
+.app-theme-switch {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0 4px;
+}
+.app-theme-button {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+}
+.app-theme-button svg {
+  flex-shrink: 0;
+}
+@media (max-width: 600px) {
+  .app-theme-switch {
+    padding: 0 2px;
+  }
+  .app-theme-button {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+  }
+}

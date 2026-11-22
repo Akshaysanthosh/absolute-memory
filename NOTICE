@@ -1,0 +1,5 @@
+Parts of Absolute Memory's chunking, text processing, retrieval, and knowledge
+extraction were adapted from open-recall at bc03e99b083ce4c5bc522b0d82eea46c62f1e466.
+
+Copyright (c) 2025 Rupert Germann. MIT License.
+The full upstream license is in src/server/services/knowledge/upstream/LICENSE.

@@ -1,0 +1,189 @@
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* A quiet front door */
+.landing {
+  max-width: 1440px;
+  margin: auto;
+  padding: 0 7%;
+}
+.book-art {
+  width: 100%;
+  height: 410px;
+  position: relative;
+  isolation: isolate;
+}
+.art-orbit {
+  position: absolute;
+  border: 1px solid #ced5c3;
+  border-radius: 50%;
+  width: 360px;
+  height: 360px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.art-sun {
+  position: absolute;
+  border-radius: 50%;
+  background: #e8dec1;
+  width: 300px;
+  height: 300px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+.art-book {
+  position: absolute;
+  width: 160px;
+  height: 235px;
+  border-radius: 2px 8px 8px 2px;
+  box-shadow:
+    7px 13px 15px #20332f15,
+    inset 7px 0 #ffffff18,
+    inset -5px 0 #0000000a;
+  top: 60px;
+  left: 50%;
+  padding: 25px 15px;
+  font: 20px/1.2 var(--serif);
+}
+.art-book:after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  right: 5px;
+  height: 8px;
+  background: repeating-linear-gradient(0deg, #e5dfca 0px, #e5dfca 1px, #f7f2e2 2px, #f7f2e2 3px);
+  border-radius: 0 0 4px 0;
+}
+.book-one {
+  transform: translate(-115%, 25px) rotate(-19deg);
+  background: #40594a;
+  color: #e5e1c9;
+}
+.book-one i {
+  position: absolute;
+  bottom: 42px;
+  left: 32px;
+  width: 90px;
+  height: 90px;
+  border: 1px solid #a0af8b;
+  border-radius: 50%;
+}
+.book-two {
+  transform: translate(-30%, -5px) rotate(11deg);
+  background: #c46c48;
+  color: #fff0da;
+}
+.book-two i {
+  display: block;
+  width: 85px;
+  height: 85px;
+  margin: 25px auto;
+  background: #e6bd84;
+  border-radius: 50% 50% 0 0;
+}
+.book-three {
+  transform: translate(-55%, 85px) rotate(-5deg);
+  background: #e7dbb7;
+  color: #324c3c;
+}
+.book-three i {
+  display: block;
+  width: 75px;
+  height: 75px;
+  background: repeating-linear-gradient(
+    55deg,
+    transparent 0,
+    transparent 10px,
+    #8e9e73 11px,
+    #8e9e73 13px
+  );
+  border-radius: 50%;
+  margin: 20px auto;
+}
+.art-spark {
+  position: absolute;
+  color: #b86a42;
+  font-size: 65px;
+  right: 8%;
+  top: 5%;
+  transform: rotate(15deg);
+}
+.book-art.small {
+  height: 210px;
+  width: 260px;
+  flex-shrink: 0;
+}
+.small .art-orbit {
+  width: 200px;
+  height: 200px;
+}
+.small .art-sun {
+  width: 180px;
+  height: 180px;
+}
+.small .art-book {
+  width: 90px;
+  height: 130px;
+  top: 20px;
+  padding: 15px 10px;
+  font-size: 11px;
+}
+.small .book-one {
+  transform: translate(-110%, 15px) rotate(-19deg);
+}
+.small .book-two {
+  transform: translate(-20%, 5px) rotate(14deg);
+}
+.small .book-three {
+  transform: translate(-60%, 60px) rotate(-5deg);
+}
+.small .art-book i {
+  width: 40px;
+  height: 40px;
+  margin: 12px auto;
+}
+.small .book-one i {
+  bottom: 25px;
+  left: 25px;
+}
+.small .art-spark {
+  font-size: 36px;
+  right: 0;
+  top: 8%;
+}
+.auth-form {
+  width: 360px;
+}
+.auth-form h2 {
+  font: 49px var(--serif);
+  margin: 15px 0 10px;
+}
+.auth-form > p {
+  color: var(--muted);
+  margin-bottom: 30px;
+  font-size: 13px;
+}
+.auth-form label {
+  margin-bottom: 18px;
+}
+.auth-form > .button {
+  margin-top: 10px;
+}
+.auth-switch {
+  font-size: 11px !important;
+  text-align: center;
+  margin-top: 22px;
+}
+.auth-switch button {
+  background: none;
+  border: 0;
+  color: var(--orange);
+  font-size: 11px;
+  padding: 0;
+}

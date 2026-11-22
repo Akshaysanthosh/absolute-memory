@@ -1,0 +1,5 @@
+@import '@fontsource-variable/schibsted-grotesk';
+
+:root {
+  --nf-sans: 'Schibsted Grotesk Variable', system-ui, sans-serif;
+}

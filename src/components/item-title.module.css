@@ -1,0 +1,55 @@
+.editor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex-wrap: wrap;
+  color: inherit;
+  font: inherit;
+}
+.editor > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: min(55vw, 650px);
+}
+.editor button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  padding: 5px 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.editor > button {
+  border-color: transparent;
+  opacity: 0.7;
+}
+.editor > button:hover {
+  opacity: 1;
+}
+.editor form {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.editor input {
+  min-width: 120px;
+  max-width: 100%;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  padding: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+.editor p {
+  flex-basis: 100%;
+  font-size: 13px;
+}

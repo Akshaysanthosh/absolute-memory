@@ -1,0 +1,85 @@
+.careful-choice {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 16px 0;
+  font-weight: 400;
+}
+.careful-choice input {
+  width: auto;
+  margin: 0;
+  accent-color: var(--orange);
+}
+
+.pair-page {
+  max-width: 680px;
+  margin: 50px auto;
+  padding: 0 24px;
+}
+.pair-page > .settings-card {
+  margin-top: 35px;
+}
+.pair-page h1 {
+  font: 38px/1.15 var(--serif);
+  margin: 16px 0;
+}
+.pair-page .pair-code {
+  font: 26px monospace;
+  letter-spacing: 4px;
+  color: var(--orange);
+  padding: 16px 0;
+}
+
+/* Self-service account and plan controls. */
+.account-form {
+  display: grid;
+  gap: 14px;
+  margin: 18px 0;
+}
+.account-form label {
+  display: grid;
+  gap: 6px;
+}
+.account-form input {
+  padding: 11px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+}
+.account-recovery {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.account-recovery .auth-form {
+  max-width: 420px;
+  width: 100%;
+}
+.session-list > div {
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+.session-list small {
+  display: block;
+  overflow-wrap: anywhere;
+  max-width: 300px;
+  font-size: 11px;
+}
+.button.danger {
+  background: #9b342d;
+  color: white;
+}
+.settings-card summary {
+  cursor: pointer;
+  margin: 16px 0;
+}
+.settings-card progress {
+  width: 100%;
+  accent-color: #314b3d;
+}

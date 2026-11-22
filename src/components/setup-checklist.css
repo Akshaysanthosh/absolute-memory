@@ -1,0 +1,185 @@
+.setup-checklist,
+.setup-checklist-pill {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right, 0px));
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 30;
+  color: var(--al-ink, var(--color-text-primary, var(--app-text, CanvasText)));
+  font-size: 13px;
+}
+.setup-checklist {
+  width: 300px;
+  padding: 14px;
+  border-radius: 20px;
+  border: 1px solid var(--al-line, var(--color-border, var(--app-border, GrayText)));
+  background: var(
+    --al-raised,
+    var(--al-wash, var(--color-background-muted, var(--app-panel, ButtonFace)))
+  );
+  box-shadow: 0 18px 50px #00000040;
+}
+.setup-checklist header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.setup-checklist header strong {
+  font-size: 14px;
+  font-weight: 650;
+}
+.setup-checklist header span {
+  flex: 1;
+  color: var(--al-muted, var(--color-text-secondary, var(--app-muted, CanvasText)));
+}
+.setup-checklist header button {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--al-muted, var(--color-text-secondary, var(--app-muted, CanvasText)));
+  cursor: pointer;
+}
+.setup-checklist header button:hover {
+  color: var(--al-ink, var(--color-text-primary, var(--app-text, CanvasText)));
+  background: var(--al-hover, var(--color-overlay-hover, var(--app-hover, transparent)));
+}
+.setup-checklist-bar {
+  height: 5px;
+  margin: 10px 0 6px;
+  border-radius: 5px;
+  background: var(--al-line, var(--color-border, var(--app-border, GrayText)));
+  overflow: hidden;
+}
+.setup-checklist-bar i {
+  display: block;
+  height: 100%;
+  background: var(--color-success, var(--app-accent, Highlight));
+  transition: width 0.3s;
+}
+.setup-checklist ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 2px;
+}
+.setup-checklist li > a,
+.setup-checklist li > button,
+.setup-checklist li[data-done] {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  width: 100%;
+  padding: 8px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+}
+.setup-checklist li > a,
+.setup-checklist li > button {
+  cursor: pointer;
+}
+.setup-checklist li > a:hover,
+.setup-checklist li > button:hover {
+  background: var(--al-hover, var(--color-overlay-hover, var(--app-hover, transparent)));
+}
+.setup-checklist li b {
+  display: block;
+  font-weight: 600;
+}
+.setup-checklist li em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--al-muted, var(--color-text-secondary, var(--app-muted, CanvasText)));
+}
+.setup-checklist li small {
+  display: block;
+  color: var(--al-muted, var(--color-text-secondary, var(--app-muted, CanvasText)));
+  font-size: 12px;
+  margin-top: 1px;
+}
+.setup-checklist li[data-done] b {
+  color: var(--al-muted, var(--color-text-secondary, var(--app-muted, CanvasText)));
+  text-decoration: line-through;
+}
+.setup-checklist-check {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border-radius: 50%;
+  border: 2px solid var(--al-line, var(--color-border, var(--app-border, GrayText)));
+  color: var(--color-on-success, var(--app-on-accent, HighlightText));
+}
+.setup-checklist-check[data-done] {
+  background: var(--color-success, var(--app-accent, Highlight));
+  border-color: var(--color-success, var(--app-accent, Highlight));
+}
+.setup-checklist-done {
+  width: 100%;
+  margin-top: 8px;
+  padding: 9px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-success, var(--app-accent, Highlight));
+  color: var(--color-on-success, var(--app-on-accent, HighlightText));
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+.setup-checklist-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--al-line, var(--color-border, var(--app-border, GrayText)));
+  background: var(
+    --al-raised,
+    var(--al-wash, var(--color-background-muted, var(--app-panel, ButtonFace)))
+  );
+  box-shadow: 0 10px 30px #00000033;
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+.setup-checklist-ring {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--color-success, var(--app-accent, Highlight)) var(--progress),
+    var(--al-line, var(--color-border, var(--app-border, GrayText))) 0
+  );
+}
+.setup-checklist a:focus-visible,
+.setup-checklist button:focus-visible,
+.setup-checklist-pill:focus-visible {
+  outline: 2px solid var(--color-success, var(--app-accent, Highlight));
+  outline-offset: 2px;
+}
+@media (max-width: 640px) {
+  .setup-checklist {
+    left: max(12px, env(safe-area-inset-left, 0px));
+    right: max(12px, env(safe-area-inset-right, 0px));
+    width: auto;
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  }
+  .setup-checklist-pill {
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-checklist-bar i {
+    transition: none;
+  }
+}

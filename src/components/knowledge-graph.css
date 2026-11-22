@@ -1,0 +1,177 @@
+.kg-chat-filters label {
+  flex: 1;
+  min-width: 0;
+}
+.kg-card-editor {
+  border: 1px solid var(--rule, var(--color-border, var(--app-border, GrayText)));
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px 0;
+}
+.kg-card-editor blockquote,
+.kg-evidence {
+  border-left: 2px solid var(--color-border-emphasized, var(--app-border));
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--ink-3, var(--color-text-secondary, var(--app-muted, CanvasText)));
+  line-height: 1.6;
+  margin: 14px 0;
+}
+.kg-review-card {
+  max-width: 760px;
+  margin: 30px auto;
+}
+.kg-review-question {
+  font:
+    normal 29px/1.5 Georgia,
+    serif;
+  margin: 24px 0;
+}
+.kg-review-answer {
+  font-size: 17px;
+  line-height: 1.7;
+  margin: 22px 0;
+}
+.kg-graph-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 18px;
+  margin-top: 20px;
+}
+.kg-graph-canvas {
+  height: 520px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--color-background-muted, var(--app-panel));
+  min-width: 0;
+}
+.kg-graph-list {
+  max-height: 520px;
+  overflow: auto;
+}
+.kg-graph-node {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid var(--rule, var(--color-border, var(--app-border, GrayText)));
+  background: none;
+  padding: 12px;
+  color: inherit;
+  cursor: pointer;
+}
+.kg-node-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  background: var(--color-text-orange, var(--app-warning));
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.kg-node-dot.item {
+  background: var(--color-text-success, var(--app-accent));
+}
+.kg-empty {
+  padding: 40px 10px;
+  text-align: center;
+  color: var(--color-text-secondary, var(--app-muted));
+}
+.kg-answer a:focus-visible {
+  outline: 2px solid var(--color-focus-ring, var(--app-accent, Highlight));
+}
+.kg-citation-key {
+  font-size: 12px;
+  margin-left: 2px;
+}
+.kg-panel progress {
+  width: 100%;
+  accent-color: var(--color-accent, var(--app-accent, Highlight));
+}
+@media (max-width: 850px) {
+  .kg-page {
+    padding: 50px 20px 30px;
+  }
+  .kg-page h1 {
+    font-size: 34px;
+  }
+  .kg-chat-layout,
+  .kg-graph-shell {
+    grid-template-columns: 1fr;
+  }
+  .kg-chat-layout aside {
+    max-height: 180px;
+    overflow: auto;
+  }
+  .kg-graph-canvas {
+    height: 380px;
+  }
+  .kg-panel {
+    padding: 18px;
+  }
+  .kg-chat-filters {
+    flex-direction: column;
+  }
+  .kg-review-question {
+    font-size: 24px;
+  }
+  .kg-graph-list {
+    max-height: 300px;
+  }
+}
+
+.kg-answer {
+  white-space: normal;
+}
+.kg-answer p {
+  margin: 0 0 12px;
+}
+.kg-answer ul,
+.kg-answer ol {
+  padding-left: 23px;
+  margin: 10px 0 15px;
+}
+.kg-answer ul {
+  list-style: disc;
+}
+.kg-answer ol {
+  list-style: decimal;
+}
+.kg-answer li {
+  margin: 6px 0;
+}
+.kg-answer pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--bg-sunk, var(--color-background-muted, var(--app-panel, ButtonFace)));
+  padding: 12px;
+  border-radius: 8px;
+}
+.kg-answer blockquote {
+  border-left: 2px solid var(--color-border-emphasized, var(--app-border));
+  padding-left: 15px;
+}
+.kg-answer h2,
+.kg-answer h3 {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 18px 0 10px;
+}
+.chat-save-note {
+  display: inline-flex;
+  margin-top: 16px;
+  padding: 8px 13px;
+  background: var(--app-surface, var(--color-background-surface, Canvas));
+  color: var(--app-text, var(--color-text-primary, CanvasText));
+  border: 1px solid var(--app-border, var(--color-border, GrayText));
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+}
+.chat-save-note:hover {
+  opacity: 0.8;
+}
+.chat-save-note:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}

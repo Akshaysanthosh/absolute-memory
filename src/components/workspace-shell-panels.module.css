@@ -1,0 +1,172 @@
+/* Context panels stay beside the rail; narrow layouts use a modal side overlay. */
+.withPanel {
+  margin-left: 200px;
+}
+.contextPanel {
+  position: fixed;
+  inset: 0 auto 0 var(--navigation-width);
+  width: 200px;
+  background: var(--workspace-panel);
+  border-right: 1px solid var(--workspace-line);
+  z-index: 40;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.contextHeading {
+  height: 60px;
+  padding: 0 12px 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--workspace-line);
+}
+.contextHeading h2 {
+  font-size: 13px;
+  font-weight: 600;
+}
+.contextBody {
+  padding: 16px 12px;
+  font-size: 12px;
+}
+.workspace :global(.workspace-chat-layout) {
+  grid-template-columns: minmax(0, 1fr);
+}
+.workspace :global(.workspace-panel-label) {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--workspace-muted);
+  margin: 14px 0;
+}
+.workspace :global(.workspace-panel-label .kg-input) {
+  font-size: 11px;
+  margin-top: 8px;
+  padding: 9px;
+}
+.workspace :global(.workspace-chat-history .kg-button) {
+  width: 100%;
+  font-size: 11px;
+  padding: 8px;
+}
+.workspace :global(.workspace-chat-history .kg-thread) {
+  font-size: 11px;
+  margin-top: 5px;
+  padding: 9px 8px;
+  overflow-wrap: anywhere;
+}
+.workspace :global(.workspace-chat-history .kg-thread.active) {
+  color: var(--workspace-blue);
+  background: var(--app-blue-soft);
+}
+.workspace :global(.workspace-graph-settings details) {
+  border-bottom: 1px solid var(--workspace-line);
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+}
+.workspace :global(.workspace-graph-settings summary) {
+  cursor: pointer;
+  font-size: 12px;
+}
+.workspace :global(.workspace-graph-settings .kg-muted) {
+  font-size: 10px;
+  margin: 9px 0;
+}
+.workspace :global(.workspace-graph-settings input[type='range']) {
+  width: 100%;
+  padding: 0;
+  accent-color: var(--workspace-green);
+}
+.workspace :global(.workspace-panel-label output) {
+  float: right;
+  color: var(--workspace-text);
+}
+.workspace :global(.workspace-panel-check) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 400;
+  margin: 14px 0;
+}
+.workspace :global(.workspace-panel-check input) {
+  width: auto;
+  margin: 0;
+  accent-color: var(--workspace-green);
+}
+.workspace :global(.kg-graph-canvas) {
+  background: var(--workspace-bg);
+}
+.workspace :global(.kg-node-dot) {
+  background: var(--workspace-blue);
+}
+.workspace :global(.kg-node-dot.item) {
+  background: var(--workspace-green);
+}
+@media (width < 768px) {
+  .withPanel {
+    margin-left: 0;
+  }
+  .contextPanel {
+    box-shadow: 15px 0 40px #0005;
+  }
+  .panelBackdrop {
+    position: fixed;
+    inset: 0 0 0 var(--navigation-width);
+    border: 0;
+    background: #0007;
+    z-index: 38;
+  }
+}
+.workspace :global(.kg-row input[type='checkbox']) {
+  width: auto;
+  margin: 0;
+  accent-color: var(--workspace-green);
+}
+.panelBackdrop {
+  touch-action: none;
+}
+.workspace :global(.workspace-chat-history .kg-thread) {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+.workspace :global(.workspace-chat-history .kg-thread svg) {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+/* Theme only workspace instances of shared knowledge styles; reader CSS is untouched. */
+.workspace :global(.kg-error) {
+  color: var(--app-danger);
+  background: var(--app-danger-bg);
+}
+.workspace :global(.kg-button),
+.workspace :global(.kg-input),
+.workspace :global(.kg-panel) {
+  border-color: var(--workspace-line);
+}
+.workspace :global(.kg-source-note) {
+  color: var(--workspace-muted);
+}
+.workspace :global(.kg-evidence),
+.workspace :global(.kg-answer blockquote),
+.workspace :global(.kg-card-editor blockquote) {
+  border-color: var(--workspace-green);
+}
+.workspace :global(.kg-answer a:focus-visible) {
+  outline-color: var(--workspace-green);
+}
+.workspace :global(.kg-panel progress) {
+  accent-color: var(--workspace-green);
+}
+
+.workspaceHeader {
+  position: sticky;
+  top: 0;
+  z-index: 25;
+}
+.content {
+  padding-bottom: 24px;
+}
+.contextPanel {
+  top: 64px;
+}
