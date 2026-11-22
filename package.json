@@ -46,7 +46,7 @@
     "@modelcontextprotocol/server": "2.4.0",
     "@mozilla/readability": "^0.6.0",
     "@napi-rs/canvas": "^1.0.13",
-    "@stylexjs/stylex": "0.19.1",
+    "@stylexjs/stylex": "0.19.2",
     "@tanstack/react-virtual": "3.14.26",
     "@tiptap/core": "^3.33.0",
     "@tiptap/extension-bubble-menu": "^3.33.0",
