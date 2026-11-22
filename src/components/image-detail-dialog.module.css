@@ -1,0 +1,50 @@
+.dialog {
+  width: min(1200px, 94vw);
+  max-height: 92dvh;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid var(--rule, var(--color-border, var(--app-border, GrayText)));
+  border-radius: 22px;
+  background: var(
+    --al-bg,
+    var(--paper, var(--color-background-surface, var(--app-surface, Canvas)))
+  );
+  color: var(--al-ink, var(--ink, var(--color-text-primary, var(--app-text, CanvasText))));
+  overflow: auto;
+}
+.dialog::backdrop {
+  background: #0009;
+  backdrop-filter: blur(5px);
+}
+.header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.header h2 {
+  flex: 1;
+  font-size: 18px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.header a {
+  font-size: 13px;
+}
+.header button {
+  display: flex;
+  padding: 8px;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  border: 1px solid var(--rule, var(--color-border, var(--app-border, GrayText)));
+  cursor: pointer;
+}
+@media (max-width: 600px) {
+  .dialog {
+    padding: 12px;
+  }
+  .header {
+    flex-wrap: wrap;
+  }
+}

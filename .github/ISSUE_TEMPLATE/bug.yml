@@ -1,0 +1,22 @@
+name: Bug report
+description: Report a reproducible problem in a self-hosted instance.
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version and deployment profile
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Use sample content and remove credentials and private URLs.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and observed behavior
+    validations:
+      required: true

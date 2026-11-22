@@ -1,0 +1,194 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 28%);
+  gap: 16px;
+}
+.imagePanel,
+.details {
+  min-width: 0;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--raised);
+}
+.controls {
+  margin: 0;
+  padding: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+.controls button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+}
+.stage {
+  height: clamp(260px, 62dvh, 740px);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.stage[data-zoomed='true'] {
+  cursor: grab;
+}
+.stage[data-zoomed='true']:active {
+  cursor: grabbing;
+}
+.stage p {
+  padding: 16px;
+}
+.fit img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+}
+.details {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  overflow-wrap: anywhere;
+}
+.details p {
+  white-space: pre-wrap;
+}
+.imagePanel[data-expanded='true'] {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+}
+.imagePanel[data-expanded='true'] .stage {
+  flex: 1;
+}
+@media (max-width: 720px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .stage {
+    height: 48dvh;
+  }
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tags span {
+  padding: 5px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-size: 13px;
+  background: var(--raised);
+}
+.imagePanel,
+.details {
+  border-color: var(--al-line, var(--rule, var(--color-border, var(--app-border, GrayText))));
+  background: var(
+    --al-wash,
+    var(--raised, var(--color-background-surface, var(--app-surface, Canvas)))
+  );
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  border-color: var(--al-line, var(--rule, var(--color-border, var(--app-border, GrayText))));
+}
+.controls button {
+  justify-content: center;
+  gap: 4px;
+  min-width: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--al-line, var(--rule, var(--color-border, var(--app-border, GrayText))));
+  border-radius: 9px;
+  background: var(--al-bg, var(--bg, var(--color-background-body, var(--app-bg, Canvas))));
+  color: inherit;
+  cursor: pointer;
+}
+.controls button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.tags span {
+  border-color: var(--al-line, var(--rule, var(--color-border, var(--app-border, GrayText))));
+  background: var(
+    --al-bg,
+    var(--raised, var(--color-background-surface, var(--app-surface, Canvas)))
+  );
+}
+
+.imagePanel {
+  border: 0;
+  background: transparent;
+  position: relative;
+}
+.imageOptions {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 2;
+  border: 1px solid var(--al-line, var(--color-border, var(--app-border, GrayText)));
+  border-radius: 9px;
+  background: var(--al-wash, var(--color-background-muted, var(--app-panel, ButtonFace)));
+  color: inherit;
+  font-size: 12px;
+}
+.imageOptions summary {
+  cursor: pointer;
+  padding: 6px 10px;
+}
+.details {
+  border: 0;
+  background: transparent;
+  padding: 8px 12px;
+}
+
+.expand {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--al-line, var(--rule));
+  border-radius: 50%;
+  background: var(--al-wash, var(--bg-raised));
+  color: inherit;
+  opacity: 0.65;
+  cursor: pointer;
+}
+.expand:hover,
+.expand:focus-visible {
+  opacity: 1;
+}
+.action,
+.tagForm button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border: 1px solid var(--al-line, var(--rule));
+  border-radius: 9px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+.tagForm {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.tagForm input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--al-line, var(--rule));
+  background: var(--al-bg, var(--bg));
+  color: inherit;
+  border-radius: 8px;
+}

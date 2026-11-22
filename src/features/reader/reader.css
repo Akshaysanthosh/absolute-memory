@@ -1,0 +1,255 @@
+.reading-page {
+  color-scheme: light;
+  --reading-canvas: var(--color-background-surface);
+  --reading-surface: var(--color-background-popover);
+  --reading-muted-surface: var(--color-background-muted);
+  --reading-ink: var(--color-text-primary);
+  --reading-muted: var(--color-text-secondary);
+  --reading-link: var(--color-text-info);
+  --reading-progress-fill: var(--color-accent);
+  --reading-highlight: var(--color-warning);
+  --reading-highlight-ink: var(--color-on-warning);
+  --reading-highlight-link: var(--color-on-warning);
+  --reading-line: var(--color-border);
+  --reading-radius: var(--radius-container);
+  --reading-shadow: var(--shadow-med);
+  --reading-serif: 'Source Serif 4 Variable', Georgia, serif;
+  --reading-ui: var(--nf-sans, system-ui, sans-serif);
+  --reading-size: 1.25rem;
+  --reading-width: 66ch;
+  --reading-leading: 1.62;
+  --reading-gutter: clamp(1.25rem, 4vw, 3rem);
+  --reading-bar-height: 3.5rem;
+  --reading-action-space: calc(5rem + env(safe-area-inset-bottom));
+  --reading-action-motion: 180ms ease-out;
+  min-height: 100dvh;
+  padding-bottom: var(--reading-action-space);
+  color: var(--reading-ink);
+  background: var(--reading-canvas);
+  font-family: var(--reading-ui);
+}
+
+.reading-page[data-color='light'] {
+  color-scheme: light;
+}
+.reading-page[data-color='dark'] {
+  color-scheme: dark;
+}
+.reading-page[data-size='small'] {
+  --reading-size: 1.0625rem;
+}
+.reading-page[data-size='large'] {
+  --reading-size: 1.4375rem;
+}
+.reading-page[data-measure='wide'] {
+  --reading-width: 75ch;
+}
+
+.reading-bar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  background: var(--reading-canvas);
+  border-bottom: 1px solid var(--reading-line);
+}
+.reading-bar-inner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: clamp(0.35rem, 1.5vw, 1rem);
+  min-height: var(--reading-bar-height);
+  padding: 0 clamp(0.45rem, 2.75vw, 2.5rem);
+  margin-inline: auto;
+  max-width: 88rem;
+  font: 600 0.875rem var(--reading-ui);
+}
+.reading-bar-title {
+  overflow: hidden;
+  color: var(--reading-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+.reading-type-button {
+  font: 600 1rem var(--reading-ui);
+}
+.reading-options {
+  display: grid;
+  gap: 0.875rem;
+  font: 600 0.8125rem var(--reading-ui);
+}
+.reading-option {
+  display: grid;
+  gap: 0.375rem;
+}
+.reading-progress {
+  position: absolute;
+  inset: auto 0 -1px;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 2px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.reading-progress::-webkit-progress-bar {
+  background: transparent;
+}
+.reading-progress::-webkit-progress-value {
+  background: var(--reading-progress-fill);
+}
+.reading-progress::-moz-progress-bar {
+  background: var(--reading-progress-fill);
+}
+
+.reading-column {
+  width: min(calc(100% - 2 * var(--reading-gutter)), var(--reading-width));
+  margin-inline: auto;
+  font: 400 var(--reading-size) / var(--reading-leading) var(--reading-serif);
+  font-optical-sizing: auto;
+  overflow-wrap: anywhere;
+}
+.reading-heading {
+  padding-block: clamp(2rem, 6vw, 5.25rem) 0.55em;
+}
+.reading-heading h1 {
+  margin: 0 0 0.4em;
+  color: var(--reading-ink);
+  font: 650 clamp(2.375rem, 5.5vw, 4.125rem) / 1.04 var(--reading-serif);
+  letter-spacing: -0.037em;
+  text-wrap: balance;
+}
+.reading-page .reading-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--reading-muted);
+  font: 500 0.875rem / 1.45 var(--reading-ui);
+}
+.reading-meta li {
+  margin: 0;
+}
+.reading-meta a,
+.reading-text a {
+  color: var(--reading-link);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+.reading-lead {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-block: 1.4em 0.4em;
+}
+.reading-lead,
+.reading-text img {
+  border-radius: var(--reading-radius);
+}
+
+.reading-text {
+  padding-block-start: 0.2em;
+  color: var(--reading-ink);
+  font: inherit;
+}
+.reading-text :is(p, li, dt, dd) {
+  color: inherit;
+  font: inherit;
+}
+.reading-text :is(p, pre, blockquote, figure, table, ul, ol, dl) {
+  margin-block: 0.9em;
+}
+.reading-text :is(h2, h3, h4, h5, h6) {
+  margin-block: 1.4em 0.35em;
+  color: var(--reading-ink);
+  font: 650 1.1em / 1.2 var(--reading-serif);
+  letter-spacing: -0.015em;
+}
+.reading-text h2 {
+  font-size: 1.55em;
+}
+.reading-text h3 {
+  font-size: 1.28em;
+}
+.reading-text :is(ul, ol) {
+  padding-inline-start: 1.4em;
+}
+.reading-text ul {
+  list-style: disc;
+}
+.reading-text ol {
+  list-style: decimal;
+}
+.reading-text blockquote {
+  margin-inline: 0;
+  border-inline-start: 3px solid var(--reading-progress-fill);
+  padding-inline-start: 1em;
+  color: var(--reading-muted);
+  font-style: italic;
+}
+.reading-text figure {
+  margin-inline: 0;
+}
+.reading-text figcaption {
+  margin-block-start: 0.55rem;
+  color: var(--reading-muted);
+  font: 500 0.8125rem / 1.5 var(--reading-ui);
+}
+.reading-text img {
+  max-width: 100%;
+  height: auto;
+}
+.reading-text table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+.reading-text :is(td, th) {
+  border: 1px solid var(--reading-line);
+  padding: 0.45em 0.65em;
+}
+.reading-text th {
+  background: var(--reading-muted-surface);
+  text-align: start;
+}
+.reading-text :is(code, pre) {
+  font-family: var(--font-family-code, monospace);
+  font-size: 0.86em;
+  background: var(--reading-muted-surface);
+  border-radius: var(--radius-inner);
+}
+.reading-text code {
+  padding: 0.06em 0.24em;
+}
+.reading-text pre {
+  padding: 0.9em;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.reading-text pre code {
+  padding: 0;
+  font-size: inherit;
+}
+.reading-text [data-passage] {
+  scroll-margin-block: calc(var(--reading-bar-height) + 1.25rem) var(--reading-action-space);
+}
+.reading-text mark {
+  background: var(--reading-highlight);
+  color: var(--reading-highlight-ink);
+  box-decoration-break: clone;
+  border-radius: 0.15em;
+  cursor: pointer;
+}
+.reading-text :is(a mark, mark a) {
+  color: var(--reading-highlight-link);
+}
+.reading-text .reading-target {
+  outline: 2px solid var(--reading-link);
+  outline-offset: 5px;
+  border-radius: var(--radius-inner);
+}

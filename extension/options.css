@@ -1,0 +1,228 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font:
+    15px/1.65 system-ui,
+    sans-serif;
+  margin: 0;
+}
+main {
+  width: min(620px, 100%);
+  margin: auto;
+  padding: 30px 26px 50px;
+}
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 22px;
+}
+header a {
+  font:
+    27px Georgia,
+    serif;
+  color: inherit;
+  text-decoration: none;
+}
+header span {
+  margin-left: auto;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+}
+.intro {
+  padding: 46px 0 28px;
+}
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--accent);
+}
+h1 {
+  font:
+    48px/1.12 Georgia,
+    serif;
+  letter-spacing: -1.5px;
+  font-weight: 400;
+  margin: 17px 0;
+}
+h2 {
+  font:
+    25px/1.25 Georgia,
+    serif;
+  font-weight: 400;
+  margin: 15px 0;
+}
+p {
+  color: var(--muted);
+  margin: 12px 0;
+}
+.card {
+  border: 1px solid var(--rule);
+  border-radius: 17px;
+  padding: 26px;
+  background: var(--raised);
+}
+label {
+  display: block;
+  font-size: 12px;
+  margin: 22px 0 7px;
+}
+input {
+  font: inherit;
+  width: 100%;
+  border: 1px solid var(--rule);
+  padding: 11px 13px;
+  background: var(--paper);
+  border-radius: 9px;
+  color: inherit;
+}
+button,
+.button {
+  font:
+    500 14px system-ui,
+    sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 13px 18px;
+  border: 0;
+  border-radius: 30px;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+form button {
+  margin-top: 15px;
+}
+.secondary {
+  border: 1px solid var(--rule);
+  color: var(--ink);
+  background: transparent;
+}
+.row,
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.text-button {
+  background: transparent;
+  color: var(--muted);
+  padding: 6px;
+  font-size: 12px;
+}
+.text-button:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+.status {
+  color: var(--success-text);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+.shortcut {
+  font-size: 12px;
+}
+kbd {
+  padding: 2px 5px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.button {
+  margin-top: 12px;
+}
+small {
+  display: block;
+  color: var(--muted);
+  margin-top: 12px;
+  font-size: 11px;
+}
+#pair {
+  border-top: 1px solid var(--rule);
+  margin-top: 24px;
+  padding-top: 10px;
+}
+#pair-code {
+  font: 26px monospace;
+  letter-spacing: 4px;
+  color: var(--accent);
+}
+#message {
+  padding: 14px 18px;
+  border: 1px solid var(--alert-border);
+  border-radius: 12px;
+  background: var(--alert-bg);
+  color: var(--alert-text);
+}
+#recent-section {
+  margin-top: 28px;
+}
+#recent {
+  padding: 0;
+  margin: 10px 0;
+  list-style: none;
+}
+#recent li {
+  padding: 18px 0;
+  border-top: 1px solid var(--rule);
+}
+#recent a {
+  color: var(--ink);
+  font:
+    20px/1.3 Georgia,
+    serif;
+  text-decoration: none;
+}
+#recent a:hover {
+  text-decoration: underline;
+}
+#recent p {
+  font-size: 12px;
+  margin: 7px 0;
+  overflow-wrap: anywhere;
+}
+#recent button {
+  font-size: 12px;
+  padding: 7px 13px;
+  margin-top: 5px;
+}
+footer {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+[hidden] {
+  display: none !important;
+}
+@media (max-width: 450px) {
+  h1 {
+    font-size: 39px;
+  }
+  .card {
+    padding: 20px;
+  }
+  main {
+    padding: 20px;
+  }
+  .intro {
+    padding-top: 32px;
+  }
+}

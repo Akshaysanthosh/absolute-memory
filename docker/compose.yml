@@ -1,0 +1,57 @@
+x-instance: &instance
+  image: absolute-memory:local
+  build:
+    context: ..
+  env_file:
+    - path: ../.env
+      required: false
+  environment: &environment
+    APP_URL: ${APP_URL:-http://localhost:3000}
+    AUTH_SECRET: ${AUTH_SECRET:?Set AUTH_SECRET}
+    DATABASE_URL: ${DATABASE_URL:-postgresql://absolute_memory:${POSTGRES_PASSWORD}@db:5432/absolute_memory}
+    DATA_DIR: /data
+  volumes:
+    - files:/data
+  depends_on:
+    db:
+      condition: service_healthy
+  restart: unless-stopped
+
+services:
+  db:
+    image: pgvector/pgvector:pg17@sha256:b513c48566e4777cd3370451400000c78eda6a08131d68f4c31d4a76f27bd8fd
+    environment:
+      POSTGRES_USER: absolute_memory
+      POSTGRES_DB: absolute_memory
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  web:
+    <<: *instance
+    environment:
+      <<: *environment
+      ROLE: web
+    ports:
+      - '127.0.0.1:${AM_PORT:-3000}:3000'
+  worker:
+    <<: *instance
+    environment:
+      <<: *environment
+      ROLE: worker
+  ollama:
+    image: ollama/ollama:0.40.17@sha256:ccc42bcd3d5fcf7ab0d532b300382154e1a4da56fc666bdb313b78ebdd912754
+    profiles: [local-ai]
+    volumes:
+      - models:/root/.ollama
+    restart: unless-stopped
+
+volumes:
+  postgres:
+  files:
+  models:

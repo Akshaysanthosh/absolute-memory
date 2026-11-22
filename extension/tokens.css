@@ -1,0 +1,15 @@
+/* Light roles from @astryxdesign/theme-neutral. Extension pages run outside the app. */
+:root {
+  color-scheme: light;
+  --paper: #f1f1f1;
+  --raised: #ffffff;
+  --ink: #000000;
+  --muted: #474747;
+  --rule: #d4d4d4;
+  --accent: #1b1b1b;
+  --success-text: #2f7d33;
+  --alert-bg: #ffc4be;
+  --alert-text: #76000c;
+  --alert-border: #ffaea7;
+  --focus: #0074e2;
+}

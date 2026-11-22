@@ -1,0 +1,13 @@
+name: Feature request
+description: Suggest an improvement to the self-hosted app.
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: What do you want to do?
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: How do you handle it today?

@@ -1,0 +1,283 @@
+/* First-run setup. Uses the app theme tokens so it follows light and dark mode. */
+.setup {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px max(16px, env(safe-area-inset-left, 0px));
+  background: var(--app-bg);
+  color: var(--app-text);
+  font-family: var(--nf-sans, system-ui), system-ui, sans-serif;
+}
+.setup-card {
+  width: min(560px, 100%);
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: 28px;
+  padding: 40px 36px 24px;
+  box-shadow: 0 20px 60px #0000000f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.setup-mark {
+  color: var(--app-text);
+  margin-bottom: 12px;
+}
+.setup h1 {
+  margin: 0;
+  font-size: clamp(26px, 4vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+.setup-lead {
+  margin: 10px 0 0;
+  color: var(--app-muted);
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 420px;
+}
+.setup-options {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  margin-top: 24px;
+}
+.setup-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--app-border);
+  border-radius: 16px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.setup-option strong {
+  font-size: 15px;
+  font-weight: 650;
+}
+.setup-option small {
+  font-size: 13px;
+  color: var(--app-muted);
+}
+.setup-option:hover {
+  background: var(--app-hover);
+}
+.setup-option[aria-pressed='true'] {
+  border-color: var(--app-accent);
+  background: var(--app-selected);
+}
+.setup-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+.setup-chip {
+  border: 1px solid var(--app-border);
+  border-radius: 999px;
+  padding: 9px 15px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.setup-chip:hover:not(:disabled) {
+  background: var(--app-hover);
+}
+.setup-chip[aria-pressed='true'] {
+  border-color: var(--app-accent);
+  background: var(--app-accent);
+  color: var(--app-on-accent);
+}
+.setup-chip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.setup-nos {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  text-align: left;
+  font-size: 22px;
+  line-height: 1.45;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.setup-nos span {
+  color: var(--color-text-error, var(--app-danger, CanvasText));
+}
+.setup-fine {
+  margin: 16px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--app-muted);
+  max-width: 420px;
+}
+.setup-fine a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.setup-keys {
+  margin: 18px 0 0;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--app-panel);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 420px;
+}
+.setup-keys kbd {
+  font:
+    600 12px ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  border: 1px solid var(--app-border);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  padding: 1px 6px;
+  background: var(--app-surface);
+}
+.setup-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+  min-width: 200px;
+  padding: 13px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--app-accent);
+  color: var(--app-on-accent);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 650;
+  text-decoration: none;
+  cursor: pointer;
+}
+.setup-primary:hover {
+  background: var(--app-accent-hover);
+}
+.setup-secondary {
+  margin-top: 10px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.setup-status {
+  margin: 14px 0 0;
+  font-size: 13px;
+  color: var(--app-muted);
+  max-width: 400px;
+}
+.setup-error {
+  margin: 14px 0 0;
+  font-size: 13px;
+  color: var(--app-danger);
+}
+.setup-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--app-border);
+}
+.setup-dots {
+  display: flex;
+  gap: 6px;
+}
+.setup-dots i {
+  width: 18px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--app-border);
+}
+.setup-dots i[data-on] {
+  background: var(--app-accent);
+}
+.setup-nav {
+  display: flex;
+  gap: 4px;
+}
+.setup-link {
+  border: 0;
+  background: transparent;
+  color: var(--app-muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.setup-link:hover {
+  color: var(--app-text);
+  background: var(--app-hover);
+}
+.setup button:focus-visible,
+.setup a:focus-visible {
+  outline: 2px solid var(--app-accent);
+  outline-offset: 3px;
+}
+.setup button:disabled {
+  cursor: progress;
+}
+@media (max-width: 520px) {
+  .setup-card {
+    padding: 28px 20px 18px;
+    border-radius: 22px;
+  }
+  .setup-nos {
+    font-size: 19px;
+  }
+}
+
+.setup-account-fields {
+  display: grid;
+  gap: 12px;
+}
+
+.setup-account-fields label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.setup-account-fields input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  color: inherit;
+  background: transparent;
+}
+
+.setup-account-fields input:focus-visible,
+.setup-account-fields button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}

@@ -1,0 +1,52 @@
+.onboarding-tip {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(560px, calc(100vw - 32px));
+  padding: 12px 12px 12px 16px;
+  border-radius: 18px;
+  background: var(--color-on-light, #111);
+  color: var(--color-on-dark, white);
+  box-shadow: var(--shadow-high, 0 18px 50px #00000059);
+  font:
+    14px/1.45 var(--nf-sans, system-ui),
+    system-ui,
+    sans-serif;
+}
+.onboarding-tip > svg {
+  flex: none;
+  color: var(--color-warning, var(--app-warning));
+}
+.onboarding-tip p {
+  flex: 1;
+  margin: 0;
+}
+.onboarding-tip button {
+  flex: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 12px;
+  background: var(--color-success, var(--app-accent));
+  color: var(--color-on-dark, white);
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+.onboarding-tip .onboarding-tip-x {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: transparent;
+  color: color-mix(in srgb, currentColor 72%, transparent);
+}
+.onboarding-tip button:focus-visible {
+  outline: 2px solid var(--color-on-dark, white);
+  outline-offset: 2px;
+}

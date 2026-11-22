@@ -1,0 +1,228 @@
+.tags button {
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  min-height: 24px;
+  margin: -6px -6px -6px 0;
+  color: var(--al-muted);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.tagForm {
+  display: flex;
+  gap: 7px;
+  margin-top: 12px;
+}
+.tagForm input {
+  width: 0;
+  flex: 1;
+  border: 1px solid var(--al-line);
+  background: var(--al-wash);
+  color: var(--al-ink);
+  border-radius: 8px;
+  padding: 8px;
+}
+.tagForm > button,
+.deleteConfirm button {
+  background: var(--al-accent);
+  color: var(--al-bg);
+  border: 0;
+  border-radius: 7px;
+  padding: 8px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.muted {
+  font-size: 12px;
+  color: var(--al-muted);
+}
+.footer {
+  margin-top: auto;
+  padding: 17px 26px 15px;
+  border-top: 1px solid var(--al-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.utility,
+.pager {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.utility button,
+.pager button {
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 35px;
+  border: 1px solid var(--al-line);
+  border-radius: 50%;
+  background: var(--al-wash);
+  color: var(--al-muted);
+  cursor: pointer;
+}
+.utility button[aria-pressed='true'] {
+  color: var(--color-text-warning, var(--app-warning));
+  border-color: var(--color-border-yellow, var(--app-border));
+}
+.pager button {
+  border: 0;
+  background: transparent;
+  width: 24px;
+}
+.pager span {
+  font-size: 11px;
+  color: var(--al-muted);
+}
+.notice {
+  width: 100%;
+  font-size: 10px;
+  color: var(--al-muted);
+}
+.deleteConfirm p {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.deleteConfirm button {
+  margin-right: 8px;
+}
+.dialog button:focus-visible,
+.dialog a:focus-visible,
+.tile:focus-visible {
+  outline: 2px solid var(--al-accent);
+  outline-offset: 4px;
+}
+.dialog button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+@media (max-width: 900px) {
+  .card {
+    grid-template-columns: minmax(0, 1fr) 340px;
+  }
+  .stage {
+    padding: 18px;
+  }
+  .detailHeader,
+  .detailBody {
+    padding: 20px;
+  }
+  .detailHeader h2 {
+    font-size: 21px;
+  }
+  .footer {
+    padding: 15px 20px;
+  }
+}
+@media (max-width: 650px) {
+  .page {
+    padding: 20px;
+  }
+  .previewHeader {
+    display: block;
+  }
+  .previewHeader h1 {
+    font-size: 25px;
+  }
+  .previewHeader a {
+    margin-top: 18px;
+  }
+  .dialog {
+    width: calc(100vw - 20px);
+    height: calc(100dvh - 24px);
+    border-radius: 16px;
+    overflow: auto;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100%;
+    border-radius: 15px;
+  }
+  .stage {
+    min-height: 300px;
+    height: 42dvh;
+    flex: none;
+    padding: 16px;
+  }
+  .stage .visual {
+    padding: 14px 0;
+  }
+  .details {
+    border-left: 0;
+    overflow: visible;
+  }
+  .detailHeader {
+    padding: 20px;
+  }
+  .detailBody {
+    overflow: visible;
+    padding: 20px;
+  }
+  .detailHeader h2 {
+    font-size: 23px;
+  }
+  .footer {
+    padding: 18px 20px;
+  }
+  .primary {
+    padding: 10px 13px;
+    font-size: 12px;
+  }
+  .gallery {
+    columns: 2 140px;
+  }
+  .tile strong {
+    font-size: 14px;
+  }
+  .caption {
+    font-size: 10px;
+  }
+  .textVisual h2 {
+    font-size: 25px;
+  }
+  .textVisual p {
+    display: none;
+  }
+}
+
+.detailTitle {
+  font-size: 23px;
+  line-height: 1.3;
+  font-weight: 550;
+  letter-spacing: -0.025em;
+  margin: 0 0 10px;
+  overflow-wrap: anywhere;
+}
+.detailTitle > div {
+  color: inherit;
+}
+.detailTitle input {
+  font-size: 16px;
+}
+
+.socialPhotos {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+.socialPhotos button {
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  min-width: 32px;
+  min-height: 32px;
+}
+.socialPhotos button[aria-pressed='true'] {
+  background: var(--app-text, var(--color-text-primary, CanvasText));
+  color: var(--app-bg, var(--color-background-body, Canvas));
+}

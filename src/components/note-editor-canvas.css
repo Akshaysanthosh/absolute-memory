@@ -1,0 +1,283 @@
+.note-dialog {
+  --note-bg: var(--color-background-body, var(--app-bg, Canvas));
+  --note-panel: var(--color-background-surface, var(--app-surface, Canvas));
+  --note-ink: var(--color-text-primary, var(--app-text, CanvasText));
+  --note-muted: var(--color-text-secondary, var(--app-muted, GrayText));
+  --note-line: var(--color-border, var(--app-border, ButtonBorder));
+  --note-accent: var(--color-accent, var(--app-accent, Highlight));
+  color: var(--note-ink);
+  background: var(--note-bg);
+  border: 1px solid var(--note-line);
+  border-radius: 18px;
+  padding: 0;
+  margin: auto;
+  width: min(1100px, calc(100vw - 64px));
+  height: min(900px, calc(100dvh - 64px));
+  max-width: none;
+  max-height: none;
+  box-shadow: 0 30px 120px #0005;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+.note-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+.note-dialog::backdrop {
+  background: #10171488;
+  backdrop-filter: blur(6px);
+}
+.note-dialog button,
+.note-dialog a {
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.note-dialog button:disabled {
+  opacity: 0.45;
+  cursor: wait;
+}
+.note-top {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--note-line);
+  gap: 12px;
+  flex-shrink: 0;
+}
+.note-top > div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+}
+.note-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--note-accent);
+  border-radius: 50%;
+}
+.note-save-status {
+  font-size: 11px;
+  color: var(--note-muted);
+}
+.note-dialog .note-save {
+  background: var(--note-accent);
+  color: var(--note-bg);
+  border-radius: 20px;
+  padding: 10px 17px;
+  font-weight: 600;
+}
+.note-toolbar {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-bottom: 1px solid var(--note-line);
+  background: var(--note-panel);
+  flex-shrink: 0;
+}
+.note-toolbar button {
+  width: 35px;
+  height: 34px;
+  border-radius: 6px;
+}
+.note-toolbar button:hover,
+.note-toolbar button[aria-pressed='true'] {
+  background: var(--note-line);
+}
+.note-toolbar > span {
+  width: 1px;
+  height: 18px;
+  background: var(--note-line);
+  margin: 0 10px;
+}
+.note-scroll {
+  overflow: auto;
+  flex: 1;
+  min-height: 0;
+}
+.note-paper {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 54px 40px 100px;
+  position: relative;
+}
+.note-kicker {
+  font-size: 10px;
+  letter-spacing: 2.3px;
+  color: var(--note-muted);
+}
+.note-title {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: var(--note-ink);
+  font:
+    bold 42px/1.2 Georgia,
+    serif;
+  letter-spacing: -1px;
+  padding: 18px 0 24px;
+  margin: 0;
+}
+.note-title::placeholder {
+  color: var(--note-muted);
+  opacity: 0.6;
+}
+.note-prose {
+  font:
+    20px/1.8 Georgia,
+    serif;
+  outline: none;
+  min-height: 330px;
+  color: var(--note-ink);
+  overflow-wrap: anywhere;
+}
+.note-prose p {
+  margin: 0 0 1.2em;
+}
+.note-prose h1,
+.note-prose h2,
+.note-prose h3 {
+  font-family: Arial, sans-serif;
+  line-height: 1.3;
+  font-weight: 650;
+  margin: 1.5em 0 0.7em;
+}
+.note-prose h1 {
+  font-size: 32px;
+}
+.note-prose h2 {
+  font-size: 27px;
+}
+.note-prose h3 {
+  font-size: 22px;
+}
+.note-prose ul,
+.note-prose ol {
+  padding-left: 26px;
+  margin: 18px 0;
+  list-style: revert;
+}
+.note-prose blockquote {
+  border-left: 3px solid var(--note-accent);
+  margin: 25px 0;
+  padding: 0 0 0 22px;
+  font-style: italic;
+}
+.note-prose pre {
+  background: var(--note-panel);
+  border: 1px solid var(--note-line);
+  padding: 20px;
+  border-radius: 8px;
+  font: 14px/1.7 monospace;
+  white-space: pre-wrap;
+}
+.note-prose a {
+  font: inherit;
+  text-decoration: underline;
+  color: var(--note-accent);
+  display: inline;
+}
+.note-prose code {
+  font-size: 0.8em;
+}
+.note-prose img {
+  max-width: 100%;
+  border-radius: 6px;
+  margin: 20px auto;
+  display: block;
+}
+.note-prose hr {
+  border: 0;
+  border-top: 1px solid var(--note-line);
+  margin: 32px 0;
+}
+.note-prose .is-editor-empty:first-child:before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--note-muted);
+  height: 0;
+  pointer-events: none;
+}
+.note-prose ul[data-type='taskList'] {
+  list-style: none;
+  padding: 0;
+}
+.note-prose li[data-type='taskItem'] {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+.note-prose li[data-type='taskItem'] > div {
+  flex: 1;
+}
+.note-prose li[data-type='taskItem'] input {
+  accent-color: var(--note-accent);
+}
+.note-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--note-line);
+  font-size: 10px;
+  color: var(--note-muted);
+  flex-shrink: 0;
+}
+.note-insert-menu,
+.note-link-panel {
+  background: var(--note-panel);
+  border: 1px solid var(--note-line);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 10px 30px #0001;
+}
+.note-insert-menu {
+  position: sticky;
+  bottom: 12px;
+  max-width: 300px;
+  z-index: 2;
+}
+.note-insert-menu button,
+.note-source-options button {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  text-align: left;
+  padding: 10px;
+  border-radius: 5px;
+}
+.note-insert-menu button:hover,
+.note-source-options button:hover {
+  background: var(--note-line);
+}
+.note-link-panel > div:first-child {
+  display: flex;
+  justify-content: space-between;
+}
+.note-link-panel input {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  background: var(--note-bg);
+  border: 1px solid var(--note-line);
+  border-radius: 6px;
+  color: var(--note-ink);
+  font:
+    14px Arial,
+    sans-serif;
+}

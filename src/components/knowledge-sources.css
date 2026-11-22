@@ -1,0 +1,248 @@
+.kg-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 44px 42px;
+  color: var(--ink, var(--color-text-primary, var(--app-text, CanvasText)));
+}
+.kg-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary, var(--app-muted));
+  font-weight: 700;
+}
+.kg-page h1 {
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 1.15;
+  font-family: inherit;
+  letter-spacing: -0.03em;
+  margin: 12px 0;
+}
+.kg-subtitle {
+  color: var(--color-text-secondary, var(--app-muted));
+  line-height: 1.7;
+  max-width: 650px;
+  margin-bottom: 30px;
+}
+.kg-panel {
+  background: var(--bg-raised, var(--color-background-surface, var(--app-surface, Canvas)));
+  border: 1px solid var(--rule, var(--color-border, var(--app-border, GrayText)));
+  border-radius: 18px;
+  padding: 24px;
+  min-width: 0;
+}
+.kg-panel h2,
+.kg-dialog h2 {
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 1.3;
+  font-family: inherit;
+  margin: 0 0 14px;
+}
+.kg-panel h3,
+.kg-dialog h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 20px 0 12px;
+}
+.kg-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.kg-row.between {
+  justify-content: space-between;
+}
+.kg-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--rule, var(--color-border, var(--app-border, GrayText)));
+  background: var(--bg-raised, var(--color-background-surface, var(--app-surface, Canvas)));
+  color: inherit;
+  border-radius: 9px;
+  padding: 10px 15px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.kg-button.primary {
+  background: var(--color-accent, var(--app-accent));
+  border-color: var(--color-accent, var(--app-accent));
+  color: var(--color-on-accent, var(--app-on-accent));
+}
+.kg-button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.kg-button:focus-visible,
+.kg-input:focus-visible {
+  outline: 2px solid var(--color-focus-ring, var(--app-accent, Highlight));
+  outline-offset: 3px;
+}
+.kg-input {
+  display: block;
+  width: 100%;
+  background: var(--bg, var(--color-background-body, var(--app-bg, Canvas)));
+  color: inherit;
+  border: 1px solid var(--rule, var(--color-border, var(--app-border, GrayText)));
+  border-radius: 9px;
+  padding: 11px;
+  font: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.kg-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 12px 0 6px;
+}
+.kg-muted {
+  color: var(--ink-3, var(--color-text-secondary, var(--app-muted, CanvasText)));
+  font-size: 13px;
+  line-height: 1.6;
+}
+.kg-status {
+  margin: 16px 0;
+  padding: 12px 15px;
+  background: var(--bg-sunk, var(--color-background-muted, var(--app-panel, ButtonFace)));
+  border-radius: 9px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.kg-error {
+  color: var(--color-text-error, var(--app-danger, CanvasText));
+}
+.kg-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0;
+}
+.kg-tag {
+  font-size: 11px;
+  padding: 4px 9px;
+  background: var(--bg-sunk, var(--color-background-muted, var(--app-panel, ButtonFace)));
+  border-radius: 12px;
+  color: var(--ink-2, var(--color-text-secondary, var(--app-muted, CanvasText)));
+}
+.kg-reading {
+  display: block;
+  border-top: 1px solid var(--rule, var(--color-border, var(--app-border, GrayText)));
+  padding: 15px 0;
+  text-decoration: none;
+  color: inherit;
+}
+.kg-reading strong {
+  display: block;
+  margin-bottom: 6px;
+}
+.kg-reading p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-3, var(--color-text-secondary, var(--app-muted, CanvasText)));
+  margin: 5px 0;
+}
+.kg-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(680px, calc(100vw - 28px));
+  max-height: 88dvh;
+  margin: auto;
+  background: var(--bg-raised, var(--color-background-surface, var(--app-surface, Canvas)));
+  color: var(--ink, var(--color-text-primary, var(--app-text, CanvasText)));
+  border: 1px solid var(--rule, var(--color-border, var(--app-border, GrayText)));
+  border-radius: 18px;
+  padding: 26px;
+  box-shadow: var(--shadow-high, 0 25px 100px #0003);
+  overflow: auto;
+}
+.kg-dialog::backdrop {
+  background: var(--color-overlay, rgb(0 0 0 / 47%));
+  backdrop-filter: blur(3px);
+}
+.kg-dialog section {
+  margin-top: 26px;
+}
+.kg-dialog p {
+  line-height: 1.7;
+}
+.kg-chat-layout {
+  display: grid;
+  grid-template-columns: 235px minmax(0, 1fr);
+  gap: 20px;
+}
+.kg-thread {
+  width: 100%;
+  text-align: left;
+  padding: 11px 9px;
+  border: 0;
+  border-radius: 7px;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 6px;
+}
+.kg-thread.active {
+  background: var(--bg-sunk, var(--color-background-muted, var(--app-panel, ButtonFace)));
+}
+.kg-chat-log {
+  min-height: 200px;
+  max-height: 60vh;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+.kg-turn {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule, var(--color-border, var(--app-border, GrayText)));
+}
+.kg-question {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+.kg-answer {
+  white-space: pre-wrap;
+  font-size: 15px;
+  line-height: 1.8;
+}
+.kg-answer a,
+.kg-sources a {
+  color: var(--color-text-accent, var(--app-accent, Highlight));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.kg-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 15px;
+  font-size: 12px;
+}
+.kg-source-note {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary, var(--app-muted));
+  margin-right: 6px;
+}
+.kg-composer {
+  margin-top: 20px;
+}
+.kg-composer textarea {
+  min-height: 92px;
+  resize: vertical;
+}
+.kg-chat-filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}

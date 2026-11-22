@@ -1,0 +1,87 @@
+.note-bubble {
+  display: flex;
+  gap: 2px;
+  padding: 6px;
+  border-radius: 9px;
+  background: var(--note-ink);
+  color: var(--note-bg);
+  box-shadow: 0 3px 16px #0003;
+}
+.note-bubble button {
+  padding: 8px;
+  color: inherit;
+}
+.note-error {
+  background: var(--color-error-muted, var(--app-danger-bg));
+  color: var(--note-ink);
+  padding: 12px 24px;
+  font-size: 13px;
+}
+.note-dialog :focus-visible {
+  outline: 2px solid var(--note-accent);
+  outline-offset: 3px;
+}
+.note-dialog .note-prose:focus-visible,
+.note-dialog .note-title:focus-visible {
+  outline: none;
+}
+@media (max-width: 700px) {
+  .note-dialog {
+    width: 100vw;
+    height: 100dvh;
+    border-radius: 0;
+    border: 0;
+  }
+  .note-top {
+    padding: 12px;
+  }
+  .note-top > div {
+    gap: 8px;
+  }
+  .note-save-status,
+  .note-dot {
+    display: none;
+  }
+  .note-toolbar {
+    justify-content: start;
+    overflow-x: auto;
+    padding: 8px;
+  }
+  .note-toolbar button {
+    flex-shrink: 0;
+  }
+  .note-paper {
+    padding: 35px 24px 80px;
+  }
+  .note-title {
+    font-size: 34px;
+  }
+  .note-prose {
+    font-size: 19px;
+  }
+  .note-bottom {
+    padding: 12px;
+  }
+  .note-bottom > span:last-child {
+    display: none;
+  }
+}
+/* Astryx's element reset must not replace the writing typography. */
+.note-dialog .note-prose p,
+.note-dialog .note-prose li {
+  font: inherit;
+  color: inherit;
+}
+.note-dialog .note-prose strong {
+  font-weight: 700;
+}
+.note-dialog .note-prose em {
+  font-style: italic;
+}
+.note-dialog textarea.note-title {
+  resize: none;
+  field-sizing: content;
+  overflow: hidden;
+  min-height: 80px;
+  white-space: pre-wrap;
+}

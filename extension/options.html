@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Absolute Memory · Chrome</title>
+    <link rel="stylesheet" href="tokens.css" />
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <img src="icons/48.png" width="30" height="30" alt="" /><a id="brand" href="#"
+          >Absolute Memory</a
+        ><span>CHROME</span>
+      </header>
+      <section class="intro">
+        <span class="eyebrow">A GOOD READ, KEPT CLOSE</span>
+        <h1>Found something<br />worth your time?</h1>
+        <p>Keep it in Absolute Memory. Come back with room to think.</p>
+      </section>
+      <section id="setup" class="card">
+        <h2>Connect your reading home.</h2>
+        <p>Sign in to Absolute Memory and approve this browser. You won’t need to copy a key.</p>
+        <form id="connect-form">
+          <label for="origin">Absolute Memory address</label
+          ><input
+            id="origin"
+            type="url"
+            required
+            placeholder="http://localhost:3000"
+            autocomplete="url"
+          /><button id="connect" type="submit">Connect to Absolute Memory <span>↗</span></button>
+        </form>
+        <div id="pair" hidden>
+          <p>Match this code on the Absolute Memory approval page:</p>
+          <strong id="pair-code"></strong>
+          <p>Waiting for approval. This request expires in ten minutes.</p>
+          <button id="check" class="secondary">Check connection</button>
+        </div>
+      </section>
+      <section id="connected" class="card" hidden>
+        <div class="row">
+          <span class="status">● CONNECTED</span
+          ><button id="disconnect" class="text-button">Disconnect</button>
+        </div>
+        <h2>Your next read is one click away.</h2>
+        <p>
+          Pin Absolute Memory in Chrome’s Extensions menu. On an article, click its icon to save. A
+          <b>✓</b> means it’s ready to read.
+        </p>
+        <p class="shortcut">Or press <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd></p>
+        <a id="library" class="button" target="_blank" rel="noopener">Open my library ↗</a
+        ><small id="connected-origin"></small>
+      </section>
+      <p id="message" role="status" hidden></p>
+      <section id="recent-section" hidden>
+        <div class="section-heading">
+          <h2>Your recent saves</h2>
+          <button id="refresh" class="text-button">Refresh</button>
+        </div>
+        <ul id="recent"></ul>
+      </section>
+      <footer>
+        <span id="extension-version"></span><br />Only pages you choose to save are sent to Absolute
+        Memory.<br />You can revoke this browser from Capture channels in your account.
+      </footer>
+    </main>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

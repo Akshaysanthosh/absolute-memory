@@ -1,0 +1,32 @@
+# Only application inputs enter the build context. No local env, data or research.
+**
+!package.json
+!package-lock.json
+!vendor/
+!vendor/xlsx-0.20.3.tgz
+!next.config.ts
+!next-env.d.ts
+!tsconfig.json
+!postcss.config.mjs
+!src/
+!src/**
+!db/
+!db/migrations/
+!db/migrations/*.sql
+!db/migrations/*/
+!db/migrations/*/*.sql
+!scripts/
+!scripts/**
+# Screenshot tooling runs in the contributor checkout with Playwright and test fixtures.
+scripts/demo-*.ts
+scripts/docs-screenshots.ts
+scripts/screenshot-pages.ts
+!packages/
+!packages/cli/
+!packages/cli/*.mjs
+!packages/cli/*.ts
+!public/
+!public/**
+!docker/
+!docker/build-media.sh
+!docker/entrypoint.sh

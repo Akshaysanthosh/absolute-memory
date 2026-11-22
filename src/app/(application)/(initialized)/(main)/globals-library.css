@@ -1,0 +1,53 @@
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 8px;
+  background: #f2eedf;
+  color: #8c805d;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.status.failed {
+  background: #f8e6df;
+  color: #a66448;
+}
+.status.ready {
+  background: #e9eedf;
+  color: #637751;
+}
+.toast {
+  position: fixed;
+  bottom: 25px;
+  left: calc(50% + 116px);
+  transform: translateX(-50%);
+  background: #263d33;
+  color: #fff7df;
+  border-radius: 8px;
+  padding: 14px 22px;
+  font-size: 12px;
+  box-shadow: 0 8px 30px #0002;
+  z-index: 40;
+}
+.capture-dialog {
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  color: var(--ink);
+  width: 470px;
+  max-width: calc(100vw - 30px);
+  box-shadow: 0 30px 100px #20332f30;
+}
+.capture-dialog::backdrop {
+  background: #182d2359;
+  backdrop-filter: blur(3px);
+}
+.capture-dialog h2 {
+  font: 42px var(--serif);
+  margin: 7px 0;
+}
+.capture-dialog > p {
+  font-size: 12px;
+  color: var(--muted);
+}

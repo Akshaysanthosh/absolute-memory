@@ -1,0 +1,78 @@
+@import '@astryxdesign/theme-neutral/theme.css';
+
+.am-error {
+  color-scheme: light dark;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  box-sizing: border-box;
+  background: var(--color-background-body);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-body);
+}
+
+[data-app-theme='dark'] .am-error {
+  color-scheme: dark;
+}
+[data-app-theme='light'] .am-error {
+  color-scheme: light;
+}
+
+.am-error main {
+  max-width: 480px;
+  text-align: center;
+}
+.am-error .eyebrow {
+  margin: 0 0 8px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.am-error h1 {
+  margin: 0 0 12px;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.am-error p.lead {
+  margin: 0 0 28px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+.am-error .actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.am-error .primary,
+.am-error .secondary {
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.am-error .primary {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border: 0;
+}
+.am-error .secondary {
+  border: 1px solid var(--color-border-emphasized);
+  color: var(--color-text-primary);
+  background: transparent;
+}
+.am-error .ref {
+  margin: 24px 0 0;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+.am-error code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}

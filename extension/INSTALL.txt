@@ -1,0 +1,10 @@
+Absolute Memory Chrome extension
+
+1. Sign in at your Absolute Memory instance.
+2. Open chrome://extensions and enable Developer mode.
+3. Click Load unpacked and select the folder containing manifest.json.
+4. Open the extension options, enter your instance address, and approve access to that origin.
+5. Match the pairing code, then click Connect Chrome in the app.
+6. Pin the extension, open an article, and click Save. You can assign Alt+Shift+S in Chrome.
+
+The default address is http://localhost:3000. Revoke connections from Capture channels in the app.

@@ -1,0 +1,173 @@
+.page {
+  max-width: 960px;
+  margin: auto;
+  padding: 32px 24px 80px;
+  line-height: 1.65;
+}
+.page header {
+  margin: 32px 0;
+}
+.page h1 {
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.page nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+}
+.page a {
+  text-underline-offset: 4px;
+}
+.segments {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0;
+}
+.segments li {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid currentColor;
+}
+.segments p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.segments a {
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 480px) {
+  .page {
+    padding: 24px 16px;
+  }
+  .segments li {
+    grid-template-columns: 64px 1fr;
+    gap: 8px;
+  }
+}
+.eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
+}
+.tabs {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  gap: 8px !important;
+  margin: 24px 0 32px !important;
+}
+.tabs a {
+  padding: 12px 16px;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+}
+.tabs a[aria-current='page'] {
+  border-color: currentColor;
+  font-weight: 650;
+}
+.overview {
+  padding: 28px;
+  background: color-mix(in srgb, currentColor 4%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  border-radius: 20px;
+  margin: 28px 0 40px;
+}
+.summary {
+  font-size: clamp(19px, 2vw, 23px);
+  line-height: 1.7;
+}
+.readAction {
+  display: inline-block;
+  font-weight: 650;
+  margin-top: 12px;
+}
+.notice,
+.muted {
+  opacity: 0.75;
+  font-size: 0.95rem;
+}
+.ideas {
+  padding-left: 22px;
+}
+.ideas li {
+  margin: 24px 0;
+}
+.ideas p {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+.ideas details {
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+.ideas blockquote {
+  margin: 12px 0;
+  padding-left: 16px;
+  border-left: 2px solid currentColor;
+}
+.chapters {
+  list-style: none;
+  padding: 0;
+}
+.chapters a {
+  display: flex;
+  gap: 22px;
+  padding: 16px 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  text-decoration: none;
+}
+.chapters span,
+.timestamp {
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+}
+.reading {
+  max-width: 720px;
+  margin: 40px auto;
+}
+.reading section {
+  margin-bottom: 48px;
+  scroll-margin-top: 100px;
+}
+.reading h2 {
+  font-size: clamp(24px, 3vw, 32px);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.reading p {
+  font-size: 19px;
+  line-height: 1.85;
+  margin: 24px 0;
+  overflow-wrap: anywhere;
+}
+.segments li {
+  border-top-color: color-mix(in srgb, currentColor 18%, transparent);
+  scroll-margin-top: 100px;
+}
+.segments li:target,
+.reading section:target {
+  background: color-mix(in srgb, #e2b566 17%, transparent);
+  border-radius: 8px;
+}
+@media (max-width: 480px) {
+  .tabs {
+    gap: 0 !important;
+  }
+  .tabs a {
+    padding: 12px 9px;
+    font-size: 0.9rem;
+  }
+  .overview {
+    padding: 20px;
+  }
+  .reading p {
+    font-size: 18px;
+  }
+  .chapters a {
+    gap: 12px;
+  }
+}

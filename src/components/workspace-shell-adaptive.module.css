@@ -1,0 +1,76 @@
+.skipLink {
+  position: fixed;
+  left: calc(var(--navigation-width) + 14px);
+  top: -100px;
+  z-index: 100;
+  background: var(--workspace-green);
+  color: var(--workspace-on-green);
+  padding: 10px;
+  border-radius: 5px;
+}
+.skipLink:focus {
+  top: 10px;
+}
+.content {
+  min-height: calc(100dvh - 64px - var(--navigation-bottom));
+  outline: none;
+}
+/* Scoped compatibility for existing screens while each screen is redesigned. */
+.workspace :global(.page-top) {
+  display: none;
+}
+.workspace :global(.workspace-page) {
+  padding: 28px;
+}
+.workspace :global(.kg-page) {
+  padding: 28px;
+}
+.workspace :global(.button.primary),
+.workspace :global(.kg-button.primary) {
+  background: var(--workspace-green);
+  border-color: var(--workspace-green);
+  color: var(--workspace-on-green);
+}
+.workspace :global(.icon-button) {
+  color: var(--workspace-muted);
+}
+.workspace :global(.icon-button:hover) {
+  background: var(--workspace-hover);
+  color: var(--workspace-text);
+}
+.workspace :global(.kg-subtitle),
+.workspace :global(.kg-eyebrow),
+.workspace :global(.kg-empty),
+.workspace :global(.eyebrow) {
+  color: var(--workspace-muted);
+}
+.workspace :global(.kg-answer a),
+.workspace :global(.kg-sources a) {
+  color: var(--workspace-green);
+}
+.workspace :global(.inline-status),
+.workspace :global(.token-result) {
+  background: var(--workspace-selected);
+}
+.workspace :global(.settings-card.muted) {
+  background: var(--workspace-panel);
+}
+.workspace :global(.capture-dialog) {
+  background: var(--workspace-card);
+  color: var(--workspace-text);
+  border-color: var(--workspace-line);
+}
+.workspace :global(.capture-tabs button.selected) {
+  background: var(--workspace-selected);
+  color: var(--workspace-green);
+}
+.workspace :global(.capture-dialog p),
+.workspace :global(.dialog-foot) {
+  color: var(--workspace-muted);
+}
+@media (width < 768px) {
+  .workspace :global(.workspace-page),
+  .workspace :global(.kg-page) {
+    padding: 22px 16px;
+  }
+}

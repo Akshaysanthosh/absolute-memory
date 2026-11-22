@@ -1,0 +1,17 @@
+node_modules/
+.next/
+.env*
+!.env.example
+.data/
+.backups/
+coverage/
+*.tsbuildinfo
+.DS_Store
+test-results/
+
+dist/
+
+# Private build instructions copied locally from the owner.
+/docs/build/
+/data/
+/playwright-report/

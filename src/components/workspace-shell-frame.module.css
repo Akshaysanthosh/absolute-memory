@@ -1,0 +1,79 @@
+/* Workspace-only tokens. Never import this module into the reader layout. */
+.workspace {
+  --workspace-bg: var(--app-bg);
+  --workspace-card: var(--app-surface);
+  --workspace-rail: var(--app-rail);
+  --workspace-panel: var(--app-panel);
+  --workspace-text: var(--app-text);
+  --workspace-muted: var(--app-muted);
+  --workspace-green: var(--app-accent);
+  --workspace-on-green: var(--app-on-accent);
+  --workspace-selected: var(--app-selected);
+  --workspace-blue: var(--app-blue);
+  --workspace-line: var(--app-border);
+  --workspace-hover: var(--app-hover);
+  --cream: var(--workspace-bg);
+  --paper: var(--workspace-card);
+  --ink: var(--workspace-text);
+  --muted: var(--workspace-muted);
+  --line: var(--workspace-line);
+  --orange: var(--workspace-green);
+  --bg: var(--workspace-bg);
+  --bg-raised: var(--workspace-card);
+  --bg-sunk: var(--workspace-panel);
+  --rule: var(--workspace-line);
+  --ink-2: var(--workspace-text);
+  --ink-3: var(--workspace-muted);
+  min-height: 100dvh;
+  background: var(--workspace-bg);
+  color: var(--workspace-text);
+  color-scheme: inherit;
+  /* Same typeface as Library and Chat . */
+  --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--sans);
+}
+.workspace :is(button, a, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--workspace-green);
+  outline-offset: 3px;
+}
+.workspace ::selection {
+  background: var(--workspace-selected);
+  color: var(--workspace-text);
+}
+.main {
+  min-width: 0;
+  container-type: inline-size;
+}
+.iconButton {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 7px;
+  padding: 7px;
+  background: transparent;
+  color: var(--workspace-muted);
+}
+.iconButton:hover:not(:disabled),
+.iconButton[data-active='true'] {
+  background: var(--workspace-hover);
+  color: var(--workspace-green);
+}
+.iconButton:disabled {
+  opacity: 0.3;
+}
+.toast {
+  position: fixed;
+  bottom: calc(24px + var(--navigation-bottom));
+  left: calc(50% + var(--navigation-width) / 2);
+  transform: translateX(-50%);
+  background: var(--workspace-green);
+  color: var(--workspace-on-green);
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: var(--shadow-med);
+  z-index: 100;
+}

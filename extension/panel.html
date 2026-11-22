@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Absolute Memory capture</title>
+    <link rel="stylesheet" href="panel.css" />
+    <script type="module" src="panel.js"></script>
+  </head>
+  <body>
+    <header>
+      <img src="icons/32.png" width="24" height="24" alt="" /><strong>Absolute Memory</strong
+      ><button id="settings" type="button">Settings</button>
+    </header>
+    <main>
+      <p class="eyebrow">Capture</p>
+      <h1>Save this page</h1>
+      <section id="preview" aria-label="Current page" hidden>
+        <img id="site-icon" width="24" height="24" alt="" hidden />
+        <div>
+          <h2 id="title"></h2>
+          <p id="domain"></p>
+        </div>
+      </section>
+      <div role="status" aria-live="polite">
+        <p id="status">Checking the current page…</p>
+        <p id="detail" hidden></p>
+      </div>
+      <div class="actions">
+        <button id="save" type="button" hidden>Save to Absolute Memory</button>
+        <button id="connect" type="button" hidden>Connect to Absolute Memory</button>
+        <a id="open" target="_blank" rel="noopener noreferrer" hidden>Open in app</a>
+      </div>
+    </main>
+  </body>
+</html>
