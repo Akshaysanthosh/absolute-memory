@@ -1,1 +1,8 @@
 blank_issues_enabled: false
+contact_links:
+  - name: Questions and setup help
+    url: https://github.com/Akshaysanthosh/absolute-memory/discussions
+    about: Ask a question or discuss running an instance.
+  - name: Private vulnerability reporting
+    url: https://github.com/Akshaysanthosh/absolute-memory/security/advisories/new
+    about: Send security details privately.

@@ -301,3 +301,8 @@ The landing page uses the hero and product-proof ordering seen on the [Karakeep 
 - The website build treats unresolved links, Markdown links and anchors as errors. The CI website job builds with those checks. The optional Pages workflow is manual and gated on public visibility and `main`. No site was deployed.
 - Chromium verified the light and dark assets at 375, 768, 1024 and 1440 pixels without horizontal overflow. Text and control colour combinations tested at 4.73:1 or higher in light mode and 7.11:1 or higher in dark mode. The install and docs links, keyboard skip link, video and copy button worked against the local static build.
 - The existing retired-palette test scans all tracked files, including the docs website source and brand SVGs. The site maps its colours to the same Astryx values as the app.
+
+### Community setup
+
+- The contribution guide documents setup, checks and proposals. The issue forms route questions to GitHub Discussions. The Code of Conduct uses [Contributor Covenant 2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/) with an owner contact placeholder, and the existing security policy remains the private reporting path.
+- GitHub Discussions is enabled. The repository is private and its homepage field is blank. The social preview upload and other owner decisions remain in the local publish checklist.
