@@ -2,34 +2,58 @@
 // Run with `node scripts/readme-art.mjs`. Output goes to docs/media/readme/.
 import { mkdirSync, writeFileSync } from 'node:fs';
 
+// Colours follow the hosted Absolute Memory site: cream paper, green actions, a red accent,
+// and one tint per kind of content.
 const themes = {
   light: {
-    bg: '#FAFAF8',
+    bg: '#F8F7F3',
     surface: '#FFFFFF',
-    muted: '#F1F2EF',
-    border: '#DDDFDA',
-    text: '#242824',
-    text2: '#626A65',
-    text3: '#929A95',
-    accent: '#344F48',
-    accentSoft: '#E7EEEA',
-    onAccent: '#FFFFFF',
-    mark: '#F4D58D',
-    line: '#C9DCD4',
+    border: '#E4E5DC',
+    text: '#20332F',
+    text2: '#5F5F5F',
+    text3: '#767676',
+    green: '#1A7F4B',
+    onGreen: '#FFFFFF',
+    red: '#E60023',
+    purple: '#4B2A86',
+    mark: '#FFE2EB',
+    tints: {
+      article: ['#DDF7EA', '#145A3A'],
+      video: ['#FFE2EB', '#8A1030'],
+      podcast: ['#EFE6FF', '#4B2A86'],
+      social: ['#EDEDED', '#111111'],
+      pdf: ['#E3EEFF', '#1D3F7A'],
+      image: ['#EDF7D9', '#5A7D1F'],
+      box: ['#DAFFF6', '#00403A'],
+      audio: ['#EFE6FF', '#4B2A86'],
+      quote: ['#DCE6F2', '#1B2A4A'],
+      note: ['#F3E9D7', '#3D2F1A'],
+    },
   },
   dark: {
-    bg: '#0A0A0A',
-    surface: '#171717',
-    muted: '#1C1C1C',
-    border: '#2E2E2E',
-    text: '#FAFAFA',
-    text2: '#A3A3A3',
-    text3: '#737373',
-    accent: '#9DBDB2',
-    accentSoft: '#1F2A27',
-    onAccent: '#0A0A0A',
-    mark: '#D9C27A',
-    line: '#3D5A52',
+    bg: '#0E1220',
+    surface: '#14161A',
+    border: '#2A2F3A',
+    text: '#F8F7F3',
+    text2: '#9FB3D1',
+    text3: '#8A93A6',
+    green: '#9BE3BD',
+    onGreen: '#0E1220',
+    red: '#E60023',
+    purple: '#EFE6FF',
+    mark: '#5A0A24',
+    tints: {
+      article: ['#0F3D2E', '#DDF7EA'],
+      video: ['#5A0A24', '#FFE2EB'],
+      podcast: ['#2B2148', '#EFE6FF'],
+      social: ['#1F1F1F', '#EDEDED'],
+      pdf: ['#1B2A4A', '#E3EEFF'],
+      image: ['#2E3B12', '#EDF7D9'],
+      box: ['#00403A', '#DAFFF6'],
+      audio: ['#2B2148', '#EFE6FF'],
+      quote: ['#1B2A4A', '#DCE6F2'],
+      note: ['#3D2F1A', '#F3E9D7'],
+    },
   },
 };
 
@@ -71,16 +95,24 @@ function icon(name, x, y, colour, scale = 1) {
 
 function mark(x, y, size, c) {
   const s = size / 64;
-  return `<g transform="translate(${x} ${y}) scale(${s})"><rect x="11" y="10" width="10" height="44" rx="5" fill="${c.text}"/><rect x="43" y="10" width="10" height="44" rx="5" fill="${c.text}"/><circle cx="32" cy="32" r="8.5" fill="${c.accent}"/></g>`;
+  return [
+    `<g transform="translate(${x} ${y}) scale(${s})">`,
+    `<rect x="11" y="10" width="10" height="44" rx="5" fill="${c.text}"/>`,
+    `<rect x="43" y="10" width="10" height="44" rx="5" fill="${c.text}"/>`,
+    `<circle cx="32" cy="32" r="8.5" fill="${c.red}"/></g>`,
+  ].join('');
 }
 
 const cycle = 9; // seconds for one full loop of the hero
 
 function fade(start, end, out = cycle - 0.4) {
-  // Visible from start to out, as fractions of the loop.
+  // Visible from start to out, in seconds within the loop.
   const t = (s) => (s / cycle).toFixed(3);
   return `<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;${t(start)};${t(end)};${t(out)};1" dur="${cycle}s" repeatCount="indefinite"/>`;
 }
+
+const label = (x, text, colour) =>
+  `<text x="${x}" y="40" font-family="${sans}" font-size="12" font-weight="700" letter-spacing="1.4" fill="${colour}">${text}</text>`;
 
 function hero(c, title) {
   const W = 1280;
@@ -95,32 +127,30 @@ function hero(c, title) {
   const memW = 340;
   const memH = 462;
   const inY = memY + memH / 2;
-  const parts = [];
-
-  parts.push(
+  const parts = [
     `<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="20" fill="${c.bg}" stroke="${c.border}"/>`,
-  );
-  parts.push(
-    `<text x="${chipX}" y="40" font-family="${sans}" font-size="12" letter-spacing="1.4" fill="${c.text3}">EVERYTHING YOU COME ACROSS</text>`,
-    `<text x="${memX}" y="40" font-family="${sans}" font-size="12" letter-spacing="1.4" fill="${c.text3}">ONE PRIVATE MEMORY</text>`,
-    `<text x="860" y="40" font-family="${sans}" font-size="12" letter-spacing="1.4" fill="${c.text3}">ANSWERS WITH RECEIPTS</text>`,
-  );
+    label(chipX, 'EVERYTHING YOU COME ACROSS', c.red),
+    label(memX, 'ONE PRIVATE MEMORY', c.green),
+    label(860, 'ANSWERS WITH RECEIPTS', c.purple),
+  ];
 
-  // Source chips and the paths into memory.
-  sources.forEach(([kind, label], i) => {
+  // Source chips, each in its own colour, and the paths into memory.
+  sources.forEach(([kind, name], i) => {
+    const [bg, fg] = c.tints[kind];
     const y = top + i * (chipH + gap);
     const cy = y + chipH / 2;
-    const pathId = `p${i}`;
     const startX = chipX + chipW;
+    const begin = (i * 0.45).toFixed(2);
     parts.push(
-      `<path id="${pathId}" d="M${startX} ${cy} C ${startX + 120} ${cy}, ${memX - 120} ${inY}, ${memX} ${inY}" fill="none" stroke="${c.line}" stroke-width="1.2" stroke-dasharray="3 5"/>`,
-    );
-    parts.push(
-      `<g><rect x="${chipX}" y="${y}" width="${chipW}" height="${chipH}" rx="18" fill="${c.surface}" stroke="${c.border}"/>${icon(kind, chipX + 12, y + 8, c.accent)}<text x="${chipX + 42}" y="${cy + 5}" font-family="${sans}" font-size="14" fill="${c.text}">${esc(label)}</text></g>`,
-    );
-    const begin = ((i * 0.45) % cycle).toFixed(2);
-    parts.push(
-      `<circle r="4" fill="${c.accent}" opacity="0"><animateMotion dur="1.6s" begin="${begin}s;${begin}s+${cycle}s" fill="freeze" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.2 1"><mpath href="#${pathId}"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="1.6s" begin="${begin}s;${begin}s+${cycle}s"/></circle>`,
+      `<path id="p${i}" d="M${startX} ${cy} C ${startX + 120} ${cy}, ${memX - 120} ${inY}, ${memX} ${inY}" fill="none" stroke="${fg}" stroke-opacity="0.35" stroke-width="1.2" stroke-dasharray="3 5"/>`,
+      `<rect x="${chipX}" y="${y}" width="${chipW}" height="${chipH}" rx="18" fill="${bg}"/>`,
+      icon(kind, chipX + 12, y + 8, fg),
+      `<text x="${chipX + 42}" y="${cy + 5}" font-family="${sans}" font-size="14" font-weight="600" fill="${fg}">${esc(name)}</text>`,
+      [
+        `<circle r="4.5" fill="${fg}" opacity="0">`,
+        `<animateMotion dur="1.6s" begin="${begin}s;${begin}s+${cycle}s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.4 0 0.2 1"><mpath href="#p${i}"/></animateMotion>`,
+        `<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="1.6s" begin="${begin}s;${begin}s+${cycle}s"/></circle>`,
+      ].join(''),
     );
   });
 
@@ -128,7 +158,7 @@ function hero(c, title) {
   parts.push(
     `<rect x="${memX}" y="${memY}" width="${memW}" height="${memH}" rx="18" fill="${c.surface}" stroke="${c.border}"/>`,
     mark(memX + 18, memY + 16, 28, c),
-    `<text x="${memX + 54}" y="${memY + 36}" font-family="${sans}" font-size="15" font-weight="600" fill="${c.text}">Absolute Memory</text>`,
+    `<text x="${memX + 54}" y="${memY + 36}" font-family="${sans}" font-size="15" font-weight="700" fill="${c.text}">Absolute Memory</text>`,
     `<line x1="${memX}" y1="${memY + 60}" x2="${memX + memW}" y2="${memY + 60}" stroke="${c.border}"/>`,
   );
   const rows = [
@@ -139,6 +169,7 @@ function hero(c, title) {
     ['image', 'Screenshot', 'Whiteboard from Tuesday', 'text'],
   ];
   rows.forEach(([kind, type, name, where], i) => {
+    const [bg, fg] = c.tints[kind];
     const y = memY + 78 + i * 68;
     const appear = 1.4 + i * 0.5;
     const tx = memX + 56;
@@ -146,12 +177,12 @@ function hero(c, title) {
     parts.push(
       [
         `<g opacity="0">${fade(appear, appear + 0.4)}`,
-        `<rect x="${memX + 14}" y="${y}" width="${memW - 28}" height="56" rx="12" fill="${c.muted}"/>`,
-        icon(kind, memX + 26, y + 18, c.accent),
-        `<text x="${tx}" y="${y + 23}" font-family="${sans}" font-size="11" fill="${c.text3}">${esc(type)}</text>`,
+        `<rect x="${memX + 14}" y="${y}" width="${memW - 28}" height="56" rx="12" fill="${bg}"/>`,
+        icon(kind, memX + 26, y + 18, fg),
+        `<text x="${tx}" y="${y + 23}" font-family="${sans}" font-size="11" font-weight="700" fill="${fg}">${esc(type)}</text>`,
         `<text x="${tx}" y="${y + 41}" font-family="${sans}" font-size="13" fill="${c.text}">${esc(name)}</text>`,
-        `<rect x="${badge}" y="${y + 17}" width="36" height="20" rx="10" fill="${c.accentSoft}"/>`,
-        `<text x="${badge + 18}" y="${y + 31}" text-anchor="middle" font-family="${sans}" font-size="10.5" fill="${c.accent}">${esc(where)}</text>`,
+        `<rect x="${badge}" y="${y + 17}" width="36" height="20" rx="10" fill="${c.surface}"/>`,
+        `<text x="${badge + 18}" y="${y + 31}" text-anchor="middle" font-family="${sans}" font-size="10.5" font-weight="600" fill="${fg}">${esc(where)}</text>`,
         '</g>',
       ].join(''),
     );
@@ -163,16 +194,20 @@ function hero(c, title) {
   // Ask and answer.
   const ax = 860;
   const aw = 384;
+  const [podBg, podFg] = c.tints.podcast;
   parts.push(
-    `<path id="out" d="M${memX + memW} ${inY} C ${memX + memW + 30} ${inY}, ${ax - 40} 250, ${ax} 250" fill="none" stroke="${c.line}" stroke-width="1.2" stroke-dasharray="3 5"/>`,
-    `<circle r="4" fill="${c.accent}" opacity="0"><animateMotion dur="0.9s" begin="4.6s;4.6s+${cycle}s" fill="freeze"><mpath href="#out"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="0.9s" begin="4.6s;4.6s+${cycle}s"/></circle>`,
-  );
-  const q = 'How do borrowers return seed?';
-  parts.push(
-    `<g opacity="0">${fade(3.6, 4.0)}<rect x="${ax + aw - 270}" y="90" width="270" height="44" rx="22" fill="${c.accent}"/><text x="${ax + aw - 135}" y="117" text-anchor="middle" font-family="${sans}" font-size="14" fill="${c.onAccent}">${esc(q)}</text></g>`,
-  );
-  // Typing dots.
-  parts.push(
+    `<path id="out" d="M${memX + memW} ${inY} C ${memX + memW + 30} ${inY}, ${ax - 40} 250, ${ax} 250" fill="none" stroke="${c.green}" stroke-opacity="0.45" stroke-width="1.2" stroke-dasharray="3 5"/>`,
+    [
+      `<circle r="4.5" fill="${c.green}" opacity="0">`,
+      `<animateMotion dur="0.9s" begin="4.6s;4.6s+${cycle}s" fill="freeze"><mpath href="#out"/></animateMotion>`,
+      `<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="0.9s" begin="4.6s;4.6s+${cycle}s"/></circle>`,
+    ].join(''),
+    [
+      `<g opacity="0">${fade(3.6, 4.0)}`,
+      `<rect x="${ax + aw - 270}" y="90" width="270" height="44" rx="22" fill="${c.green}"/>`,
+      `<text x="${ax + aw - 135}" y="117" text-anchor="middle" font-family="${sans}" font-size="14" font-weight="600" fill="${c.onGreen}">How do borrowers return seed?</text>`,
+      '</g>',
+    ].join(''),
     `<g opacity="0">${fade(4.1, 4.3, 5.4)}${[0, 1, 2]
       .map(
         (d) =>
@@ -186,27 +221,32 @@ function hero(c, title) {
     'plant and how it grew.',
   ];
   parts.push(
-    `<g opacity="0">${fade(5.5, 6.0)}<rect x="${ax}" y="156" width="${aw}" height="128" rx="16" fill="${c.surface}" stroke="${c.border}"/><text x="${ax + 18}" y="182" font-family="${sans}" font-size="11" fill="${c.text3}">Answer</text>${answer
-      .map(
+    [
+      `<g opacity="0">${fade(5.5, 6.0)}`,
+      `<rect x="${ax}" y="156" width="${aw}" height="128" rx="16" fill="${c.surface}" stroke="${c.border}"/>`,
+      `<text x="${ax + 18}" y="182" font-family="${sans}" font-size="11" font-weight="700" fill="${c.text3}">Answer</text>`,
+      ...answer.map(
         (line, i) =>
           `<text x="${ax + 18}" y="${206 + i * 22}" font-family="${serif}" font-size="15.5" fill="${c.text}">${esc(line)}</text>`,
-      )
-      .join(
-        '',
-      )}<rect x="${ax + 180}" y="232" width="20" height="17" rx="5" fill="${c.accentSoft}"/><text x="${ax + 190}" y="244" text-anchor="middle" font-family="${sans}" font-size="11" font-weight="600" fill="${c.accent}">1</text></g>`,
+      ),
+      `<rect x="${ax + 180}" y="232" width="20" height="17" rx="5" fill="${c.red}"/>`,
+      `<text x="${ax + 190}" y="244" text-anchor="middle" font-family="${sans}" font-size="11" font-weight="700" fill="#FFFFFF">1</text>`,
+      '</g>',
+    ].join(''),
   );
   // Source card that the citation opens.
   const quote = (y, line) =>
-    `<text x="${ax + 90}" y="${y}" font-family="${serif}" font-size="14" fill="${c.text}">${esc(line)}</text>`;
+    `<text x="${ax + 96}" y="${y}" font-family="${serif}" font-size="14" fill="${c.text}">${esc(line)}</text>`;
   parts.push(
     [
       `<g opacity="0">${fade(6.6, 7.1)}`,
-      `<rect x="${ax}" y="304" width="${aw}" height="150" rx="16" fill="${c.surface}" stroke="${c.accent}" stroke-width="1.5"/>`,
-      icon('podcast', ax + 18, 322, c.accent),
+      `<rect x="${ax}" y="304" width="${aw}" height="150" rx="16" fill="${c.surface}" stroke="${c.red}" stroke-width="1.5"/>`,
+      icon('podcast', ax + 18, 322, podFg),
       `<text x="${ax + 48}" y="337" font-family="${sans}" font-size="12" fill="${c.text2}">Podcast · A conversation with the seed librarian</text>`,
-      `<rect x="${ax + 18}" y="356" width="52" height="22" rx="11" fill="${c.accentSoft}"/>`,
-      `<text x="${ax + 44}" y="371" text-anchor="middle" font-family="${sans}" font-size="11.5" fill="${c.accent}">▶ 0:09</text>`,
-      `<rect x="${ax + 82}" y="352" width="${aw - 100}" height="52" rx="6" fill="${c.mark}" opacity="0.55"/>`,
+      `<rect x="${ax + 18}" y="356" width="56" height="22" rx="11" fill="${podBg}"/>`,
+      `<text x="${ax + 46}" y="371" text-anchor="middle" font-family="${sans}" font-size="11.5" font-weight="600" fill="${podFg}">▶ 0:09</text>`,
+      `<rect x="${ax + 84}" y="352" width="${aw - 102}" height="52" rx="6" fill="${c.mark}"/>`,
+      `<rect x="${ax + 84}" y="352" width="4" height="52" rx="2" fill="${c.red}"/>`,
       quote(372, 'At the end of summer, borrowers drop'),
       quote(394, 'off dry seed with a short note…'),
       `<text x="${ax + 18}" y="432" font-family="${sans}" font-size="12" fill="${c.text3}">Citation opens the exact passage and timestamp</text>`,
@@ -222,6 +262,7 @@ function flow(c, title) {
   const H = 470;
   const cols = [
     {
+      tint: 'video',
       head: 'Capture',
       sub: 'Anything, from anywhere',
       items: [
@@ -233,6 +274,7 @@ function flow(c, title) {
       ],
     },
     {
+      tint: 'pdf',
       head: 'Understand',
       sub: 'Turned into text you can cite',
       items: [
@@ -244,6 +286,7 @@ function flow(c, title) {
       ],
     },
     {
+      tint: 'article',
       head: 'Remember',
       sub: 'Kept on your server',
       items: [
@@ -255,6 +298,7 @@ function flow(c, title) {
       ],
     },
     {
+      tint: 'podcast',
       head: 'Recall',
       sub: 'Find it the way you remember it',
       items: [
@@ -274,19 +318,21 @@ function flow(c, title) {
     `<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="20" fill="${c.bg}" stroke="${c.border}"/>`,
   ];
   cols.forEach((col, i) => {
+    const [bg, fg] = c.tints[col.tint];
     const x = x0 + i * (colW + gapX);
     parts.push(
       `<rect x="${x}" y="${y0}" width="${colW}" height="${H - y0 * 2}" rx="18" fill="${c.surface}" stroke="${c.border}"/>`,
-      `<circle cx="${x + 36}" cy="${y0 + 38}" r="16" fill="${c.accentSoft}"/><text x="${x + 36}" y="${y0 + 43}" text-anchor="middle" font-family="${sans}" font-size="14" font-weight="700" fill="${c.accent}">${i + 1}</text>`,
-      `<text x="${x + 62}" y="${y0 + 36}" font-family="${serif}" font-size="24" fill="${c.text}">${esc(col.head)}</text>`,
-      `<text x="${x + 62}" y="${y0 + 56}" font-family="${sans}" font-size="12" fill="${c.text3}">${esc(col.sub)}</text>`,
-      `<line x1="${x + 20}" y1="${y0 + 78}" x2="${x + colW - 20}" y2="${y0 + 78}" stroke="${c.border}"/>`,
+      `<rect x="${x}" y="${y0}" width="${colW}" height="6" rx="3" fill="${fg}"/>`,
+      `<circle cx="${x + 36}" cy="${y0 + 40}" r="16" fill="${fg}"/>`,
+      `<text x="${x + 36}" y="${y0 + 45}" text-anchor="middle" font-family="${sans}" font-size="14" font-weight="700" fill="${bg}">${i + 1}</text>`,
+      `<text x="${x + 62}" y="${y0 + 38}" font-family="${serif}" font-size="24" fill="${c.text}">${esc(col.head)}</text>`,
+      `<text x="${x + 62}" y="${y0 + 58}" font-family="${sans}" font-size="12" fill="${c.text3}">${esc(col.sub)}</text>`,
     );
     col.items.forEach((item, j) => {
       const y = y0 + 112 + j * 58;
       parts.push(
-        `<rect x="${x + 14}" y="${y - 22}" width="${colW - 28}" height="40" rx="10" fill="${c.muted}"/>`,
-        `<circle cx="${x + 28}" cy="${y - 2}" r="3.5" fill="${c.accent}"/>`,
+        `<rect x="${x + 14}" y="${y - 22}" width="${colW - 28}" height="40" rx="10" fill="${bg}"/>`,
+        `<circle cx="${x + 28}" cy="${y - 2}" r="3.5" fill="${fg}"/>`,
         `<text x="${x + 40}" y="${y + 3}" font-family="${sans}" font-size="15.5" fill="${c.text}">${esc(item)}</text>`,
       );
     });
@@ -294,8 +340,13 @@ function flow(c, title) {
       const ax = x + colW + 4;
       const ay = H / 2;
       parts.push(
-        `<path d="M${ax} ${ay} h${gapX - 14}" stroke="${c.accent}" stroke-width="1.6"/><path d="M${ax + gapX - 16} ${ay - 5} l6 5 -6 5" fill="none" stroke="${c.accent}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>`,
-        `<circle cx="${ax}" cy="${ay}" r="3" fill="${c.accent}" opacity="0"><animate attributeName="cx" values="${ax};${ax + gapX - 14}" dur="1.6s" begin="${i * 0.4}s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;0" dur="1.6s" begin="${i * 0.4}s" repeatCount="indefinite"/></circle>`,
+        `<path d="M${ax} ${ay} h${gapX - 14}" stroke="${c.text3}" stroke-width="1.6"/>`,
+        `<path d="M${ax + gapX - 16} ${ay - 5} l6 5 -6 5" fill="none" stroke="${c.text3}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>`,
+        [
+          `<circle cx="${ax}" cy="${ay}" r="3.5" fill="${c.red}" opacity="0">`,
+          `<animate attributeName="cx" values="${ax};${ax + gapX - 14}" dur="1.6s" begin="${i * 0.4}s" repeatCount="indefinite"/>`,
+          `<animate attributeName="opacity" values="0;1;0" dur="1.6s" begin="${i * 0.4}s" repeatCount="indefinite"/></circle>`,
+        ].join(''),
       );
     }
   });

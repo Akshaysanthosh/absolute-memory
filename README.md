@@ -26,9 +26,9 @@
 
 <p align="center">
   <a href="https://github.com/Akshaysanthosh/absolute-memory/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Akshaysanthosh/absolute-memory/actions/workflows/ci.yml/badge.svg"></a>
-  <img alt="Self-hosted with Docker" src="https://img.shields.io/badge/self--hosted-Docker-344F48">
-  <img alt="AI optional" src="https://img.shields.io/badge/AI-optional-344F48">
-  <img alt="MCP server included" src="https://img.shields.io/badge/MCP-server-344F48">
+  <img alt="Self-hosted with Docker" src="https://img.shields.io/badge/self--hosted-Docker-1A7F4B">
+  <img alt="AI optional" src="https://img.shields.io/badge/AI-optional-4B2A86">
+  <img alt="MCP server included" src="https://img.shields.io/badge/MCP-server-E60023">
   <!-- TODO(owner): latest release and Docker pulls badges after the first release -->
   <!-- TODO(owner): licence -->
 </p>
