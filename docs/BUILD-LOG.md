@@ -306,3 +306,7 @@ The landing page uses the hero and product-proof ordering seen on the [Karakeep 
 
 - The contribution guide documents setup, checks and proposals. The issue forms route questions to GitHub Discussions. The Code of Conduct uses [Contributor Covenant 2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/) with an owner contact placeholder, and the existing security policy remains the private reporting path.
 - GitHub Discussions is enabled. The repository is private and its homepage field is blank. The social preview upload and other owner decisions remain in the local publish checklist.
+
+### GitHub preview
+
+- GitHub can use a theme independent of the device. The README uses GitHub's [theme-specific image links](https://github.blog/changelog/2021-11-24-specify-theme-context-for-images-in-markdown/) with the logo and library pictures so the visible asset follows the selected GitHub theme.

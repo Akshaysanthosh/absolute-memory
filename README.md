@@ -1,8 +1,10 @@
 <h1 align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/media/brand/logo-dark.svg">
-    <img alt="Absolute Memory" src="docs/media/brand/logo-light.svg" width="360">
-  </picture>
+  <a href="docs/media/brand/logo-light.svg#gh-light-mode-only">
+    <picture><img alt="Absolute Memory" src="docs/media/brand/logo-light.svg" width="360"></picture>
+  </a>
+  <a href="docs/media/brand/logo-dark.svg#gh-dark-mode-only">
+    <picture><img alt="Absolute Memory" src="docs/media/brand/logo-dark.svg" width="360"></picture>
+  </a>
 </h1>
 
 <p align="center"><strong>Your reading library, with answers that cite the page.</strong></p>
@@ -23,10 +25,12 @@
   <!-- TODO(owner): licence -->
 </p>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/media/library-dark.png">
-  <img src="docs/media/library.png" alt="Absolute Memory library with a Topics panel and cards for saved articles, notes, PDFs and audio.">
-</picture>
+<a href="docs/media/library.png#gh-light-mode-only">
+  <picture><img src="docs/media/library.png" alt="Absolute Memory library with topics and cards for saved articles, notes, PDFs and audio."></picture>
+</a>
+<a href="docs/media/library-dark.png#gh-dark-mode-only">
+  <picture><img src="docs/media/library-dark.png" alt="Absolute Memory library with topics and cards for saved articles, notes, PDFs and audio."></picture>
+</a>
 
 ![Demo: open a saved article, highlight a sentence, ask about it and follow the answer's citation back to the highlight.](docs/media/demo.gif)
 
