@@ -1,0 +1,23 @@
+{
+  "name": "absolute-memory-website",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node prepare-assets.mjs && docusaurus build",
+    "dev": "node prepare-assets.mjs && docusaurus start --host 127.0.0.1 --no-open",
+    "serve": "docusaurus serve --host 127.0.0.1 --no-open"
+  },
+  "dependencies": {
+    "@docusaurus/core": "3.10.2",
+    "@docusaurus/preset-classic": "3.10.2",
+    "@fontsource-variable/dm-sans": "5.3.0",
+    "@fontsource-variable/source-serif-4": "5.3.1",
+    "@mdx-js/react": "3.1.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  }
+}

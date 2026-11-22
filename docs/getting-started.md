@@ -16,7 +16,7 @@ cd absolute-memory
 
 Lite runs the app, worker, and embedded PGlite database in one container. Use it for a single account or a small personal instance.
 
-The prebuilt image will be available with the first release. See the [image command](../README.md#use-the-prebuilt-image) for that path. Use the following commands to build from source.
+The prebuilt image will be available with the first release. See the [image command](https://github.com/Akshaysanthosh/absolute-memory#use-the-prebuilt-image) for that path. Use the following commands to build from source.
 
 ```sh
 docker build -t absolute-memory:local .

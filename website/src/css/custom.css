@@ -1,0 +1,92 @@
+@import '@fontsource-variable/dm-sans';
+@import '@fontsource-variable/source-serif-4';
+
+:root {
+  --am-body: #fafaf8;
+  --am-surface: #ffffff;
+  --am-muted: #f1f2ef;
+  --am-text: #242824;
+  --am-secondary: #626a65;
+  --am-accent: #344f48;
+  --am-soft-accent: #e7eeea;
+  --am-on-accent: #ffffff;
+  --am-border: #dddfda;
+  --ifm-color-scheme: light;
+  --ifm-background-color: var(--am-body);
+  --ifm-background-surface-color: var(--am-surface);
+  --ifm-font-color-base: var(--am-text);
+  --ifm-color-content: var(--am-text);
+  --ifm-color-content-secondary: var(--am-secondary);
+  --ifm-color-primary: var(--am-accent);
+  --ifm-color-primary-dark: var(--am-accent);
+  --ifm-color-primary-darker: var(--am-accent);
+  --ifm-color-primary-darkest: var(--am-text);
+  --ifm-color-primary-light: var(--am-accent);
+  --ifm-color-primary-lighter: var(--am-accent);
+  --ifm-color-primary-lightest: var(--am-accent);
+  --ifm-navbar-background-color: var(--am-body);
+  --ifm-footer-background-color: var(--am-muted);
+  --ifm-footer-link-color: var(--am-text);
+  --ifm-font-family-base: 'DM Sans Variable', system-ui, sans-serif;
+  --ifm-heading-font-family: 'Source Serif 4 Variable', Georgia, serif;
+  --ifm-heading-font-weight: 600;
+  --ifm-navbar-shadow: 0 1px 0 var(--am-border);
+  --ifm-menu-color-active: var(--am-accent);
+  --ifm-menu-color-background-active: var(--am-soft-accent);
+  --ifm-toc-border-color: var(--am-border);
+}
+
+html[data-theme='dark'] {
+  --am-body: #000000;
+  --am-surface: #0a0a0a;
+  --am-muted: #171717;
+  --am-text: #fafafa;
+  --am-secondary: #a3a3a3;
+  --am-accent: #fafafa;
+  --am-soft-accent: #171717;
+  --am-on-accent: #000000;
+  --am-border: #292929;
+  --ifm-color-scheme: dark;
+  --ifm-background-color: var(--am-body);
+  --ifm-background-surface-color: var(--am-surface);
+  --ifm-color-primary: var(--am-accent);
+  --ifm-navbar-background-color: var(--am-body);
+  --ifm-footer-background-color: var(--am-muted);
+  --ifm-footer-link-color: var(--am-text);
+}
+
+.navbar__inner {
+  max-width: 77rem;
+  margin-inline: auto;
+}
+
+.navbar__logo {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+[data-theme='dark'] .navbar__logo {
+  background: #e7eeea;
+  border-radius: 0.25rem;
+}
+
+.footer__links {
+  margin: 0;
+}
+
+.footer__col {
+  display: grid;
+  justify-items: center;
+}
+
+.footer__items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--am-accent);
+  outline-offset: 4px;
+}

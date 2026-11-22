@@ -1,6 +1,6 @@
 # Upgrade an instance
 
-Before replacing the image, read the [changelog](../CHANGELOG.md) and take an [instance backup](backup.md). Keep the previous image tag until you have checked the upgrade.
+Before replacing the image, read the [changelog](https://github.com/Akshaysanthosh/absolute-memory/blob/main/CHANGELOG.md) and take an [instance backup](backup.md). Keep the previous image tag until you have checked the upgrade.
 
 ## Lite
 

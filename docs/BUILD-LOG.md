@@ -247,5 +247,66 @@ The Reader has no literal hex colours. The remaining values in components are gr
 
 - The card action button uses the theme’s popover surface, a border and subtle shadow. The demo suns sit in the middle third of the cover, clear of the corner controls.
 - The private target is [Absolute Memory](https://github.com/Akshaysanthosh/absolute-memory). The previous preview has a separate [archive URL](https://github.com/Akshaysanthosh/absolute-memory-preview-archive). The offline pre-release bundle is named `absolute-memory-prerelease-2026-11-22.bundle` and is kept in the owner’s `absolute-memory-archive` folder.
-- The [release commit on main](https://github.com/Akshaysanthosh/absolute-memory/commit/main) is the single root commit. Dependabot version updates are off until the public launch, when the owner will restore the configuration file. Dependabot security alerts remain enabled.
+- Release commit `50d2f80dae03c304cc47e4189bf69436be333c8b` is the single root commit on `main`. Dependabot version updates are off until the public launch, when the owner will restore `.github/dependabot.yml`. Dependabot security alerts remain enabled. [Release commit](https://github.com/Akshaysanthosh/absolute-memory/commit/50d2f80dae03c304cc47e4189bf69436be333c8b)
 - The owner will choose a licence and public launch date, record the demo GIF, and test MCP while signed in to Claude Desktop and Cursor. The owner can decide later whether to delete the archived preview.
+
+## Showcase
+
+### Brand assets
+
+- The light and dark lockups retain the outlined wordmark and two-bar symbol from `public/brand/absolute/horizontal.svg`. The standalone mark uses the original `symbol.svg` geometry. Colours come from the Astryx overrides in `src/shared/am-theme.ts`.
+- The 1280 × 640 social preview uses the light lockup, Source Serif 4 and a crop of the demo library. Its typography and frame use the app theme colours.
+
+### Demo and screenshots
+
+- `npm run docs:screenshots` keeps the six existing screenshots and adds a native 1440 × 900 dark library image, topic results, the personal keys screen used for MCP setup, and the export screen.
+- `npm run docs:demo` uses the same Playwright session, synthetic library and loopback mock-provider fixture as the screenshot tooling. The demo signs in before recording the user journey, highlights a new sentence, asks about it and asserts that the citation returns to the saved highlight.
+- The reviewed recording is 17.80 seconds. The MP4 is 1280 × 800 at 30 fps and the palette-encoded GIF is 960 × 600 and 2,327,564 bytes. The cursor, question, citation and final highlight were inspected in extracted frames. FFmpeg decoded every frame without errors.
+
+### README claims checked against the implementation
+
+| Claim                                                       | Implementation evidence                                                                                                                                                                                                                                                                                                                                            |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Save articles, PDFs, notes and podcasts                     | Article and note capture in [library.ts](../src/server/services/library.ts), article extraction in [article.ts](../src/server/services/import/article.ts), PDF extraction in [documents.ts](../src/server/services/documents.ts), and episode saves in [save-podcast.ts](../src/server/services/media/save-podcast.ts).                                            |
+| Read timed transcripts                                      | [Media routes and reader data](../src/server/services/reading.ts) return stored content and timestamps, and [transcription.ts](../src/server/providers/transcription.ts) implements the optional audio endpoint. The demo seed asserts timed passages on a synthetic episode.                                                                                      |
+| Highlight, change the reader appearance, and resume reading | The [reader](../src/features/reader/reader.tsx) renders passage highlights and exposes the appearance controls. [Reading services](../src/server/services/reading.ts) save highlights and reading position.                                                                                                                                                        |
+| Full-text and optional semantic search                      | [library-search.ts](../src/server/services/library-search.ts) uses [search queries](../src/server/repos/library-search.ts). [query-vector.ts](../src/server/services/knowledge/query-vector.ts) adds query embeddings where configured.                                                                                                                            |
+| Ask with passage citations                                  | [answer.ts](../src/server/services/knowledge/answer.ts) retrieves passages and returns cited evidence. [library-chat.tsx](../src/components/library-chat.tsx) renders links that open the reader. The recorded demo verifies the final anchor.                                                                                                                     |
+| Tags, model-generated summaries and experimental graph      | [knowledge-worker.ts](../src/server/jobs/knowledge-worker.ts) derives tags, summaries and entities, and [graph.ts](../src/server/services/knowledge/graph.ts) assembles the graph view.                                                                                                                                                                            |
+| Chromium extension, API, CLI and MCP                        | The extension has a [Chromium manifest](../extension/manifest.json) and [capture implementation](../extension/page-capture.mjs). [OpenAPI](schemas/openapi-v1.json) documents scoped HTTP access. [cli.mjs](../packages/cli/cli.mjs) and [mcp-tools.mjs](../packages/cli/mcp-tools.mjs) implement the CLI and stdio tools.                                         |
+| Portable ZIP and instance backup                            | [export.ts](../src/server/services/transfers/export.ts) writes the archive and [portable-import.ts](../src/server/services/transfers/portable-import.ts) restores it. [The export schema](schemas/export-v1.schema.json) and [backup procedures](backup.md) describe both paths.                                                                                   |
+| Lite and Standard deployment                                | The [Dockerfile](../Dockerfile) packages the app and runtime tools. [docker/compose.yml](../docker/compose.yml) connects separate web and worker containers to PostgreSQL, with storage options documented in the install guide.                                                                                                                                   |
+| Optional AI, local models and network requests              | [Provider configuration](../src/server/providers/index.ts) returns no chat or embeddings client until configured. [Provider recipes](providers.md) describe compatible local and remote endpoints. [Privacy](privacy.md) maps network requests to their triggers. The build and runtime explicitly disable Next.js telemetry, and the app has no analytics client. |
+
+### Reference projects
+
+Official sources read on **22 November 2026**. A dash in the README means the reviewed official docs did not list a matching feature. Omnivore's current README says the hosted service ended in November 2024 and describes ongoing self-hosted use. The GitHub repository reports that it is unarchived.
+
+| Project    | Official sources reviewed                                                                                                                                                                                                                                                           |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Karakeep   | [README](https://github.com/karakeep-app/karakeep/blob/main/README.md), [MCP docs](https://docs.karakeep.com/integrations/mcp/), [CLI migration](https://docs.karakeep.com/administration/server-migration/)                                                                        |
+| Linkwarden | [README](https://github.com/linkwarden/linkwarden/blob/main/README.md), [reader and highlights](https://docs.linkwarden.app/usage/read-and-annotate), [JSON import and export](https://docs.linkwarden.app/usage/import-and-export)                                                 |
+| Readeck    | [README](https://codeberg.org/readeck/readeck/src/branch/main/README.md), [official documentation](https://readeck.org/en/docs/), [changelog](https://codeberg.org/readeck/readeck/src/branch/main/CHANGELOG.md)                                                                    |
+| wallabag   | [README](https://github.com/wallabag/wallabag/blob/master/README.md), [annotations](https://doc.wallabag.org/user/articles/annotations/), [downloads](https://doc.wallabag.org/user/articles/download/), [changelog](https://github.com/wallabag/wallabag/blob/master/CHANGELOG.md) |
+| Omnivore   | [README](https://github.com/omnivore-app/omnivore/blob/main/README.md), [self-hosting guide](https://github.com/omnivore-app/omnivore/blob/main/self-hosting/GUIDE.md)                                                                                                              |
+| Memos      | [README](https://github.com/usememos/memos/blob/main/README.md) and [site](https://usememos.com/) for the themed screenshots, feature lead-ins and install path                                                                                                                     |
+| Immich     | [README](https://github.com/immich-app/immich) for prominent installation and documentation links                                                                                                                                                                                   |
+| Khoj       | [README](https://github.com/khoj-ai/khoj) for positioning the project before integration detail                                                                                                                                                                                     |
+
+The landing page uses the hero and product-proof ordering seen on the [Karakeep site](https://karakeep.com/) and [Linkwarden site](https://linkwarden.app/), with the direct product screenshot approach from the Readeck README.
+
+### Documentation site
+
+- Docusaurus 3.10.2 reads the user-facing Markdown directly from `docs/`. Its separate package and lockfile keep the app's dependency graph and Docker build context independent. The licence check audits the website lockfile as well.
+- The website build treats unresolved links, Markdown links and anchors as errors. The CI website job builds with those checks. The optional Pages workflow is manual and gated on public visibility and `main`. No site was deployed.
+- Chromium verified the light and dark assets at 375, 768, 1024 and 1440 pixels without horizontal overflow. Text and control colour combinations tested at 4.73:1 or higher in light mode and 7.11:1 or higher in dark mode. The install and docs links, keyboard skip link, video and copy button worked against the local static build.
+- The existing retired-palette test scans all tracked files, including the docs website source and brand SVGs. The site maps its colours to the same Astryx values as the app.
+
+### Community setup
+
+- The contribution guide documents setup, checks and proposals. The issue forms route questions to GitHub Discussions. The Code of Conduct uses [Contributor Covenant 2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/) with an owner contact placeholder, and the existing security policy remains the private reporting path.
+- GitHub Discussions is enabled. The repository is private and its homepage field is blank. The social preview upload and other owner decisions remain in the local publish checklist.
+
+### GitHub preview
+
+- GitHub can use a theme independent of the device. The README uses GitHub's [theme-specific image links](https://github.blog/changelog/2021-11-24-specify-theme-context-for-images-in-markdown/) with the logo and library pictures so the visible asset follows the selected GitHub theme.

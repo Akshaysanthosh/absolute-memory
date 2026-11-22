@@ -11,3 +11,10 @@ body:
     id: current
     attributes:
       label: How do you handle it today?
+  - type: textarea
+    id: outcome
+    attributes:
+      label: What would a successful change let you do?
+      description: Describe the result you need, including any constraints.
+    validations:
+      required: true

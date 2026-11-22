@@ -31,4 +31,4 @@ whisper-server --host 127.0.0.1 --port 8080 \
 
 Set `TRANSCRIPTION_BASE_URL=http://127.0.0.1:8080/v1` and `TRANSCRIPTION_MODEL=tiny.en`. In Docker, replace the address with a service name or another reachable on-network address. Keep the Whisper server on a private interface. [Whisper.cpp server options](https://github.com/ggml-org/whisper.cpp/blob/master/examples/server/README.md)
 
-The automated suite exercises all three adapters against a local fixture server. Live checks are recorded in the [build log](BUILD-LOG.md).
+The automated suite exercises all three adapters against a local fixture server.

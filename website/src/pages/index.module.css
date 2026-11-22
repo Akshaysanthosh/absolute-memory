@@ -1,0 +1,212 @@
+.hero,
+.demo,
+.features,
+.selfHost,
+.final {
+  box-sizing: border-box;
+  width: min(calc(100% - 3rem), 74rem);
+  margin-inline: auto;
+}
+
+.hero {
+  padding-block: clamp(3.25rem, 7vw, 6rem) clamp(2rem, 5vw, 4.5rem);
+  text-align: center;
+}
+
+.heroCopy {
+  max-width: 66rem;
+  margin-inline: auto;
+}
+
+.hero h1 {
+  max-width: 26ch;
+  margin: 0 auto 1rem;
+  font-size: clamp(2.5rem, 5.5vw, 4.8rem);
+  line-height: 1.01;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.hero p,
+.sectionHeading p,
+.feature p,
+.selfHost p {
+  color: var(--am-secondary);
+}
+
+.hero p {
+  max-width: 34rem;
+  margin: 0 auto 1.6rem;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  min-height: 2.9rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--am-accent);
+  border-radius: 0.5rem;
+  padding: 0.62rem 1.2rem;
+  font-weight: 700;
+}
+
+.primary {
+  background: var(--am-accent);
+  color: var(--am-on-accent);
+}
+
+.primary:hover {
+  color: var(--am-on-accent);
+}
+
+.secondary {
+  color: var(--am-accent);
+}
+
+.frame {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--am-border);
+  border-radius: 0.85rem;
+  background: var(--am-surface);
+}
+
+.heroImage {
+  margin: clamp(1.75rem, 4vw, 3.25rem) auto 0;
+}
+
+.demo {
+  max-width: 56rem;
+  padding-block: 1.75rem 3.5rem;
+}
+
+.sectionHeading {
+  margin: 0 auto 1.8rem;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.sectionHeading h2,
+h2.sectionHeading,
+.selfHost h2,
+.final h2 {
+  margin: 0 0 0.8rem;
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+h2.sectionHeading {
+  margin: 0 auto clamp(2.5rem, 7vw, 5rem);
+}
+
+.sectionHeading p,
+.demoLink {
+  margin: 0.75rem auto 0;
+}
+
+.demoLink {
+  text-align: center;
+}
+
+.transcript {
+  margin: 1rem auto 0;
+  max-width: 42rem;
+}
+
+.features {
+  padding-block: clamp(3rem, 7vw, 6rem) 2rem;
+  border-top: 1px solid var(--am-border);
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.25fr);
+  align-items: center;
+  gap: clamp(1.5rem, 5vw, 5.5rem);
+  margin-block: 0 clamp(2.75rem, 7vw, 6rem);
+}
+
+.feature.reverse {
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.8fr);
+}
+
+.reverse .featureText {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.featureText h3,
+.install h3 {
+  font-size: clamp(1.65rem, 3vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+.featureText a,
+.selfHost a,
+.demoLink a {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.selfHost {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 5vw, 4rem);
+  border: 1px solid var(--am-border);
+  border-radius: 0.85rem;
+  background: var(--am-soft-accent);
+  padding: clamp(1.5rem, 4.5vw, 4rem);
+}
+
+.install {
+  min-width: 0;
+}
+
+.install h3 {
+  font-size: 1.5rem;
+}
+
+.final {
+  padding-block: clamp(3.75rem, 9vw, 7.75rem);
+  text-align: center;
+}
+
+.final h2 {
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 767px) {
+  .hero,
+  .demo,
+  .features,
+  .selfHost,
+  .final {
+    width: calc(100% - 2rem);
+  }
+
+  .feature,
+  .feature.reverse,
+  .selfHost {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .reverse .featureText {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}

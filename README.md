@@ -1,111 +1,171 @@
-# Absolute Memory
+<h1 align="center">
+  <a href="docs/media/brand/logo-light.svg#gh-light-mode-only">
+    <picture><img alt="Absolute Memory" src="docs/media/brand/logo-light.svg" width="360"></picture>
+  </a>
+  <a href="docs/media/brand/logo-dark.svg#gh-dark-mode-only">
+    <picture><img alt="Absolute Memory" src="docs/media/brand/logo-dark.svg" width="360"></picture>
+  </a>
+</h1>
 
-Save articles, documents, and media in a library you run yourself. Highlight what matters, find it later, and use an optional AI provider to ask questions with links back to the original passages.
+<p align="center"><strong>Your reading library, with answers that cite the page.</strong></p>
 
-[![CI](https://github.com/Akshaysanthosh/absolute-memory/actions/workflows/ci.yml/badge.svg)](https://github.com/Akshaysanthosh/absolute-memory/actions/workflows/ci.yml)
+<p align="center">Save articles, PDFs, notes and podcasts in a library you run yourself. Highlight what matters, find it again, and follow answers back to the passages they came from.</p>
 
-![Desktop library with the left navigation rail, Topics panel, and eight cards for articles, a podcast, a PDF, a note, and a transcript](docs/media/library.png)
+<p align="center">
+  <a href="#quick-start">Install</a> · <a href="#documentation">Docs</a> · <a href="#features">Features</a> · <a href="#alternatives">Alternatives</a> · <a href="CHANGELOG.md">Changelog</a>
+  <!-- TODO(owner): Demo instance and Discord -->
+  <!-- TODO(owner): hosted edition link -->
+</p>
 
-[See the mobile library with bottom navigation](docs/media/library-mobile.png)
+<p align="center">
+  <a href="https://github.com/Akshaysanthosh/absolute-memory/actions/workflows/ci.yml">
+    <img alt="CI" src="https://github.com/Akshaysanthosh/absolute-memory/actions/workflows/ci.yml/badge.svg">
+  </a>
+  <!-- TODO(owner): latest release and Docker pulls badges after the first release -->
+  <!-- TODO(owner): licence -->
+</p>
 
-[Quick start](#quick-start) · [Deployment guide](docs/getting-started.md) · [Documentation](docs/README.md) · [Changelog](CHANGELOG.md)
+<a href="docs/media/library.png#gh-light-mode-only">
+  <picture><img src="docs/media/library.png" alt="Absolute Memory library with topics and cards for saved articles, notes, PDFs and audio."></picture>
+</a>
+<a href="docs/media/library-dark.png#gh-dark-mode-only">
+  <picture><img src="docs/media/library-dark.png" alt="Absolute Memory library with topics and cards for saved articles, notes, PDFs and audio."></picture>
+</a>
 
-<!-- ![Save, highlight, search, and follow a citation](docs/media/demo.gif) -->
+![Demo: open a saved article, highlight a sentence, ask about it and follow the answer's citation back to the highlight.](docs/media/demo.gif)
+
+[Watch the MP4](docs/media/demo.mp4)
+
+## Features
+
+### Save
+
+- **Keep articles, PDFs and notes together.** Save article URLs, upload documents, or write a note from the library.
+- **Read what you listened to.** Save supported podcast episodes and read timed transcripts when a source or configured transcription provider supplies them.
+
+### Read
+
+- **Mark the passage.** Highlight text in the reader and jump back to it from your Highlights list.
+- **Read comfortably.** Choose light or dark appearance, adjust typography, and pick up from your saved position.
+
+### Find and ask
+
+- **Find words or meaning.** Use full-text search by default. Add an embedding provider for semantic search.
+- **Answers with passage citations.** Configure a chat provider to ask your library a question and follow the answer back to the saved text.
+- **Revisit a topic.** Browse tags and summaries. With AI configured, the experimental graph can show links between extracted entities and saved items.
+
+### Connect
+
+- **Save from Chromium.** Pair the extension to capture a page or selected text.
+- **Connect other tools.** Use scoped keys with the HTTP API, CLI, or local stdio MCP server.
+
+### Own your data
+
+- **Move or back up a library.** Export a portable ZIP with [a documented format](docs/export-format.md), or follow the [instance backup guide](docs/backup.md) for recovery.
 
 ## Quick start
 
-You'll need a running Docker installation and OpenSSL. The container supports Linux AMD64 and ARM64.
-
-### Use the prebuilt image
-
-**Available after the first release.** The command starts Lite and keeps the library in a named volume.
-
-```sh
-docker run -d --name absolute-memory -p 127.0.0.1:3000:3000 -v absolute-memory-data:/data -e AUTH_SECRET="$(openssl rand -base64 32)" ghcr.io/akshaysanthosh/absolute-memory:0.1.0
-```
-
-### Build from source
-
-Install Git and run these commands.
+With Git, Docker and OpenSSL installed, build the Lite image and start it on your machine.
 
 ```sh
 git clone https://github.com/Akshaysanthosh/absolute-memory.git
 cd absolute-memory
 docker build -t absolute-memory:local .
-docker run -d --name absolute-memory \
-  -p 127.0.0.1:3000:3000 \
+docker run -d --name absolute-memory -p 127.0.0.1:3000:3000 \
   -v absolute-memory-data:/data \
-  -e AUTH_SECRET="$(openssl rand -base64 32)" \
-  absolute-memory:local
+  -e AUTH_SECRET="$(openssl rand -base64 32)" absolute-memory:local
 ```
 
-1. Open [http://localhost:3000](http://localhost:3000) and create the owner account.
-2. Select **Add** and save an article URL.
-3. Open the saved article, select a sentence, and choose **Highlight**.
-4. Find the quote in **Highlights**, open it, and use **Appearance** to switch between Light and Dark.
-5. Search your library for a word from the quote. With a chat provider configured, open **Ask**, ask about the article, and follow a citation to its passage.
+Open [localhost:3000](http://localhost:3000), create the owner account, then select **Add** to save your first article. Lite keeps the app, worker and database in one container. Keep the data volume when replacing it. For separate web, worker and PostgreSQL services, use [Standard](docs/getting-started.md#standard).
 
-Both commands start **Lite**, with the app, worker, and PGlite database in one container. Keep the `absolute-memory-data` volume when replacing the container. The first source build downloads dependencies and media tooling, so its duration varies by connection and machine. For separate web and worker services with PostgreSQL, follow the [Standard deployment guide](docs/getting-started.md#standard).
+### Use the prebuilt image
 
-Check the instance from your terminal with `docker exec absolute-memory absolute-memory doctor`.
+**Available after the first release.**
 
-## What you can do
+```sh
+docker run -d --name absolute-memory -p 127.0.0.1:3000:3000 \
+  -v absolute-memory-data:/data \
+  -e AUTH_SECRET="$(openssl rand -base64 32)" ghcr.io/akshaysanthosh/absolute-memory:0.1.0
+```
 
-| Feature                                                                  | Status                                                                            |
-| ------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
-| Save articles, notes, PDFs, workbooks, screenshots, and supported media  | Stable for articles, notes, and document capture. Media support varies by source. |
-| Read, save basic highlights, and search by keyword                       | Stable                                                                            |
-| Export your library as a ZIP and restore it on another instance          | Stable                                                                            |
-| Generate summaries, search semantically, and chat with passage citations | Beta                                                                              |
-| Connect the Chrome extension, HTTP API, CLI, or an MCP client            | Beta                                                                              |
-| Generate automatic graph connections and image descriptions              | Experimental                                                                      |
+<details>
+<summary>Build from source without Docker</summary>
 
-### Read and highlight
-
-![Light Reader showing A cooler roof for the library, its cover illustration, and a highlighted sentence](docs/media/reader-light.png)
-
-[See Dark Reader](docs/media/reader-dark.png) · [See Reader on a 375px phone](docs/media/reader-mobile.png)
-
-### Ask and follow a citation
-
-![Chat answers a question about the roof sensor beside the workspace rail. The Reader opens the cited sentence about unshaded gravel on the right.](docs/media/ask-citation.png)
-
-Reading, highlights, keyword search, and library transfers work with AI disabled. Absolute Memory sends no telemetry. See the [network and privacy guide](docs/privacy.md) for when captures and configured services make requests.
-
-Colour highlights, passage notes and the reading assistant are available in the hosted edition at absolutememory.app.
-
-## How it works
-
-The Reader stores sanitised HTML and numbered passages. Highlights keep their quote and passage offsets, and Ask uses the same passage numbers to link answers back to your reading. Keyword search runs locally. Add an embedding provider to rank related passages by meaning. See the [Reader architecture](docs/architecture/reader.md) and [search and citations](docs/architecture/search.md).
-
-## Connect AI or MCP
-
-| Provider            | Capabilities                                        |
-| ------------------- | --------------------------------------------------- |
-| OpenAI              | Chat, embeddings, and transcription                 |
-| DeepSeek            | Chat and structured summaries                       |
-| OpenRouter          | Chat with a supported model                         |
-| Ollama or LM Studio | Local chat and embeddings with installed models     |
-| Local Whisper       | Transcription through an OpenAI-compatible endpoint |
-
-Follow the [AI provider guide](docs/providers.md) to configure an endpoint. To connect an MCP client, create a personal key under **Settings → API keys**, then follow the [stdio setup guide](docs/mcp.md).
-
-## Develop locally
-
-Use Node.js 22 and npm from the repository root.
+With Node.js 22, run the following inside the clone. Open [localhost:3000](http://localhost:3000).
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). The dev server uses PGlite and stores data in `./data` by default. Add an `.env.local` file if you want to override settings. Run `npm test` for the unit and integration suites and `npm run test:e2e` for Playwright. See [Contributing](CONTRIBUTING.md) for the full verification workflow.
+The development app uses embedded PGlite. See [local development](docs/getting-started.md#local-development) for media tools and the mock AI provider.
+
+</details>
+
+## Screenshots
+
+<table>
+  <tr>
+    <td><a href="docs/media/reader-light.png"><img src="docs/media/reader-light.png" alt="Light reader with an illustrated article cover and highlighted text."></a><br>Reader, light</td>
+    <td><a href="docs/media/reader-dark.png"><img src="docs/media/reader-dark.png" alt="The same article in the dark reader."></a><br>Reader, dark</td>
+  </tr>
+  <tr>
+    <td><a href="docs/media/ask-citation.png"><img src="docs/media/ask-citation.png" alt="An answer alongside the source passage opened by its citation."></a><br>Ask with citation</td>
+    <td><a href="docs/media/library-mobile.png"><img src="docs/media/library-mobile.png" width="184" alt="Mobile library with saved cards and bottom navigation."></a><br>Mobile library</td>
+  </tr>
+</table>
+
+## Privacy and AI
+
+AI is optional and off by default. Reading, highlights, keyword search and library transfers work without it. Chat and summaries use an OpenAI-compatible endpoint, such as OpenAI, DeepSeek, OpenRouter, Ollama or LM Studio. Local models work through Ollama or LM Studio when their endpoint is reachable by the instance. [Provider setup](docs/providers.md)
+
+When you save a link, your instance contacts its source. If you configure AI, the relevant prompts, saved passages, files or audio go to the endpoint you choose when that feature needs them. The app sends no telemetry. [Privacy and network use](docs/privacy.md)
+
+## Alternatives
+
+A dash means the feature is unlisted in the official documentation reviewed. The table covers built-in features and documented integrations.
+
+| Project                                                | Self-hosted | Reader highlights | AI answers with passage citations | MCP server                                         | Documented export                                                                             | Status                                                        |
+| ------------------------------------------------------ | ----------- | ----------------- | --------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| **Absolute Memory**                                    | Yes         | Yes               | Yes, with chat configured         | Yes, local stdio                                   | [Portable ZIP and schema](docs/export-format.md)                                              | Release candidate                                             |
+| [Karakeep](https://github.com/karakeep-app/karakeep)   | Yes         | Yes               | —                                 | [Yes](https://docs.karakeep.com/integrations/mcp/) | [CLI migration](https://docs.karakeep.com/administration/server-migration/)                   | Maintained                                                    |
+| [Linkwarden](https://github.com/linkwarden/linkwarden) | Yes         | Yes               | —                                 | —                                                  | [JSON backup](https://docs.linkwarden.app/usage/import-and-export)                            | Maintained                                                    |
+| [Readeck](https://codeberg.org/readeck/readeck)        | Yes         | Yes               | —                                 | —                                                  | [EPUB](https://codeberg.org/readeck/readeck/src/branch/main/README.md)                        | Maintained                                                    |
+| [wallabag](https://doc.wallabag.org/)                  | Yes         | Yes               | —                                 | —                                                  | [Article downloads, including JSON and PDF](https://doc.wallabag.org/user/articles/download/) | Maintained                                                    |
+| [Omnivore](https://github.com/omnivore-app/omnivore)   | Yes         | Yes               | —                                 | —                                                  | —                                                                                             | Hosted service closed in 2024. Self-hosted project continues. |
+
+Karakeep and Linkwarden offer native mobile apps. Linkwarden supports shared collections, and Readeck exports collections for e-readers. If native offline reading, collaborative bookmarking, or EPUB export matters more than asking questions with passage citations, one of those projects may fit better.
+
+## How it works
+
+The Next.js app and a background worker extract readable content and store numbered passages and original files. Lite uses embedded PGlite and local storage, while Standard uses PostgreSQL with pgvector and can use S3-compatible storage. The reader anchors highlights to passages, and Ask retrieves from those same passages to link an answer to its source. [Architecture](docs/architecture/overview.md)
+
+```mermaid
+flowchart LR
+  S["Articles, PDFs, notes and audio"] --> W["App and worker"]
+  W --> L["Library, files and numbered passages"]
+  L --> R["Reader and highlights"]
+  L --> Q["Search and Ask"]
+  Q -->|"Passage citation"| R
+```
 
 ## Documentation
 
-- **Install and operate** · [Deployment profiles](docs/getting-started.md), [configuration](docs/configuration.md), [backups](docs/backup.md), [upgrades](docs/upgrading.md), and [hardening](docs/hardening.md)
-- **Use your library** · [Media capture](docs/media.md), [import and export](docs/import-export.md), and [export format](docs/export-format.md)
-- **Integrate** · [Chrome extension](docs/extension.md), [HTTP API](docs/api.md), [CLI](docs/cli.md), and [MCP](docs/mcp.md)
-- **Contribute** · [Development and testing](CONTRIBUTING.md), [architecture](docs/architecture/overview.md), and [security reporting](SECURITY.md)
+Run the [docs website](website/) locally, or start with a guide on GitHub.
 
-The project licence is [pending](LICENSE-PENDING.md). See the [third-party notices](THIRD_PARTY_NOTICES.md) for dependency credits.
+- [Install](docs/getting-started.md) · [Configure](docs/configuration.md) · [AI providers](docs/providers.md)
+- [Import and export](docs/import-export.md) · [Backups](docs/backup.md) · [Upgrading](docs/upgrading.md)
+- [MCP](docs/mcp.md) · [Extension](docs/extension.md) · [CLI](docs/cli.md) · [HTTP API](docs/api.md)
+- [All guides](docs/README.md) · [Privacy](docs/privacy.md) · [Hardening](docs/hardening.md)
+
+## Contributing
+
+See [Contributing](CONTRIBUTING.md) for setup and checks, and [Security](SECURITY.md) for private vulnerability reporting.
+
+<!-- TODO(owner): community links, Twitter, contributors image and star-history chart -->
+
+## Licence
+
+Licence to be announced. [Licence status](LICENSE-PENDING.md)
+
+<!-- TODO(owner): licence -->

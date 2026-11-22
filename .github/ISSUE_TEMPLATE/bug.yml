@@ -20,3 +20,10 @@ body:
       label: Expected and observed behavior
     validations:
       required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and relevant logs
+      description: Include your OS, browser and deployment profile. Remove secrets and saved content.
+    validations:
+      required: false

@@ -55,3 +55,29 @@ ${[...rows].sort().join('\n')}
 if (process.argv.includes('--write')) writeFileSync(notices, output);
 else if (readFileSync(notices, 'utf8') !== output)
   throw new Error('THIRD_PARTY_NOTICES.md is out of date.');
+
+// The docs site is built separately and its lockfile never enters the app image.
+const siteLock = JSON.parse(readFileSync(new URL('website/package-lock.json', root), 'utf8'));
+const siteAllowed = new Set([
+  ...allowed,
+  'Python-2.0',
+  '(MIT OR CC0-1.0)',
+  '(WTFPL OR MIT)',
+  '(BSD-2-Clause OR MIT OR Apache-2.0)',
+]);
+// These three legacy packages declare MIT in their published package or licence file.
+const siteLegacy = new Map([
+  ['eval@0.1.8', 'MIT'],
+  ['format@0.2.2', 'MIT'],
+  ['require-like@0.1.2', 'MIT'],
+]);
+const siteInvalid = [];
+for (const [path, entry] of Object.entries(siteLock.packages)) {
+  if (!path) continue;
+  const name = path.split('node_modules/').at(-1);
+  const dependency = `${name}@${entry.version}`;
+  const licence = entry.license ?? siteLegacy.get(dependency);
+  if (!siteAllowed.has(licence)) siteInvalid.push(`${dependency}: ${licence ?? 'unknown'}`);
+}
+if (siteInvalid.length)
+  throw new Error(`Unexpected docs site dependency licences:\n${siteInvalid.join('\n')}`);
