@@ -4,6 +4,10 @@ import { redirect } from 'next/navigation';
 import { getAuth } from '@/server/auth/auth';
 import { listHighlightPage } from '@/server/services/reading';
 import { passageHref } from '@/shared/passages';
+import styles from './highlights.module.css';
+
+export const metadata = { title: 'Highlights · Absolute Memory' };
+const dateFormat = new Intl.DateTimeFormat('en', { dateStyle: 'medium' });
 
 export default async function HighlightsPage({
   searchParams,
@@ -26,24 +30,40 @@ export default async function HighlightsPage({
     grouped.set(highlight.itemId, existing);
   }
   return (
-    <main>
-      <h1>Highlights</h1>
-      {!highlights.length && <p>Highlights you save will appear here.</p>}
+    <main className={styles.page}>
+      <header className={styles.intro}>
+        <h1>Highlights</h1>
+        <p>
+          Every passage you have highlighted, newest first. Select one to open it in the reader.
+        </p>
+      </header>
+      {!highlights.length && (
+        <section className={styles.empty}>
+          <h2>No highlights yet</h2>
+          <p>Open anything you have saved, select text and press H. It will appear here.</p>
+        </section>
+      )}
       {[...grouped].map(([id, marks]) => (
-        <section key={id}>
+        <section key={id} className={styles.group}>
           <h2>
             <Link href={passageHref(id)}>{marks[0].title}</Link>
+            <span>{marks.length === 1 ? '1 highlight' : `${marks.length} highlights`}</span>
           </h2>
-          <ul>
+          <ul className={styles.quotes}>
             {marks.map((mark) => (
               <li key={mark.id}>
-                <Link href={passageHref(id, mark.segments[0]?.passageIndex)}>{mark.quote}</Link>
+                <Link href={passageHref(id, mark.segments[0]?.passageIndex)}>
+                  {mark.quote}
+                  <time dateTime={new Date(mark.createdAt).toISOString()}>
+                    {dateFormat.format(new Date(mark.createdAt))}
+                  </time>
+                </Link>
               </li>
             ))}
           </ul>
         </section>
       ))}
-      <nav aria-label="Highlight pages">
+      <nav aria-label="Highlight pages" className={styles.pager}>
         {page > 1 && <Link href={`?page=${page - 1}`}>Previous page</Link>}
         {nextOffset !== null && <Link href={`?page=${page + 1}`}>Next page</Link>}
       </nav>
