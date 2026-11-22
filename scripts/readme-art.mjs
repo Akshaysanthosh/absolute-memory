@@ -226,7 +226,7 @@ function flow(c, title) {
       sub: 'Anything, from anywhere',
       items: [
         'Paste a link or upload a file',
-        'YouTube, podcast and video links',
+        'YouTube and podcast links',
         'Browser extension and quotes',
         'Pocket and Readwise imports',
         'HTTP API, CLI and MCP',
@@ -278,16 +278,16 @@ function flow(c, title) {
     parts.push(
       `<rect x="${x}" y="${y0}" width="${colW}" height="${H - y0 * 2}" rx="18" fill="${c.surface}" stroke="${c.border}"/>`,
       `<circle cx="${x + 36}" cy="${y0 + 38}" r="16" fill="${c.accentSoft}"/><text x="${x + 36}" y="${y0 + 43}" text-anchor="middle" font-family="${sans}" font-size="14" font-weight="700" fill="${c.accent}">${i + 1}</text>`,
-      `<text x="${x + 62}" y="${y0 + 36}" font-family="${serif}" font-size="21" fill="${c.text}">${esc(col.head)}</text>`,
+      `<text x="${x + 62}" y="${y0 + 36}" font-family="${serif}" font-size="24" fill="${c.text}">${esc(col.head)}</text>`,
       `<text x="${x + 62}" y="${y0 + 56}" font-family="${sans}" font-size="12" fill="${c.text3}">${esc(col.sub)}</text>`,
       `<line x1="${x + 20}" y1="${y0 + 78}" x2="${x + colW - 20}" y2="${y0 + 78}" stroke="${c.border}"/>`,
     );
     col.items.forEach((item, j) => {
       const y = y0 + 112 + j * 58;
       parts.push(
-        `<rect x="${x + 20}" y="${y - 22}" width="${colW - 40}" height="40" rx="10" fill="${c.muted}"/>`,
-        `<circle cx="${x + 38}" cy="${y - 2}" r="3.5" fill="${c.accent}"/>`,
-        `<text x="${x + 52}" y="${y + 3}" font-family="${sans}" font-size="13.5" fill="${c.text}">${esc(item)}</text>`,
+        `<rect x="${x + 14}" y="${y - 22}" width="${colW - 28}" height="40" rx="10" fill="${c.muted}"/>`,
+        `<circle cx="${x + 28}" cy="${y - 2}" r="3.5" fill="${c.accent}"/>`,
+        `<text x="${x + 40}" y="${y + 3}" font-family="${sans}" font-size="15.5" fill="${c.text}">${esc(item)}</text>`,
       );
     });
     if (i < cols.length - 1) {
