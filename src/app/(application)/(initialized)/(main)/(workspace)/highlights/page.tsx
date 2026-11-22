@@ -52,12 +52,10 @@ export default async function HighlightsPage({
           <ul className={styles.quotes}>
             {marks.map((mark) => (
               <li key={mark.id}>
-                <Link href={passageHref(id, mark.segments[0]?.passageIndex)}>
-                  {mark.quote}
-                  <time dateTime={new Date(mark.createdAt).toISOString()}>
-                    {dateFormat.format(new Date(mark.createdAt))}
-                  </time>
-                </Link>
+                <Link href={passageHref(id, mark.segments[0]?.passageIndex)}>{mark.quote}</Link>
+                <time dateTime={new Date(mark.createdAt).toISOString()}>
+                  {dateFormat.format(new Date(mark.createdAt))}
+                </time>
               </li>
             ))}
           </ul>

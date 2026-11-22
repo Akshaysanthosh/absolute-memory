@@ -61,21 +61,22 @@
   display: grid;
   gap: 8px;
 }
-.quotes a {
-  display: block;
+.quotes li {
   padding: 10px 14px;
   border-left: 3px solid var(--color-warning);
   border-radius: 0 8px 8px 0;
   background: var(--workspace-bg);
+}
+.quotes li:has(a:hover, a:focus-visible) {
+  background: var(--workspace-hover);
+}
+.quotes a {
+  display: block;
   color: inherit;
   text-decoration: none;
   font-size: 14px;
   line-height: 1.6;
   overflow-wrap: anywhere;
-}
-.quotes a:hover,
-.quotes a:focus-visible {
-  background: var(--workspace-hover);
 }
 .quotes time {
   display: block;
