@@ -30,6 +30,8 @@
     "format:check": "prettier . --check --ignore-unknown",
     "docs:screenshots": "tsx scripts/docs-screenshots.ts",
     "docs:demo": "tsx scripts/docs-demo.ts",
+    "docs:readme-art": "node scripts/readme-art.mjs",
+    "docs:readme-shots": "tsx scripts/docs-readme-shots.ts",
     "website:build": "npm run build --prefix website",
     "website:dev": "npm run dev --prefix website --"
   },
