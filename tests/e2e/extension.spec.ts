@@ -10,9 +10,13 @@ test('unpacked Chrome extension starts and offers self-hosted connection', async
   });
   try {
     const worker = context.serviceWorkers()[0] ?? (await context.waitForEvent('serviceworker'));
-    const extension = new URL(worker.url()).host;
-    const page = await context.newPage();
-    await page.goto(`chrome-extension://${extension}/options.html`);
+    const options = `chrome-extension://${new URL(worker.url()).host}/options.html`;
+    // A fresh install opens the options page itself. Opening a second copy races with that
+    // navigation, so wait for the page the extension opened and test it.
+    const opened = () => context.pages().find((open) => open.url() === options);
+    await expect.poll(() => opened()?.url(), { timeout: 15_000 }).toBe(options);
+    const page = opened()!;
+    await page.waitForLoadState();
     await expect(page.locator('#extension-version')).toHaveText(/^Version /);
     await expect(page.locator('#connect-form')).toBeVisible();
     await expect(page.locator('#origin')).toHaveValue('http://localhost:3000');
