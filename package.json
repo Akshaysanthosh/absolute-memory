@@ -28,7 +28,8 @@
     "docs:check": "tsx scripts/generate-configuration.ts --check",
     "format": "prettier . --write --ignore-unknown",
     "format:check": "prettier . --check --ignore-unknown",
-    "docs:screenshots": "tsx scripts/docs-screenshots.ts"
+    "docs:screenshots": "tsx scripts/docs-screenshots.ts",
+    "docs:demo": "tsx scripts/docs-demo.ts"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^3.0.94",

@@ -20,6 +20,7 @@
 # Screenshot tooling runs in the contributor checkout with Playwright and test fixtures.
 scripts/demo-*.ts
 scripts/docs-screenshots.ts
+scripts/docs-demo.ts
 scripts/screenshot-pages.ts
 !packages/
 !packages/cli/

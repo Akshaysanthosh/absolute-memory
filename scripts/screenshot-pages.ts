@@ -10,6 +10,10 @@ const settings = { deviceScaleFactor: 2, colorScheme: 'light' } as const;
 const screenshot = { animations: 'disabled', caret: 'hide', scale: 'device' } as const;
 const filenames = [
   'library.png',
+  'library-dark.png',
+  'connections-mcp.png',
+  'library-export.png',
+  'library-search.png',
   'library-mobile.png',
   'reader-light.png',
   'reader-dark.png',
@@ -179,6 +183,12 @@ export async function captureScreenshots({
     );
     await settle(page);
     await page.screenshot({ ...screenshot, path: path('library.png') });
+    await page.getByRole('button', { name: 'Switch to dark mode' }).click();
+    await expect(page.locator('.standard-library')).toHaveAttribute('data-mode', 'dark');
+    await page.mouse.move(0, 0);
+    await settle(page);
+    await page.screenshot({ ...screenshot, scale: 'css', path: path('library-dark.png') });
+    await page.getByRole('button', { name: 'Switch to light mode' }).click();
 
     await page.setViewportSize({ width: 1024, height: 900 });
     await checkHorizontal(page, 1024);
@@ -310,6 +320,27 @@ export async function captureScreenshots({
     );
     const reader = await page.screenshot(screenshot);
     await composeCitation(ask, reader, path('ask-citation.png'));
+
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/settings?section=keys');
+    await expect(
+      page.getByRole('heading', { name: 'Personal API keys', exact: true }),
+    ).toBeVisible();
+    await settle(page);
+    await page.screenshot({ ...screenshot, scale: 'css', path: path('connections-mcp.png') });
+    await page.goto('/settings?section=export');
+    await expect(page.getByRole('button', { name: 'Export everything' })).toBeVisible();
+    await settle(page);
+    await page.screenshot({ ...screenshot, scale: 'css', path: path('library-export.png') });
+
+    await page.goto('/library');
+    await page.getByRole('button', { name: 'repair 2', exact: true }).click();
+    await expect(page.getByRole('heading', { level: 1, name: 'repair' })).toBeVisible();
+    await expect(
+      page.getByRole('region', { name: 'Saved items' }).getByRole('article'),
+    ).toHaveCount(2);
+    await settle(page);
+    await page.screenshot({ ...screenshot, scale: 'css', path: path('library-search.png') });
     return filenames;
   } finally {
     await browser.close();

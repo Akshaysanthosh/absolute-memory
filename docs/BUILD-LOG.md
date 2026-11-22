@@ -256,3 +256,9 @@ The Reader has no literal hex colours. The remaining values in components are gr
 
 - The light and dark lockups retain the outlined wordmark and two-bar symbol from `public/brand/absolute/horizontal.svg`. The standalone mark uses the original `symbol.svg` geometry. Colours come from the Astryx overrides in `src/shared/am-theme.ts`.
 - The 1280 × 640 social preview uses the light lockup, Source Serif 4 and a crop of the demo library. Its typography and frame use the app theme colours.
+
+### Demo and screenshots
+
+- `npm run docs:screenshots` keeps the six existing screenshots and adds a native 1440 × 900 dark library image, topic results, the personal keys screen used for MCP setup, and the export screen.
+- `npm run docs:demo` uses the same Playwright session, synthetic library and loopback mock-provider fixture as the screenshot tooling. The demo signs in before recording the user journey, highlights a new sentence, asks about it and asserts that the citation returns to the saved highlight.
+- The reviewed recording is 17.80 seconds. The MP4 is 1280 × 800 at 30 fps and the palette-encoded GIF is 960 × 600 and 2,327,564 bytes. The cursor, question, citation and final highlight were inspected in extracted frames. FFmpeg decoded every frame without errors.

@@ -185,7 +185,7 @@ async function startDemoSources() {
   };
 }
 
-export async function seedDemo(dataDir: string, password: string) {
+export async function seedDemo(dataDir: string, password: string, highlights = true) {
   assert.equal(process.env.DATA_DIR, dataDir);
   assert.ok(!process.env.DATABASE_URL && !process.env.AM_TEST_DB);
   await mkdir(dataDir);
@@ -245,7 +245,7 @@ export async function seedDemo(dataDir: string, password: string) {
       const recording = await ownItem(user, transcriptId, db);
       assert.ok(recording.passages.some((passage) => passage.startMs != null));
       assert.ok(current.source_details?.thumbnailUrl, 'The lead image must be saved locally.');
-      for (const quote of [highlightQuote, citationQuote]) {
+      for (const quote of highlights ? [highlightQuote, citationQuote] : []) {
         const segments = findQuote(current.passages, quote);
         assert.ok(segments.length, `Missing demo highlight: ${quote}`);
         await createHighlight(user, current.id, segments, db);
