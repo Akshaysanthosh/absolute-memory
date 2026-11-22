@@ -29,7 +29,9 @@
     "format": "prettier . --write --ignore-unknown",
     "format:check": "prettier . --check --ignore-unknown",
     "docs:screenshots": "tsx scripts/docs-screenshots.ts",
-    "docs:demo": "tsx scripts/docs-demo.ts"
+    "docs:demo": "tsx scripts/docs-demo.ts",
+    "website:build": "npm run build --prefix website",
+    "website:dev": "npm run dev --prefix website --"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^3.0.94",

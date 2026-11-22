@@ -4,3 +4,7 @@ package-lock.json
 THIRD_PARTY_NOTICES.md
 docs/configuration.md
 docs/schemas/*.json
+
+website/.docusaurus/
+website/.showcase-assets/
+website/build/

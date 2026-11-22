@@ -42,4 +42,4 @@ The library displays one grid of equal-height cards, with the newest saves first
 - [Knowledge pipeline](knowledge-pipeline.md)
 - [Reader](reader.md)
 - [Search and citations](search.md)
-- [Architecture decisions](../decisions/)
+- [Architecture decisions](../decisions/README.md)

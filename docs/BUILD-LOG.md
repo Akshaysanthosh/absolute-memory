@@ -294,3 +294,10 @@ Official sources read on **22 November 2026**. A dash in the README means the re
 | Khoj       | [README](https://github.com/khoj-ai/khoj) for positioning the project before integration detail                                                                                                                                                                                     |
 
 The landing page uses the hero and product-proof ordering seen on the [Karakeep site](https://karakeep.com/) and [Linkwarden site](https://linkwarden.app/), with the direct product screenshot approach from the Readeck README.
+
+### Documentation site
+
+- Docusaurus 3.10.2 reads the user-facing Markdown directly from `docs/`. Its separate package and lockfile keep the app's dependency graph and Docker build context independent. The licence check audits the website lockfile as well.
+- The website build treats unresolved links, Markdown links and anchors as errors. The CI website job builds with those checks. The optional Pages workflow is manual and gated on public visibility and `main`. No site was deployed.
+- Chromium verified the light and dark assets at 375, 768, 1024 and 1440 pixels without horizontal overflow. Text and control colour combinations tested at 4.73:1 or higher in light mode and 7.11:1 or higher in dark mode. The install and docs links, keyboard skip link, video and copy button worked against the local static build.
+- The existing retired-palette test scans all tracked files, including the docs website source and brand SVGs. The site maps its colours to the same Astryx values as the app.

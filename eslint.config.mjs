@@ -12,7 +12,17 @@ const sqlBoundary = {
 };
 
 export default [
-  { ignores: ['.next/**', 'dist/**', 'coverage/**', 'next-env.d.ts'] },
+  {
+    ignores: [
+      '.next/**',
+      'dist/**',
+      'coverage/**',
+      'next-env.d.ts',
+      'website/.docusaurus/**',
+      'website/.showcase-assets/**',
+      'website/build/**',
+    ],
+  },
   {
     files: ['**/*.{js,mjs,cjs,ts,tsx}'],
     plugins: { 'react-hooks': reactHooks, layout },
