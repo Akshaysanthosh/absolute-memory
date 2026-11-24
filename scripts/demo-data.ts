@@ -126,6 +126,8 @@ export function startDemoProvider() {
         assert.ok(evidence, 'The demo answer requires the gravel-sensor passage.');
         return `The sensor above the **unshaded gravel** gave the clearest early warning that heat was building on the library roof. [${evidence.number}]`;
       }
+      // The overview step is plain text: reuse the item's own chunk summary.
+      if (prompt.startsWith('Combine these summaries')) return prompt.split('\n\n')[1];
       if (system.includes('Organize only')) {
         const index = signatures.findIndex((phrase) => prompt.includes(phrase));
         const [summary, ...tags] = summaries[index] ?? summaries[0];

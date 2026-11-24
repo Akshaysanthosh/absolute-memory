@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { ChatModel } from './chat';
+import { parseJsonObject, type ChatModel } from './chat';
 
 // Adapted from the open-recall extraction schemas. Every graph edge carries source evidence.
 const entity = z.object({
@@ -60,9 +60,26 @@ export async function summarize(chat: ChatModel, text: string) {
     maxOutputTokens: 500,
   });
   return {
-    value: result.text,
+    value: plainSummary(result.text),
     model: chat.name,
     inputTokens: result.usage.inputTokens ?? 0,
     outputTokens: result.usage.outputTokens ?? 0,
   };
+}
+
+/** Some models answer a prose request in a code fence or as JSON. Keep only the prose. */
+export function plainSummary(text: string) {
+  const unfenced = text
+    .trim()
+    .replace(/^```[\w-]*\s*\n([\s\S]*?)\n?```$/, '$1')
+    .trim();
+  if (!unfenced.startsWith('{')) return unfenced;
+  try {
+    const value = parseJsonObject(unfenced);
+    const summary =
+      value && typeof value === 'object' && 'summary' in value ? value.summary : undefined;
+    return typeof summary === 'string' && summary.trim() ? summary.trim() : unfenced;
+  } catch {
+    return unfenced;
+  }
 }
