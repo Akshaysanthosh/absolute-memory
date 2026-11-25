@@ -15,13 +15,14 @@
 </p>
 
 <p align="center">
-  <a href="#quick-start"><strong>Install</strong></a> ·
+  <a href="https://absolutememory.app"><strong>Try it hosted</strong></a> ·
+  <a href="#quick-start"><strong>Self-host</strong></a> ·
   <a href="#everything-you-come-across">What it remembers</a> ·
   <a href="#ask-your-memory">Ask</a> ·
   <a href="#how-it-works">How it works</a> ·
   <a href="docs/README.md">Docs</a> ·
   <a href="CHANGELOG.md">Changelog</a>
-  <!-- TODO(owner): Demo instance, Discord and hosted edition links -->
+  <!-- TODO(owner): Discord or community link -->
 </p>
 
 <p align="center">
@@ -29,16 +30,13 @@
   <img alt="Self-hosted with Docker" src="https://img.shields.io/badge/self--hosted-Docker-1A7F4B">
   <img alt="AI optional" src="https://img.shields.io/badge/AI-optional-4B2A86">
   <img alt="MCP server included" src="https://img.shields.io/badge/MCP-server-E60023">
+  <a href="LICENSE.md"><img alt="Licence: PolyForm Noncommercial" src="https://img.shields.io/badge/licence-PolyForm%20Noncommercial-20332F"></a>
   <!-- TODO(owner): latest release and Docker pulls badges after the first release -->
-  <!-- TODO(owner): licence -->
 </p>
 
-<a href="docs/media/readme/hero-light.svg#gh-light-mode-only">
-  <picture><img src="docs/media/readme/hero-light.svg" width="100%" alt="Articles, YouTube videos, podcasts, social videos, PDFs, screenshots, imports, voice memos, browser quotes and notes flow into one memory as numbered passages. A question is answered from a podcast, and the citation opens the passage at 0:09."></picture>
-</a>
-<a href="docs/media/readme/hero-dark.svg#gh-dark-mode-only">
-  <picture><img src="docs/media/readme/hero-dark.svg" width="100%" alt="Articles, YouTube videos, podcasts, social videos, PDFs, screenshots, imports, voice memos, browser quotes and notes flow into one memory as numbered passages. A question is answered from a podcast, and the citation opens the passage at 0:09."></picture>
-</a>
+<p align="center">
+  <img src="docs/media/library-dark.png" width="100%" alt="The library in dark mode: saved YouTube talks by Steve Jobs, Sam Altman and Andrej Karpathy, the Apollo 11 and Hubble articles, John F. Kennedy's Moon speech as a podcast, a PDF timeline and a note, grouped into topics.">
+</p>
 
 ## Why a memory, not a bookmark list
 
@@ -46,11 +44,13 @@ You read an article in March, heard a podcast in June and watched a video last w
 
 A bookmark keeps the link. **Absolute Memory keeps what was said.** It saves the text of the article, the transcript of the video or podcast, and the words in the PDF or screenshot. All of it becomes numbered passages you can search, highlight, ask about and cite, on a server you control.
 
+<img src="docs/media/readme/hero-dark.svg" width="100%" alt="Articles, YouTube videos, podcasts, social videos, PDFs, screenshots, imports, voice memos, browser quotes and notes flow into one memory as numbered passages. A question about John F. Kennedy's Moon speech is answered from its transcript, and the citation opens the passage at 8:44.">
+
 ## See it in action
 
 ![Open a saved article, highlight a sentence, ask a question and follow the answer's citation back to the highlighted passage.](docs/media/demo.gif)
 
-<sub>Save, highlight, ask, then follow the citation back to the source. [Watch the MP4](docs/media/demo.mp4).</sub>
+<sub>Browse the library, open the Apollo 11 article, highlight a sentence, ask how much fuel was left, then follow the citation back to the passage. [Watch the MP4](docs/media/demo.mp4).</sub>
 
 ## Everything you come across
 
@@ -83,19 +83,19 @@ Supported sites, limits and cookies for authorised downloads are in the [media g
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/media/reader-light.png" alt="An article in the light reader with a highlighted sentence."></td>
-    <td width="50%"><img src="docs/media/reader-podcast.png" alt="A podcast transcript in the reader, with a play button beside each passage."></td>
+    <td width="50%"><img src="docs/media/reader-dark.png" alt="The Apollo 11 article in the dark reader with a highlighted sentence."></td>
+    <td width="50%"><img src="docs/media/reader-podcast.png" alt="John F. Kennedy's Rice University speech as a transcript, with a play button beside each passage."></td>
   </tr>
   <tr>
-    <td><sub><strong>A calm reader.</strong> Light or dark, adjustable type, and your place is saved. Select text and press <kbd>H</kbd> to highlight.</sub></td>
+    <td><sub><strong>A calm reader.</strong> Dark or light, adjustable type, and your place is saved. Select text and press <kbd>H</kbd> to highlight.</sub></td>
     <td><sub><strong>Transcripts you can read.</strong> Podcasts and videos become text. Press play on any line to hear it.</sub></td>
   </tr>
   <tr>
-    <td><img src="docs/media/reader-dark.png" alt="The same article in the dark reader."></td>
+    <td><img src="docs/media/library-search.png" alt="The library filtered to the space topic."></td>
     <td align="center"><img src="docs/media/library-mobile.png" width="200" alt="The library on a phone with bottom navigation."></td>
   </tr>
   <tr>
-    <td><sub><strong>Dark mode</strong> for late-night reading.</sub></td>
+    <td><sub><strong>Topics without filing.</strong> With AI configured, saved items are tagged and grouped for you.</sub></td>
     <td align="center"><sub><strong>Works on your phone</strong> in the browser.</sub></td>
   </tr>
 </table>
@@ -112,12 +112,7 @@ The same scoped keys work with the [HTTP API](docs/api.md) and the [CLI](docs/cl
 
 ## How it works
 
-<a href="docs/media/readme/how-it-works-light.svg#gh-light-mode-only">
-  <picture><img src="docs/media/readme/how-it-works-light.svg" width="100%" alt="Capture: links, YouTube, podcasts, files, the extension, imports, the API, CLI and MCP. Understand: readable text, captions or transcription, text from PDFs and images, numbered timed passages, tags, summaries and embeddings. Remember: library, reader, highlights, original files, graph, Lite or PostgreSQL with pgvector. Recall: search by words or meaning, ask with citations, jump to the line or minute, MCP and portable export."></picture>
-</a>
-<a href="docs/media/readme/how-it-works-dark.svg#gh-dark-mode-only">
-  <picture><img src="docs/media/readme/how-it-works-dark.svg" width="100%" alt="Capture: links, YouTube, podcasts, files, the extension, imports, the API, CLI and MCP. Understand: readable text, captions or transcription, text from PDFs and images, numbered timed passages, tags, summaries and embeddings. Remember: library, reader, highlights, original files, graph, Lite or PostgreSQL with pgvector. Recall: search by words or meaning, ask with citations, jump to the line or minute, MCP and portable export."></picture>
-</a>
+<img src="docs/media/readme/how-it-works-dark.svg" width="100%" alt="Capture: links, YouTube, podcasts, files, the extension, imports, the API, CLI and MCP. Understand: readable text, captions or transcription, text from PDFs and images, numbered timed passages, tags, summaries and embeddings. Remember: library, reader, highlights, original files, graph, Lite or PostgreSQL with pgvector. Recall: search by words or meaning, ask with citations, jump to the line or minute, MCP and portable export.">
 
 Everything you save becomes the same thing: **numbered passages**, with timestamps for audio and video. Highlights are anchored to passages, search and Ask retrieve passages, and citations link back to them. That is how an answer can point to one sentence in a long PDF or one line of an hour-long episode.
 
@@ -132,6 +127,12 @@ A Next.js app and a background worker do the work. **Lite** runs everything in o
 - **Leave any time.** Export everything as a ZIP in a [documented format](docs/export-format.md): items and passages, highlights, notes, chats and your original files.
 
 ## Quick start
+
+### Hosted: the easiest way
+
+[**absolutememory.app**](https://absolutememory.app) runs Absolute Memory for you: no server, no Docker and no AI keys to manage, with updates and backups handled. It is made by the same author, and your subscription funds development of this project.
+
+### Self-host: free for personal use
 
 With Git, Docker and OpenSSL installed:
 
@@ -202,6 +203,6 @@ See [Contributing](CONTRIBUTING.md) for setup and the checks to run, and [Securi
 
 ## Licence
 
-Licence to be announced. [Licence status](LICENSE-PENDING.md)
+Absolute Memory is **source-available** under the [PolyForm Noncommercial License 1.0.0](LICENSE.md). You can use, change and share it for personal and other non-commercial purposes. Commercial use, including running it for customers or as a hosted service, needs a [commercial licence](COMMERCIAL.md). Third-party components keep their own licences; see [third-party notices](THIRD_PARTY_NOTICES.md).
 
-<!-- TODO(owner): licence -->
+Demo screenshots show public YouTube talks, Wikipedia text and NASA images. See [media credits](docs/media/CREDITS.md).

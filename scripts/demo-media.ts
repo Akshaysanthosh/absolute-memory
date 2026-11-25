@@ -1,84 +1,31 @@
 import { randomUUID } from 'node:crypto';
-import type { Database } from '../src/server/db';
+import type { Database, Queryable } from '../src/server/db';
 import { finishTimedMediaItem, insertUploadedMediaItem } from '../src/server/repos/media-items';
 import {
   insertUploadedMediaSource,
+  insertYouTubeSource,
   saveTimedMediaSegments,
 } from '../src/server/repos/media-sources';
+import { insertDemoYouTubeItem } from '../src/server/repos/demo-library';
 import { mediaReading } from '../src/server/services/import/transcript';
-import { createCanvas } from '@napi-rs/canvas';
 
-const palettes = [
-  ['#c5cabb', '#264737', '#5f7654', '#d7ae73'],
-  ['#c9d5ce', '#29464f', '#4d7b83', '#c5a16f'],
-  ['#d4d7e8', '#283248', '#5e7390', '#edbb78'],
-  ['#e1cbb4', '#43374d', '#996650', '#f7d8a5'],
-] as const;
-
-export function demoCover(index: number) {
-  const [sky, shade, ground, sun] = palettes[index];
-  const canvas = createCanvas(1320, 490);
-  const ctx = canvas.getContext('2d');
-  const dusk = ctx.createLinearGradient(0, 0, 0, 490);
-  dusk.addColorStop(0, sky);
-  dusk.addColorStop(1, ground);
-  ctx.fillStyle = dusk;
-  ctx.fillRect(0, 0, 1320, 490);
-  ctx.fillStyle = sun;
-  ctx.beginPath();
-  ctx.arc(canvas.width * (0.57 - index * 0.045), 160, 78, 0, 2 * Math.PI);
-  ctx.fill();
-  for (let row = 0; row < 5; row++) {
-    ctx.fillStyle = row % 2 === 0 ? shade : ground;
-    ctx.globalAlpha = 0.61 + row * 0.08;
-    ctx.beginPath();
-    ctx.moveTo(0, 490);
-    for (let x = 0; x <= 1320; x += 12) {
-      const wave = Math.sin(x * (0.003 + row * 0.0004) + index + row * 1.6);
-      const ripple = Math.sin(x * 0.016 + row) * 9;
-      ctx.lineTo(x, 226 + row * 56 + wave * (59 - row * 6) + ripple);
-    }
-    ctx.lineTo(1320, 490);
-    ctx.fill();
-  }
-  ctx.globalAlpha = 0.45;
-  ctx.strokeStyle = sky;
-  ctx.lineWidth = 1.3;
-  for (let row = 0; row < 13; row++) {
-    ctx.beginPath();
-    for (let x = 0; x <= 1320; x += 10) {
-      ctx.lineTo(x, 293 + row * 19 + Math.sin(x * 0.004 + index + row * 0.22) * 32);
-    }
-    ctx.stroke();
-  }
-  let noise = 113 + index;
-  for (let dot = 0; dot < 24000; dot++) {
-    noise = (Math.imul(noise, 1664525) + 1013904223) >>> 0;
-    const x = noise % 1320;
-    noise = (Math.imul(noise, 1664525) + 1013904223) >>> 0;
-    ctx.globalAlpha = 0.11;
-    ctx.fillStyle = dot % 2 ? sky : shade;
-    ctx.fillRect(x, noise % 490, 2, 1);
-  }
-  return canvas.toBuffer('image/png');
-}
-
-export const pdfTitle = 'Library roof measurement sheet';
+export const pdfTitle = 'Apollo 11 flight timeline';
 
 export function demoPdf() {
   const lines = [
     pdfTitle,
-    'North Branch Library - June field survey',
-    'Record the reading at 09:00, 13:00 and 17:00.',
-    'Use the same marked position for each instrument.',
-    'Date       Shade       Gravel       Wind',
-    'June 16    23 C        28 C         light west',
-    'June 17    24 C        31 C         calm',
-    'June 18    25 C        33 C         light north',
+    'Mission events in Coordinated Universal Time (UTC)',
+    'July 16, 1969   13:32       Launch from Kennedy Space Center',
+    'July 19, 1969   17:21       Lunar orbit insertion',
+    'July 20, 1969   20:17:40    Eagle lands on the Moon',
+    'July 21, 1969   02:56:15    First step on the lunar surface',
+    'July 21, 1969   17:54       Lunar ascent',
+    'July 24, 1969   16:50:35    Splashdown, Pacific Ocean',
+    'Crew: Neil Armstrong, Michael Collins, Buzz Aldrin',
   ];
-  const contents = `BT /F 20 Tf 62 725 Td (${lines[0]}) Tj /F 12 Tf 0 -30 Td\n${lines
+  const contents = `BT /F 34 Tf 48 720 Td (${lines[0]}) Tj /F 16 Tf 0 -44 Td\n${lines
     .slice(1)
-    .map((line) => `(${line}) Tj 0 -23 Td`)
+    .map((line) => `(${line}) Tj 0 -32 Td`)
     .join('\n')}\nET`;
   const objects = [
     '<< /Type /Catalog /Pages 2 0 R >>',
@@ -100,33 +47,78 @@ export function demoPdf() {
   );
 }
 
-export const demoCallTitle = 'Seed swap planning call';
-export async function seedDemoCall(db: Database, user: string) {
-  const text = [
-    'Put the seed swap sign beside the entrance so people know they can leave envelopes without signing up first.',
-    'Let’s reserve one table for dry seeds and a second table for the packets that still need a label.',
-    'We can compare the count after lunch and ask the last volunteer to record which seeds are left.',
-  ];
-  const cues = text.map((line, index) => ({ text: line, offset: index * 12000, duration: 11000 }));
+export const demoCallTitle = 'Voice memo: after the LLM talk';
+const memo = [
+  'Two ideas from the Karpathy talk worth trying this week.',
+  'First, treat the context window like working memory and give the model only the passages that matter.',
+  'Second, ask it to cite every claim, so a wrong answer is easy to check against the source.',
+];
+
+async function saveTimed(
+  db: Queryable,
+  id: string,
+  user: string,
+  lines: readonly string[],
+  spacing: number,
+) {
+  const cues = lines.map((line, index) => ({
+    text: line,
+    offset: index * spacing,
+    duration: spacing - 1000,
+  }));
   const reading = mediaReading(cues);
-  const content = text.join(' ');
+  const content = lines.join(' ');
+  await saveTimedMediaSegments(
+    db,
+    id,
+    user,
+    JSON.stringify(cues),
+    'en',
+    null,
+    Math.round((lines.length * spacing) / 1000),
+  );
+  await finishTimedMediaItem(
+    db,
+    id,
+    user,
+    JSON.stringify(reading.passages),
+    content.split(/\s+/).length,
+    content.slice(0, 300),
+    null,
+    null,
+    null,
+    reading.html,
+  );
+}
+
+export async function seedDemoCall(db: Database, user: string) {
   const id = randomUUID();
   await db.transaction(async (tx) => {
     await insertUploadedMediaItem(tx, id, user, demoCallTitle);
-    await insertUploadedMediaSource(tx, id, user, 'demo:seed-swap', 'synthetic');
-    await saveTimedMediaSegments(tx, id, user, JSON.stringify(cues), 'en', null, 35);
-    await finishTimedMediaItem(
+    await insertUploadedMediaSource(tx, id, user, 'demo:llm-memo', 'synthetic');
+    await saveTimed(tx, id, user, memo, 12000);
+  });
+  return id;
+}
+
+/** A YouTube talk saved by URL. The passages are chapter notes, spaced across the talk. */
+export async function seedDemoVideo(
+  db: Database,
+  user: string,
+  video: { id: string; title: string; channel: string; chapters: readonly string[] },
+) {
+  const id = randomUUID();
+  await db.transaction(async (tx) => {
+    await insertDemoYouTubeItem(
       tx,
       id,
       user,
-      JSON.stringify(reading.passages),
-      content.split(/\s+/).length,
-      content.slice(0, 300),
-      null,
-      null,
-      null,
-      reading.html,
+      `https://www.youtube.com/watch?v=${video.id}`,
+      video.title,
+      video.channel,
     );
+    await insertYouTubeSource(tx, id, user);
+    await saveTimed(tx, id, user, video.chapters, 240000);
   });
   return id;
 }

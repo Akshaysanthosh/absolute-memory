@@ -111,6 +111,27 @@ function fade(start, end, out = cycle - 0.4) {
   return `<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;${t(start)};${t(end)};${t(out)};1" dur="${cycle}s" repeatCount="indefinite"/>`;
 }
 
+const at = (s) => (s / cycle).toFixed(3);
+
+function grow(width, start, end) {
+  // Width grows from 0 between start and end, holds, and resets at the end of the loop.
+  return `<animate attributeName="width" values="0;0;${width};${width};0" keyTimes="0;${at(start)};${at(end)};${at(cycle - 0.4)};1" dur="${cycle}s" repeatCount="indefinite"/>`;
+}
+
+function flash(start) {
+  // A brief outline as a passage lands in memory.
+  return `<animate attributeName="stroke-opacity" values="0;0;0.9;0;0" keyTimes="0;${at(start)};${at(start + 0.2)};${at(start + 0.9)};1" dur="${cycle}s" repeatCount="indefinite"/>`;
+}
+
+function ping(start) {
+  // An expanding ring around the citation number.
+  const window = `keyTimes="0;${at(start)};${at(start + 0.8)};1" dur="${cycle}s" repeatCount="indefinite"`;
+  return [
+    `<animate attributeName="stroke-opacity" values="0;0.9;0;0" ${window}/>`,
+    `<animateTransform attributeName="transform" type="scale" additive="sum" values="1;1;1.35;1.35" ${window}/>`,
+  ].join('');
+}
+
 const label = (x, text, colour) =>
   `<text x="${x}" y="40" font-family="${sans}" font-size="12" font-weight="700" letter-spacing="1.4" fill="${colour}">${text}</text>`;
 
@@ -162,10 +183,10 @@ function hero(c, title) {
     `<line x1="${memX}" y1="${memY + 60}" x2="${memX + memW}" y2="${memY + 60}" stroke="${c.border}"/>`,
   );
   const rows = [
-    ['article', 'Article', 'A cooler roof for the library', '¶ 4'],
-    ['video', 'YouTube', 'How to fix a bike chain', '3:12'],
-    ['podcast', 'Podcast', 'The seed librarian', '0:09'],
-    ['pdf', 'PDF', 'Roof measurement sheet', 'p. 1'],
+    ['article', 'Wikipedia', 'Apollo 11', '¶ 4'],
+    ['video', 'YouTube · Stanford', 'Steve Jobs at Stanford', '¶ 2'],
+    ['podcast', 'Podcast', 'We choose to go to the Moon', '8:44'],
+    ['pdf', 'PDF', 'Apollo 11 flight timeline', 'p. 1'],
     ['image', 'Screenshot', 'Whiteboard from Tuesday', 'text'],
   ];
   rows.forEach(([kind, type, name, where], i) => {
@@ -177,7 +198,7 @@ function hero(c, title) {
     parts.push(
       [
         `<g opacity="0">${fade(appear, appear + 0.4)}`,
-        `<rect x="${memX + 14}" y="${y}" width="${memW - 28}" height="56" rx="12" fill="${bg}"/>`,
+        `<rect x="${memX + 14}" y="${y}" width="${memW - 28}" height="56" rx="12" fill="${bg}" stroke="${fg}" stroke-opacity="0">${flash(appear + 0.1)}</rect>`,
         icon(kind, memX + 26, y + 18, fg),
         `<text x="${tx}" y="${y + 23}" font-family="${sans}" font-size="11" font-weight="700" fill="${fg}">${esc(type)}</text>`,
         `<text x="${tx}" y="${y + 41}" font-family="${sans}" font-size="13" fill="${c.text}">${esc(name)}</text>`,
@@ -203,9 +224,10 @@ function hero(c, title) {
       `<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="0.9s" begin="4.6s;4.6s+${cycle}s"/></circle>`,
     ].join(''),
     [
-      `<g opacity="0">${fade(3.6, 4.0)}`,
-      `<rect x="${ax + aw - 270}" y="90" width="270" height="44" rx="22" fill="${c.green}"/>`,
-      `<text x="${ax + aw - 135}" y="117" text-anchor="middle" font-family="${sans}" font-size="14" font-weight="600" fill="${c.onGreen}">How do borrowers return seed?</text>`,
+      `<g opacity="0">${fade(3.4, 3.6)}`,
+      `<rect x="${ax + aw - 300}" y="90" width="300" height="44" rx="22" fill="${c.green}"/>`,
+      `<clipPath id="type"><rect x="${ax + aw - 282}" y="96" height="32" width="0">${grow(266, 3.6, 4.5)}</rect></clipPath>`,
+      `<text clip-path="url(#type)" x="${ax + aw - 282}" y="117" font-family="${sans}" font-size="14" font-weight="600" fill="${c.onGreen}">Why did Kennedy pick the Moon?</text>`,
       '</g>',
     ].join(''),
     `<g opacity="0">${fade(4.1, 4.3, 5.4)}${[0, 1, 2]
@@ -216,21 +238,24 @@ function hero(c, title) {
       .join('')}</g>`,
   );
   const answer = [
-    'At the end of summer, borrowers drop off',
-    'dry seed with a short note about the parent',
-    'plant and how it grew.',
+    'Because it was hard: the goal would',
+    '“organize and measure the best of our',
+    'energies and skills.”',
   ];
   parts.push(
     [
-      `<g opacity="0">${fade(5.5, 6.0)}`,
+      `<g opacity="0">${fade(5.5, 5.7)}`,
       `<rect x="${ax}" y="156" width="${aw}" height="128" rx="16" fill="${c.surface}" stroke="${c.border}"/>`,
       `<text x="${ax + 18}" y="182" font-family="${sans}" font-size="11" font-weight="700" fill="${c.text3}">Answer</text>`,
       ...answer.map(
         (line, i) =>
-          `<text x="${ax + 18}" y="${206 + i * 22}" font-family="${serif}" font-size="15.5" fill="${c.text}">${esc(line)}</text>`,
+          `<g opacity="0">${fade(5.6 + i * 0.3, 5.8 + i * 0.3)}<text x="${ax + 18}" y="${206 + i * 22}" font-family="${serif}" font-size="15.5" fill="${c.text}">${esc(line)}</text></g>`,
       ),
-      `<rect x="${ax + 180}" y="232" width="20" height="17" rx="5" fill="${c.red}"/>`,
-      `<text x="${ax + 190}" y="244" text-anchor="middle" font-family="${sans}" font-size="11" font-weight="700" fill="#FFFFFF">1</text>`,
+      `<g opacity="0">${fade(6.3, 6.45)}`,
+      `<rect x="${ax + 176}" y="232" width="20" height="17" rx="5" fill="${c.red}"/>`,
+      `<text x="${ax + 186}" y="244" text-anchor="middle" font-family="${sans}" font-size="11" font-weight="700" fill="#FFFFFF">1</text>`,
+      `<rect x="${ax + 176}" y="232" width="20" height="17" rx="5" fill="none" stroke="${c.red}" stroke-width="2" style="transform-box:fill-box;transform-origin:center">${ping(6.5)}</rect>`,
+      '</g>',
       '</g>',
     ].join(''),
   );
@@ -239,22 +264,25 @@ function hero(c, title) {
     `<text x="${ax + 96}" y="${y}" font-family="${serif}" font-size="14" fill="${c.text}">${esc(line)}</text>`;
   parts.push(
     [
-      `<g opacity="0">${fade(6.6, 7.1)}`,
+      `<g opacity="0">${fade(6.7, 7.1)}`,
+      `<animateTransform attributeName="transform" type="translate" values="0 14;0 14;0 0;0 0" keyTimes="0;${(6.7 / cycle).toFixed(3)};${(7.1 / cycle).toFixed(3)};1" dur="${cycle}s" repeatCount="indefinite"/>`,
       `<rect x="${ax}" y="304" width="${aw}" height="150" rx="16" fill="${c.surface}" stroke="${c.red}" stroke-width="1.5"/>`,
       icon('podcast', ax + 18, 322, podFg),
-      `<text x="${ax + 48}" y="337" font-family="${sans}" font-size="12" fill="${c.text2}">Podcast · A conversation with the seed librarian</text>`,
+      `<text x="${ax + 48}" y="337" font-family="${sans}" font-size="12" fill="${c.text2}">Podcast · John F. Kennedy at Rice University, 1962</text>`,
       `<rect x="${ax + 18}" y="356" width="56" height="22" rx="11" fill="${podBg}"/>`,
-      `<text x="${ax + 46}" y="371" text-anchor="middle" font-family="${sans}" font-size="11.5" font-weight="600" fill="${podFg}">▶ 0:09</text>`,
+      `<text x="${ax + 46}" y="371" text-anchor="middle" font-family="${sans}" font-size="11.5" font-weight="600" fill="${podFg}">▶ 8:44</text>`,
       `<rect x="${ax + 84}" y="352" width="${aw - 102}" height="52" rx="6" fill="${c.mark}"/>`,
       `<rect x="${ax + 84}" y="352" width="4" height="52" rx="2" fill="${c.red}"/>`,
-      quote(372, 'At the end of summer, borrowers drop'),
-      quote(394, 'off dry seed with a short note…'),
-      `<text x="${ax + 18}" y="432" font-family="${sans}" font-size="12" fill="${c.text3}">Citation opens the exact passage and timestamp</text>`,
+      quote(372, 'We choose to go to the Moon in this'),
+      quote(394, 'decade… because they are hard.'),
+      `<rect x="${ax + 18}" y="414" width="${aw - 36}" height="3" rx="1.5" fill="${c.border}"/>`,
+      `<rect x="${ax + 18}" y="414" width="0" height="3" rx="1.5" fill="${c.red}">${grow(aw - 36, 7.3, 8.5)}</rect>`,
+      `<text x="${ax + 18}" y="438" font-family="${sans}" font-size="12" fill="${c.text3}">Citation opens the exact passage and plays from 8:44</text>`,
       '</g>',
     ].join(''),
   );
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-labelledby="t d"><title id="t">${esc(title)}</title><desc id="d">Articles, YouTube videos, podcasts, social videos, PDFs, screenshots, imports from Pocket and Readwise, voice memos, browser quotes and notes flow into one private memory as numbered passages. A question is answered from a podcast transcript, and the citation opens the passage at 0:09.</desc>${parts.join('')}</svg>\n`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-labelledby="t d"><title id="t">${esc(title)}</title><desc id="d">Articles, YouTube videos, podcasts, social videos, PDFs, screenshots, imports from Pocket and Readwise, voice memos, browser quotes and notes flow into one private memory as numbered passages. A question about John F. Kennedy’s Moon speech is answered from its transcript, and the citation opens the passage at 8:44.</desc>${parts.join('')}</svg>\n`;
 }
 
 function flow(c, title) {

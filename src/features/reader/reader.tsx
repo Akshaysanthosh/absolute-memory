@@ -66,10 +66,9 @@ export function ReadingPage({
         button.type = 'button';
         button.dataset.seek = String(startMs);
         const seconds = Math.floor(startMs / 1000);
-        button.setAttribute(
-          'aria-label',
-          `Play at ${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`,
-        );
+        const time = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+        button.dataset.time = time;
+        button.setAttribute('aria-label', `Play at ${time}`);
         passage.prepend(button);
       }
     }

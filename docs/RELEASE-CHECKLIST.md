@@ -4,7 +4,8 @@ The release candidate is ready for owner review after local verification. Build 
 
 ## Owner actions before publishing
 
-- [ ] Choose the repository licence. Replace [LICENSE-PENDING.md](../LICENSE-PENDING.md) with the licence text. Update package metadata when it is ready for distribution.
+- [x] Choose the repository licence: [PolyForm Noncommercial 1.0.0](../LICENSE.md), with [commercial terms](../COMMERCIAL.md).
+- [ ] Set up a contributor licence agreement bot before accepting outside pull requests.
 - [ ] Owner: run an independent similarity audit before publishing.
 - [ ] Review the GitHub repository, tracked tree, and history before changing visibility. Enable private vulnerability reporting. Confirm the owner and contact path in [CODEOWNERS](../.github/CODEOWNERS) and the [security policy](../SECURITY.md).
 - [ ] Set the repository Actions variable `PUBLISH_IMAGES` to `true` when ready to publish the image. After creating the release tag, verify the AMD64 and ARM64 manifest and provenance. Run the [image quick start](../README.md#use-the-prebuilt-image) on a fresh machine.

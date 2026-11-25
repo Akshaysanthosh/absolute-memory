@@ -109,11 +109,20 @@
   color: var(--reading-link);
 }
 .reading-seek {
-  margin-inline-end: 0.5rem;
-  padding-inline: 0.3rem;
+  margin-inline-end: 0.55rem;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  font: 600 0.72rem/1.5 var(--reading-ui);
+  font-variant-numeric: tabular-nums;
+  vertical-align: 0.12em;
+  cursor: pointer;
 }
+.reading-seek:hover {
+  border-color: var(--reading-link);
+}
+/* U+FE0E keeps the triangle as text, not a coloured emoji. */
 .reading-seek::before {
-  content: '▶';
+  content: '\25B6\FE0E\2009' attr(data-time);
 }
 
 .reading-file {

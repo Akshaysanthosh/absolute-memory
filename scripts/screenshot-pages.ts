@@ -106,18 +106,19 @@ async function verifyLibrary(page: Page, titles: string[]) {
   await expect(topics).toBeHidden();
   await page.getByRole('button', { name: 'Open topics' }).click();
   await expect(topics).toBeVisible();
-  await topics.getByRole('searchbox').fill('repair');
-  const repair = topics.getByRole('button', { name: 'repair 2', exact: true });
-  await repair.click();
-  await expect(page.getByRole('heading', { level: 1, name: 'repair' })).toBeVisible();
-  await expect(grid.getByRole('article')).toHaveCount(2);
+  await topics.getByRole('searchbox').fill('space');
+  const space = topics.getByRole('button', { name: 'space 4', exact: true });
+  await space.click();
+  await expect(page.getByRole('heading', { level: 1, name: 'space' })).toBeVisible();
+  await expect(grid.getByRole('article')).toHaveCount(4);
   await topics.getByRole('button', { name: /^All saved/ }).click();
   await topics.getByRole('searchbox').clear();
   await expect(grid.getByRole('article')).toHaveCount(titles.length);
 
   await page.getByRole('button', { name: 'Switch to dark mode' }).click();
   await expect(page.locator('.standard-library')).toHaveAttribute('data-mode', 'dark');
-  await expect(grid.getByRole('article').first()).toHaveCSS('background-color', 'rgb(10, 10, 10)');
+  // Cards stay dark in both themes.
+  await expect(grid.getByRole('article').first()).toHaveCSS('background-color', 'rgb(20, 22, 26)');
   await page.getByRole('button', { name: 'Switch to light mode' }).click();
   await expect(page.locator('.standard-library')).toHaveAttribute('data-mode', 'light');
   await page.keyboard.press('Control+/');
@@ -181,6 +182,17 @@ export async function captureScreenshots({
         cover.evaluate((image: HTMLImageElement) => image.decode()),
       ),
     );
+    await page
+      .getByRole('region', { name: 'Saved items' })
+      .locator('img')
+      .evaluateAll((images: HTMLImageElement[]) =>
+        Promise.all(
+          images.map((image) => {
+            image.loading = 'eager';
+            return image.decode().catch(() => {});
+          }),
+        ),
+      );
     await settle(page);
     await page.screenshot({ ...screenshot, path: path('library.png') });
     await page.getByRole('button', { name: 'Switch to dark mode' }).click();
@@ -188,7 +200,7 @@ export async function captureScreenshots({
     await page.mouse.move(0, 0);
     await settle(page);
     await page.screenshot({ ...screenshot, scale: 'css', path: path('library-dark.png') });
-    await page.getByRole('button', { name: 'Switch to light mode' }).click();
+    // Everything after this is captured in the dark theme.
 
     await page.setViewportSize({ width: 1024, height: 900 });
     await checkHorizontal(page, 1024);
@@ -213,13 +225,13 @@ export async function captureScreenshots({
     await resetReaderView(page);
     await expect(page.locator('.reading-page')).toHaveCSS('color-scheme', 'dark');
     await page.screenshot({ ...screenshot, path: path('reader-dark.png') });
-    await chooseTheme(page, 'Light');
 
     const mobile = await browser.newContext({
       ...settings,
       baseURL: origin,
       storageState: await context.storageState(),
       viewport: { width: 375, height: 812 },
+      colorScheme: 'dark',
       isMobile: true,
       hasTouch: true,
     });
@@ -237,10 +249,15 @@ export async function captureScreenshots({
       812,
     );
     await checkHorizontal(phone, 375);
+    // Card images load lazily, and YouTube thumbnails come from the network.
     await phone
-      .locator('img[src*="/reading-images/"]')
+      .getByRole('region', { name: 'Saved items' })
+      .locator('img')
       .first()
-      .evaluate((image: HTMLImageElement) => image.decode());
+      .evaluate((image: HTMLImageElement) => {
+        image.loading = 'eager';
+        return image.decode();
+      });
     await settle(phone);
     await phone.screenshot({ ...screenshot, path: path('library-mobile.png') });
     await phone.getByRole('button', { name: 'Open topics' }).click();
@@ -252,10 +269,10 @@ export async function captureScreenshots({
     await expect(phone.getByRole('dialog', { name: 'Topics' })).toBeHidden();
 
     await phone.evaluate(() =>
-      localStorage.setItem('absolute-memory.reading', JSON.stringify({ theme: 'system' })),
+      localStorage.setItem('absolute-memory.reading', JSON.stringify({ theme: 'dark' })),
     );
     await phone.goto(`/read/${articleId}`);
-    await expect(phone.locator('.reading-page')).toHaveAttribute('data-color', 'light');
+    await expect(phone.locator('.reading-page')).toHaveAttribute('data-color', 'dark');
     await settle(phone);
     await verifyReader(phone, 375);
     await phone.screenshot({ ...screenshot, path: path('reader-mobile.png') });
@@ -294,7 +311,7 @@ export async function captureScreenshots({
     await page.getByRole('textbox', { name: 'Your question' }).fill(question);
     await page.getByRole('button', { name: /^send/i }).click();
     const citation = page
-      .getByText('The sensor above the', { exact: false })
+      .getByText('Eagle touched down with', { exact: false })
       .locator('a[href*="#p-"]');
     await expect(citation).toBeVisible({ timeout: 25_000 });
     await expect(page.getByText('1 saved passage', { exact: true })).toBeVisible();
@@ -334,11 +351,11 @@ export async function captureScreenshots({
     await page.screenshot({ ...screenshot, scale: 'css', path: path('library-export.png') });
 
     await page.goto('/library');
-    await page.getByRole('button', { name: 'repair 2', exact: true }).click();
-    await expect(page.getByRole('heading', { level: 1, name: 'repair' })).toBeVisible();
+    await page.getByRole('button', { name: 'space 4', exact: true }).click();
+    await expect(page.getByRole('heading', { level: 1, name: 'space' })).toBeVisible();
     await expect(
       page.getByRole('region', { name: 'Saved items' }).getByRole('article'),
-    ).toHaveCount(2);
+    ).toHaveCount(4);
     await settle(page);
     await page.screenshot({ ...screenshot, scale: 'css', path: path('library-search.png') });
     return filenames;

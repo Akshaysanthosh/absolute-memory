@@ -36,6 +36,10 @@ Take questions to [Discussions](https://github.com/Akshaysanthosh/absolute-memor
 
 Keep commits focused and use a short subject such as `docs: explain the Lite backup steps` or `fix: keep the active passage visible`. In the pull request, explain what changed and how you verified it. For technical decisions, see the [architecture overview](docs/architecture/overview.md).
 
-Report security issues privately using the [security policy](SECURITY.md). Participation follows the [Code of Conduct](CODE_OF_CONDUCT.md). See [licence status](LICENSE-PENDING.md).
+Report security issues privately using the [security policy](SECURITY.md). Participation follows the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-<!-- TODO(owner): licence -->
+## Licence of contributions
+
+The project is source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE.md), and the author also offers [commercial licences](COMMERCIAL.md). So that both stay possible, contributions need a contributor licence agreement: by opening a pull request you confirm that you wrote the change, or have the right to submit it, and you grant the project author a perpetual, worldwide, royalty-free licence to use, change and relicense it under any terms, including commercial ones. You keep the copyright in your contribution.
+
+<!-- TODO(owner): set up a CLA bot (for example CLA Assistant) with the final agreement text before accepting outside pull requests. -->
