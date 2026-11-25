@@ -15,6 +15,8 @@ const dependencyMetadata = [
   'https://registry.npmjs.org/@vercel/oidc/-/oidc-3.2.0.tgz',
 ];
 
+const hostedLinkFiles = new Set(['README.md', 'COMMERCIAL.md', 'LICENSE.md']);
+
 const hygieneFiles = new Set([
   'tests/repo-hygiene.test.ts',
   'tests/integration/repo-hygiene.test.ts',
@@ -35,16 +37,9 @@ function invalidContents(file: string, data: Buffer) {
   }
   if (file === 'THIRD_PARTY_NOTICES.md')
     contents = contents.replace(/^\| @vercel\/oidc \| 3\.2\.0 \| Apache-2\.0 \|$/m, '');
-  if (file === 'README.md')
-    contents = contents
-      .replace(
-        /^Don't want to self-host\? \[absolutememory\.app\]\(https:\/\/absolutememory\.app\)\.$/m,
-        '',
-      )
-      .replace(
-        /^Colour highlights, passage notes and the reading assistant are available in the hosted edition at absolutememory\.app\.$/m,
-        '',
-      );
+  // These files may link the hosted edition. Every other private term is still checked in them.
+  if (hostedLinkFiles.has(file))
+    contents = contents.replaceAll(/(?:https:\/\/)?absolutememory\.app/g, '');
   if (file === '.gitignore') contents = contents.replace(/^\.vercel\/$/m, '');
   return privateTerms.some((pattern) => pattern.test(contents));
 }
