@@ -71,7 +71,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: '<!-- TODO(owner): licence -->',
+      copyright: 'Source-available under the PolyForm Noncommercial License 1.0.0.',
     },
   },
 };

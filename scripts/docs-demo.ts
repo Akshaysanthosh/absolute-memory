@@ -4,11 +4,12 @@ import { copyFile, mkdir, rename, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { setTimeout as hold } from 'node:timers/promises';
 import { chromium, expect, type Locator, type Page } from '@playwright/test';
-import { articles, citationQuote, question } from './demo-content';
+import { articles, citationQuote, question, transcriptTitle, videos } from './demo-content';
 import { demoEmail } from './demo-data';
 import { withDemo } from './demo-runtime';
 
 const viewport = { width: 1280, height: 800 };
+const thumbnailHosts = ['i.ytimg.com', 'upload.wikimedia.org'];
 const output = 'docs/media';
 
 async function movePointer(page: Page, x: number, y: number) {
@@ -31,8 +32,8 @@ async function movePointer(page: Page, x: number, y: number) {
     });
     const shape = document.createElementNS(svg, 'path');
     shape.setAttribute('d', 'M1 1 L1 19 L6 15 L11 23 L15 21 L10 13 L18 13 Z');
-    shape.setAttribute('fill', '#242824');
-    shape.setAttribute('stroke', '#FFFFFF');
+    shape.setAttribute('fill', '#FFFFFF');
+    shape.setAttribute('stroke', '#0E1220');
     shape.setAttribute('stroke-width', '1.5');
     shape.setAttribute('stroke-linejoin', 'round');
     pointer.append(shape);
@@ -108,13 +109,15 @@ withDemo(async ({ origin, password, articleId, output: scratch }) => {
   try {
     const context = await browser.newContext({
       baseURL: origin,
-      colorScheme: 'light',
+      colorScheme: 'dark',
       viewport,
       deviceScaleFactor: 1,
       recordVideo: { dir: scratch, size: viewport },
     });
     await context.route('**/*', (route) => {
-      if (new URL(route.request().url()).origin === origin) return route.continue();
+      // Only the app and the public thumbnails it shows on cards.
+      const { origin: requested, hostname } = new URL(route.request().url());
+      if (requested === origin || thumbnailHosts.includes(hostname)) return route.continue();
       return route.abort('blockedbyclient');
     });
     const auth = await context.request.post('/api/auth/sign-in/email', {
@@ -123,7 +126,8 @@ withDemo(async ({ origin, password, articleId, output: scratch }) => {
     });
     assert.ok(auth.ok(), 'The demo account could not sign in.');
     await context.addInitScript(() => {
-      localStorage.setItem('am-app-theme', 'light');
+      localStorage.setItem('am-app-theme', 'dark');
+      localStorage.setItem('absolute-memory.reading', JSON.stringify({ theme: 'dark' }));
     });
 
     const page = await context.newPage();
@@ -138,7 +142,12 @@ withDemo(async ({ origin, password, articleId, output: scratch }) => {
     const pointer = page.locator('[data-demo-pointer]');
     await expect(pointer).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 447, 116)');
     await expect(pointer).toBeInViewport();
-    await hold(1300);
+    await hold(900);
+    // Glide across the library so the saved talks and podcast are seen before opening one.
+    for (const name of [videos[0].title, transcriptTitle, videos[2].title]) {
+      await pointAt(page.getByRole('article', { name, exact: true }));
+      await hold(420);
+    }
     await click(card.getByRole('button', { name: title, exact: true }));
     await click(page.getByRole('dialog').locator(`a[href="/read/${articleId}"]`));
     await expect(page.locator('.reading-heading h1')).toHaveText(title);
@@ -169,7 +178,7 @@ withDemo(async ({ origin, password, articleId, output: scratch }) => {
     await click(prompt);
     await prompt.pressSequentially(question, { delay: 27 });
     await click(page.getByRole('button', { name: /^send/i }));
-    const citation = page.getByText('The sensor above the').locator('a[href*="#p-"]');
+    const citation = page.getByText('Eagle touched down with').locator('a[href*="#p-"]');
     await expect(citation).toBeVisible();
     await hold(2600);
 

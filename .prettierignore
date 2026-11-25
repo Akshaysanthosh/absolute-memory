@@ -8,3 +8,4 @@ docs/schemas/*.json
 website/.docusaurus/
 website/.showcase-assets/
 website/build/
+LICENSE.md

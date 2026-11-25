@@ -194,7 +194,6 @@ export default function Home() {
               model, requests go to whichever endpoint you configure. The app sends no telemetry.
             </p>
             <Link to="/guides/privacy/">Privacy and network use</Link>
-            {/* TODO(owner): licence for source distribution at public launch. */}
           </div>
           <div className={styles.install}>
             <h3>Start Lite with Docker</h3>

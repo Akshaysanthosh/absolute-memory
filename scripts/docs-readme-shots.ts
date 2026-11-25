@@ -28,7 +28,7 @@ withDemo(async ({ origin, password, output }) => {
       baseURL: origin,
       viewport: { width: 1280, height: 820 },
       deviceScaleFactor: 2,
-      colorScheme: 'light',
+      colorScheme: 'dark',
     });
     const signIn = await context.request.post('/api/auth/sign-in/email', {
       headers: { Origin: origin },
@@ -36,15 +36,15 @@ withDemo(async ({ origin, password, output }) => {
     });
     if (!signIn.ok()) throw new Error('The demo account could not sign in.');
     await context.addInitScript(() => {
-      localStorage.setItem('am-app-theme', 'light');
-      localStorage.setItem('absolute-memory.reading', JSON.stringify({ theme: 'light' }));
+      localStorage.setItem('am-app-theme', 'dark');
+      localStorage.setItem('absolute-memory.reading', JSON.stringify({ theme: 'dark' }));
     });
     const page = await context.newPage();
 
     await page.goto('/library');
     await page.getByRole('button', { name: transcriptTitle, exact: true }).first().click();
     await page.getByRole('link', { name: 'Open transcript' }).click();
-    await expect(page).toHaveURL(/\/media\//);
+    await expect(page).toHaveURL(/\/(media|read)\//);
     await expect(page.getByText(transcriptTitle).first()).toBeVisible();
     await page.waitForTimeout(1000);
     await settle(page);

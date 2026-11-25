@@ -30,6 +30,18 @@ const icons = {
   Product: ImageIcon,
 };
 
+const tones = {
+  Video: 'video',
+  Podcast: 'podcast',
+  Audio: 'audio',
+  Transcript: 'audio',
+  PDF: 'pdf',
+  Note: 'note',
+  Quote: 'note',
+  Excel: 'pdf',
+  Image: 'article',
+} as const;
+
 export function LibraryCard({
   item,
   menuOpen,
@@ -49,8 +61,7 @@ export function LibraryCard({
   const [fallback, setFallback] = useState(false);
   const type = item.media_kind === 'audio' && item.reading_ready ? 'Transcript' : kind(item);
   const Icon = icons[type as keyof typeof icons] ?? BookOpen;
-  const showMedia = !['Note', 'PDF', 'Podcast', 'Transcript', 'Audio'].includes(type);
-  const img = showMedia && (fallback ? item.thumbnail?.fallbackUrl : item.thumbnail?.url);
+  const img = fallback ? item.thumbnail?.fallbackUrl : item.thumbnail?.url;
   const image = img && img !== failedImage ? img : undefined;
   const title = clean(item.title);
   const source =
@@ -64,42 +75,76 @@ export function LibraryCard({
   const failed = preparationFailed(item);
   const preparation = importStatus(item);
   const originalUrl = item.url || item.media_url;
+  const tone = tones[type as keyof typeof tones] ?? 'article';
   return (
-    <article className={styles.card} aria-label={title} data-open={menuOpen || undefined}>
-      <div className={styles.cover}>
-        {image ? (
-          <img
-            src={image}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            referrerPolicy="no-referrer"
-            onError={() => {
-              if (!fallback && item.thumbnail?.fallbackUrl) setFallback(true);
+    <article
+      className={styles.card}
+      aria-label={title}
+      data-open={menuOpen || undefined}
+      data-tone={tone}
+    >
+      {image ? (
+        <img
+          className={styles.image}
+          data-source={item.thumbnail?.source}
+          src={image}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          referrerPolicy="no-referrer"
+          onLoad={(event) => {
+            // YouTube answers a missing size with a 120px placeholder instead of an error.
+            if (item.thumbnail?.source === 'youtube' && event.currentTarget.naturalWidth <= 120) {
+              if (!fallback && item.thumbnail.fallbackUrl) setFallback(true);
               else setFailedImage(image);
-            }}
-          />
-        ) : (
-          <Icon size={32} strokeWidth={1.5} aria-hidden="true" />
-        )}
-        <span className={styles.type}>{type}</span>
-        <LibraryCardActions
-          item={item}
-          articleFailure={failed && !item.media_kind ? articleImportFeedback(item.error) : null}
-          bookmark={item.bookmark_type ? item.url : null}
-          busy={busy}
-          failed={failed}
-          menuOpen={menuOpen}
-          onAction={onAction}
-          onMenu={onMenu}
-          openHref={href(item)}
-          originalUrl={originalUrl}
-          preparation={preparation}
-          progress={Math.round(item.progress * 100)}
-          ready={ready}
-          title={title}
+            }
+          }}
+          onError={() => {
+            if (!fallback && item.thumbnail?.fallbackUrl) setFallback(true);
+            else setFailedImage(image);
+          }}
         />
-      </div>
+      ) : (
+        <div className={styles.editorial} aria-hidden="true">
+          {type === 'Note' || type === 'Quote' ? (
+            <>
+              <span className={styles.quoteMark}>“</span>
+              <p>{clean(item.excerpt || title)}</p>
+            </>
+          ) : (
+            <>
+              <span className={styles.monogram}>
+                {source
+                  .replace(/^www\./, '')
+                  .slice(0, 1)
+                  .toUpperCase()}
+              </span>
+              <Icon size={30} strokeWidth={1.4} />
+            </>
+          )}
+        </div>
+      )}
+      <div className={styles.shade} />
+      <span className={styles.type}>
+        <Icon size={12} strokeWidth={2} aria-hidden="true" />
+        {type}
+      </span>
+      <LibraryCardActions
+        item={item}
+        articleFailure={failed && !item.media_kind ? articleImportFeedback(item.error) : null}
+        bookmark={item.bookmark_type ? item.url : null}
+        busy={busy}
+        failed={failed}
+        menuOpen={menuOpen}
+        onAction={onAction}
+        onMenu={onMenu}
+        openHref={href(item)}
+        originalUrl={originalUrl}
+        preparation={preparation}
+        progress={Math.round(item.progress * 100)}
+        ready={ready}
+        title={title}
+      />
       <div className={styles.body}>
         <p className={styles.source} title={source}>
           {source}

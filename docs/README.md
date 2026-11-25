@@ -16,5 +16,3 @@ Pick the guide for what you want to do.
 | Understand how the app works                               | [Architecture](architecture/overview.md) · [Design decisions](decisions/README.md)                                                                                                          |
 | Develop or contribute                                      | [Contributing](https://github.com/Akshaysanthosh/absolute-memory/blob/main/CONTRIBUTING.md) · [Security reporting](https://github.com/Akshaysanthosh/absolute-memory/blob/main/SECURITY.md) |
 | Review the release candidate                               | [Changelog](https://github.com/Akshaysanthosh/absolute-memory/blob/main/CHANGELOG.md)                                                                                                       |
-
-<!-- TODO(owner): licence -->
